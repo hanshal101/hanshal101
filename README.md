@@ -1,16 +1,14 @@
 
 <h1>Hello👋, Hanshal here </h1>
-<p>
-**hanshal101/hanshal101** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+<p>✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨<br>
+- 🔭 My Name is Hanshal Mehta. <br>
+- 🌱 I’m currently persuing my BTech in Electronics and Telecommunication Engineering from KJSIT Mumbai. <br>
+- 👯 I have a great interest in Competitve Programming and Open-Source Development. <br>
+- 🤔 I’m looking for help with a mentor who can guide me through my career in CP.  <br>
+- 💬 I am currently learning C++ , Python and Web Development. <br>
+- 📫 Ping me: h8109553@gmail.com<br>
+- 😄 Pronouns: He/Him <br>
+- ⚡ FOCUSED <br>
 </p>
+
+
