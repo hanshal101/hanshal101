@@ -16,6 +16,10 @@
 
 <h2>Languages and Tools I'm Learning : </h2>
 <p>
+  <img src ="https://static.javatpoint.com/core/images/java-logo3.png" alt="JAVA" height="70" width="40">
+  
+  
+  
 <img src ="https://imgs.search.brave.com/PYZz2YzOKrPWNm37OmwY-z5TACh-oT68Ri5swL339Pw/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9zZHRp/bWVzLmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAxOC8wMy9j/cHBwcC5wbmc" alt="C++" height="70" width="70">
 
 <img src ="https://camo.githubusercontent.com/29acbe6d5ded08812eee8aaf7c260d0fc567c6698ad55716006935a09a7ad415/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f7468756d622f302f30612f507974686f6e2e7376672f36343070782d507974686f6e2e7376672e706e67" alt="Python" height="70" width="70">
