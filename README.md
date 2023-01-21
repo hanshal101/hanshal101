@@ -16,7 +16,7 @@
 
 <h2>Languages and Tools I'm Learning : </h2>
 <p>
-  <img src ="https://static.javatpoint.com/core/images/java-logo3.png" alt="JAVA" height="70" width="40">
+
   
   
   
