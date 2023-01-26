@@ -36,38 +36,27 @@
   
   
 </p>
+<h2 align="left">Connect with me:</h2>
+<p align="left">
+<a href="https://linkedin.com/in/hanshal-mehta-b57768197" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="hanshal-mehta-b57768197" height="50" width="50" /></a>
+<a href="https://hashnode.com/@hanshal101" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hashnode.svg" alt="@hanshal101" height="50" width="50" /></a>
+<a href="https://www.codechef.com/users/hanshal101" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.1.0/icons/codechef.svg" alt="hanshal101" height="50" width="50" /></a>
+<a href="https://www.hackerrank.com/hanshalmehta10" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" alt="hanshalmehta10" height="50" width="50" /></a>
+<a href="https://www.leetcode.com/hanshal101" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" alt="hanshal101" height="50" width="50" /></a>
+<a href="https://www.hackerearth.com/@hanshal.m" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerearth.svg" alt="@hanshal.m" height="50" width="50" /></a>
+<a href="https://auth.geeksforgeeks.org/user/hanshal101" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg" alt="hanshal101" height="50" width="50" /></a>
+</p>
 
-<h2>My Work : </h2>
+<p align="center"> <img src="https://komarev.com/ghpvc/?username=hanshal101&label=Profile%20views&color=0e75b6&style=flat" alt="hanshal101" /> </p>
 
-<p>
-  <a href ="https://www.codechef.com/users/hanshal101">
-  <img src ="https://cdn.codechef.com/images/cc-logo.svg" height="120" width="120" >
-  </a>
-  
-   <a href ="https://www.hackerrank.com/hanshalmehta10">
-  <img src ="https://imgs.search.brave.com/Ss-OhkiHPvpu_8oqhw_shHSlLQ0g6iQoKrs75ny15gE/rs:fit:200:200:1/g:ce/aHR0cHM6Ly9tZWRp/YS1leHAxLmxpY2Ru/LmNvbS9kbXMvaW1h/Z2UvQzREMEJBUUZq/aVdPZ21TVmczZy9j/b21wYW55LWxvZ29f/MjAwXzIwMC8wP2U9/MjE1OTAyNDQwMCZ2/PWJldGEmdD02eWxY/MFhaSTQtM19hWDVu/WHBOQU5qLVJ1dXJq/T1RDLVdRTW8yM3pa/QjU4" height="120" width="120" >
-  </a>
-  
-   <a href ="https://auth.geeksforgeeks.org/user/hanshal101/">
-  <img src ="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210420155809/gfg-new-logo.png" height="120" width="300" >
-  </a>
-  
-  <a href ="https://leetcode.com/hanshal101/">
-  <img src ="https://leetcode.com/_next/static/images/logo-dark-c96c407d175e36c81e236fcfdd682a0b.png" height="70" width="70" >
-  </a>
-  </p>
+<p align="center"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=hanshal101" alt="hanshal101" /></a> </p>
+<p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=hanshal101&show_icons=true&locale=en&layout=compact" alt="hanshal101" /></p>
 
-<h2>Ping Me : </h2>
-<p>
-  <a href ="https://www.linkedin.com/in/hanshal-mehta-b57768197/">
-  <img src ="https://camo.githubusercontent.com/c102584699fca51610d2925a6df7309776fd5f82b294145ea4aa739fe7fcdc41/687474703a2f2f6c6f667265762e6e65742f77702d636f6e74656e742f70686f746f732f323031372f30342f6c696e6b6564696e5f6c6f676f2d373638783736382e6a7067" height="70" width="70" >
-  </a>
-  <a></a>
-  <a href ="mailto:hanshal.m@somaiya.edu">
-  <img src ="https://camo.githubusercontent.com/1ca74c6e5bbcc21f6d8f952ce0f773c2aec6863f54518ce24133bb502bfe276a/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f7468756d622f372f37652f476d61696c5f69636f6e5f253238323032302532392e7376672f3235363070782d476d61696c5f69636f6e5f253238323032302532392e7376672e706e67" height="60" width="70" padding-left ="20px">
-  </a>
-  </p>
-    
+<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=hanshal101&show_icons=true&locale=en" alt="hanshal101" /></p>
+
+<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=hanshal101&" alt="hanshal101" /></p>
+
+
     
  <h2>Looking for some mentors who can guide me on my CP journey</h2>
  <h1>THANK YOU🤝😇</h1>
