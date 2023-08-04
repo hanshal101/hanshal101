@@ -5,7 +5,7 @@
 <p>✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨<br>
 - 🔭 My Name is Hanshal Mehta. <br>
 - 🌱 I’m currently persuing my BTech in Electronics and Telecommunication Engineering from KJSIT Mumbai. <br>
-- 👯 I have a great interest in Competitve Programming and Open-Source Development. <br>
+- 👯 I have a great interest in Open-Source Development. <br>
 - 🤔 I’m looking for help with a mentor who can guide me through my career in Open-Source Development.  <br>
 - 💬 I am currently learning JAVA , Python and Web Development. <br>
 - 💬 I also know basic of Penetration testing found some bugs in my Dad's Website.(TBH it was very vulnerable)<br>
