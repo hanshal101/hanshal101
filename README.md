@@ -9,7 +9,7 @@
 - 🤔 I’m looking for help with a mentor who can guide me through my career in Open-Source Development.  <br>
 - 💬 I am currently learning JAVA , Python and Web Development. <br>
 - 💬 I also know basic of Penetration testing found some bugs in my Dad's Website.(TBH it was very vulnerable)<br>
-- 📫 Ping me:  h8109553@gmail.com  / hanshal.m@somaiya.edu  My website : https://hanshal101.github.com/hanshal101<br>
+- 📫 Ping me:  h8109553@gmail.com  / hanshal.m@somaiya.edu  My website : https://hanshal101.github.io/hanshal101/<br>
 - 😄 Pronouns: He/Him <br>
 - ⚡ FOCUSED <br>  
 </p>
