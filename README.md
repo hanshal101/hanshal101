@@ -7,32 +7,36 @@
 - 🌱 I’m currently persuing my BTech in Electronics and Telecommunication Engineering from KJSIT Mumbai. <br>
 - 👯 I have a great interest in Open-Source Development. <br>
 - 🤔 I’m looking for help with a mentor who can guide me through my career in Open-Source Development.  <br>
-- 💬 I am currently learning JAVA , Python and Web Development. <br>
-- 💬 I also know basic of Penetration testing found some bugs in my Dad's Website.(TBH it was very vulnerable)<br>
-- 📫 Ping me:  h8109553@gmail.com  / hanshal.m@somaiya.edu  My website : https://hanshal101.github.io/hanshal101/<br>
+- 💬 I have extensive experience in GoLang , Kubernetes and DevOps practices <br>
+- 💬 I am currently learning more about Cloud Security and DevSecOps<br>
+- 📫 Ping me: LinkedIN - https://www.linkedin.com/in/hanshal-mehta-b57768197/ Twitter - https://twitter.com/MehtaHanshal<br>
 - 😄 Pronouns: He/Him <br>
 - ⚡ FOCUSED <br>  
 </p>
 
-<h2>Languages and Tools I'm Learning : </h2>
+<h2>Languages and Tools : </h2>
 <p>
 
   
   
   
-<img src ="https://imgs.search.brave.com/PYZz2YzOKrPWNm37OmwY-z5TACh-oT68Ri5swL339Pw/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9zZHRp/bWVzLmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAxOC8wMy9j/cHBwcC5wbmc" alt="C++" height="70" width="70">
+<img src ="https://imgs.search.brave.com/2yy8Fq1E0Ixx4wCMPX1HSIHBFanSUhypraQ7DqcsXHA/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9nby5k/ZXYvaW1hZ2VzL2dv/LWxvZ28tYmx1ZS5z/dmc.svg" alt="Go-Lang" height="80" width="80">
 
-<img src ="https://camo.githubusercontent.com/29acbe6d5ded08812eee8aaf7c260d0fc567c6698ad55716006935a09a7ad415/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f7468756d622f302f30612f507974686f6e2e7376672f36343070782d507974686f6e2e7376672e706e67" alt="Python" height="70" width="70">
+<img src ="https://imgs.search.brave.com/sDXS3IWHlItL53Dwu4oDtG8-5ydhvhQW28ByBeYMru8/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODQ4MTUyZmNlZjEw/MTRjMGI1ZTQ5Njcu/cG5n" alt="Python" height="70" width="70">
   
-<img src ="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/180px-HTML5_logo_and_wordmark.svg.png"  alt="HTML" height="70" width="70" >
-  
-<img src ="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/180px-CSS3_logo_and_wordmark.svg.png" alt ="CSS" height ="70" widht="70">
+<img src ="https://imgs.search.brave.com/2S35nSrSLFzTHnNrNiLbEforkEfJsccbjGjW1P3Lt7s/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9sb2dv/bG9vay5uZXQvd3At/Y29udGVudC91cGxv/YWRzLzIwMjIvMDYv/S3ViZXJuZXRlcy1M/b2dvLnBuZw"  alt="Kubernetes" height="80" width="150" >
      
-<img src ="https://camo.githubusercontent.com/b4ff7f14956d1e50e56f37992f87c6a73166345ea928b6dbe1140db457b9707b/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f7468756d622f392f39392f556e6f6666696369616c5f4a6176615363726970745f6c6f676f5f322e7376672f3130323470782d556e6f6666696369616c5f4a6176615363726970745f6c6f676f5f322e7376672e706e67" alt ="JavaScript" height ="70" widht="70">
+<img src ="https://imgs.search.brave.com/ZLV530QWi7Bxrq8DbHYRoup5hSVV7E2Z7uaflq2eYwo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9sb2dv/dHlwLnVzL2ZpbGUv/dHlwZXNjcmlwdC5z/dmc.svg" alt ="TypeScript" height ="70" widht="70">
   
- <img src ="https://camo.githubusercontent.com/fbfcb9e3dc648adc93bef37c718db16c52f617ad055a26de6dc3c21865c3321d/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6769742d73636d2f6769742d73636d2d69636f6e2e737667" alt ="Git" height ="70" widht="70">
+ <img src ="https://imgs.search.brave.com/NqTFiGguTBXv-I84u6cf0MLkNB5hyu0glxO_aUXD4kI/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODQ3Zjk4MWNlZjEw/MTRjMGI1ZTQ4YmUu/cG5n" alt ="Git" height ="70" widht="70">
   
-  <img src ="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt ="Git" height ="90" widht="90">
+  <img src ="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt ="Linux" height ="90" widht="90">
+  
+  <img src ="https://imgs.search.brave.com/0jkDF2nUSvaH3qeBeDX7zlTjavRgp6xtLdCviGTgb4o/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/bmljZXBuZy5jb20v/cG5nL2RldGFpbC8z/OTEtMzkxMDYzNV9k/ZXZvcHMtY3ljbGUt/Y29udGludW91cy10/ZXN0aW5nLnBuZw" alt ="DevOps" height ="90" widht="90">
+  
+  <img src ="https://imgs.search.brave.com/NISnD8YFcMl35wjpL1aGxexN4wnI-VBZ_2SrrgkAQpI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy85/LzkzL0FtYXpvbl9X/ZWJfU2VydmljZXNf/TG9nby5zdmc.svg" alt ="AWS" height ="90" widht="90">
+
+  <img src ="https://imgs.search.brave.com/rPXrOBfg1UX07mG36biYbu-tQLE4NDzVLEwrJGYEMgc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cHVsdW1pLmNvbS9s/b2dvcy9jdXN0b21l/cnMvZG9ja2VyLWxv/Z28tcHJpbWFyeS1i/bHVlLnBuZw" alt ="Docker" height ="90" widht="90">
   
   
 </p>
@@ -49,14 +53,3 @@
 
 <p align="center"> <img src="https://komarev.com/ghpvc/?username=hanshal101&label=Profile%20views&color=0e75b6&style=flat" alt="hanshal101" /> </p>
 
-<p align="center"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=hanshal101" alt="hanshal101" /></a> </p>
-<p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=hanshal101&show_icons=true&locale=en&layout=compact" alt="hanshal101" /></p>
-
-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=hanshal101&show_icons=true&locale=en" alt="hanshal101" /></p>
-
-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=hanshal101&" alt="hanshal101" /></p>
-
-
-    
- <h2>Looking for some mentors who can guide me on my CP journey</h2>
- <h1>THANK YOU🤝😇</h1>
