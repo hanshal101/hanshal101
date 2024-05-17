@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/hanshal101/static/css/main.2d8f8358.css",
+    "main.js": "/hanshal101/static/js/main.66f61158.js",
+    "static/media/prof-removebg-preview (1).png": "/hanshal101/static/media/prof-removebg-preview (1).84ea074b4fbef05485a7.png",
+    "index.html": "/hanshal101/index.html",
+    "main.2d8f8358.css.map": "/hanshal101/static/css/main.2d8f8358.css.map",
+    "main.66f61158.js.map": "/hanshal101/static/js/main.66f61158.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d8f8358.css",
+    "static/js/main.66f61158.js"
+  ]
+}
