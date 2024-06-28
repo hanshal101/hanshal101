@@ -27,7 +27,7 @@
 - 👯 **Interests:** Open-Source Development, Cloud Security, DevSecOps
 - 💬 **Skills:** Golang, Kubernetes, DevOps Practices
 - 🧑‍💻 **Learning:** Machine Learning, Rust, Real-Time Systems
-- 🤝 **Seeking:** Mentorship in Open-Source Development
+- 🤝 **Building:** Communities and Network
 - ⚡ **Pronouns:** He/Him
 
 ### 🛠️ Technologies & Tools
