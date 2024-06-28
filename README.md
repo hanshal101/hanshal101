@@ -11,8 +11,13 @@
   <em>"Innovation distinguishes between a leader and a follower." - Steve Jobs</em>
 </p>
 
+<div align="center">
+
 [![GitHub stats](https://github-readme-stats.vercel.app/api?username=hanshal101&show_icons=true&theme=dracula&count_private=true)](https://github.com/hanshal101/github-readme-stats)
-[![GitHub Streaks stats](https://github-readme-streak-stats.herokuapp.com?user=hanshal101&theme=radical&hide_border=true)](https://github.com/hanshal101/github-readme-stats)    
+
+[![GitHub Streaks stats](https://github-readme-streak-stats.herokuapp.com?user=hanshal101&theme=radical&hide_border=true)](https://github.com/hanshal101/github-readme-stats)
+
+</div>
 
 ---
 
