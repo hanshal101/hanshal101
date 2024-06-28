@@ -1,55 +1,71 @@
+<h1 align="center">Hello, I'm Hanshal Mehta 👋</h1>
+<h3 align="center">A Passionate Open-Source Developer and DevOps Enthusiast from Mumbai, Bharat</h3>
 
-<h1>Hello👋, Hanshal here </h1>
-
-
-<p>✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨<br>
-- 🔭 My Name is Hanshal Mehta. <br>
-- 🌱 I’m currently persuing my BTech in Electronics and Telecommunication Engineering from KJSIT Mumbai. <br>
-- 👯 I have a great interest in Open-Source Development. <br>
-- 🤔 I’m looking for help with a mentor who can guide me through my career in Open-Source Development.  <br>
-- 💬 I have extensive experience in GoLang , Kubernetes and DevOps practices <br>
-- 💬 I am currently learning more about Cloud Security and DevSecOps<br>
-- 📫 Ping me: LinkedIN - https://www.linkedin.com/in/hanshal-mehta-b57768197/ Twitter - https://twitter.com/MehtaHanshal<br>
-- 😄 Pronouns: He/Him <br>
-- ⚡ FOCUSED <br>  
+<p align="center">
+  <a href="https://linkedin.com/in/hanshal-mehta-b57768197" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://twitter.com/MehtaHanshal" target="_blank"><img src="https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" /></a>
+  <a href="https://hashnode.com/@hanshal101" target="_blank"><img src="https://img.shields.io/badge/Hashnode-%232962FF.svg?style=for-the-badge&logo=hashnode&logoColor=white" alt="Hashnode" /></a>
 </p>
 
-<h2>Languages and Tools : </h2>
-<p>
-
-  
-  
-  
-<img src ="https://imgs.search.brave.com/2yy8Fq1E0Ixx4wCMPX1HSIHBFanSUhypraQ7DqcsXHA/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9nby5k/ZXYvaW1hZ2VzL2dv/LWxvZ28tYmx1ZS5z/dmc.svg" alt="Go-Lang" height="80" width="80">
-
-<img src ="https://imgs.search.brave.com/sDXS3IWHlItL53Dwu4oDtG8-5ydhvhQW28ByBeYMru8/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODQ4MTUyZmNlZjEw/MTRjMGI1ZTQ5Njcu/cG5n" alt="Python" height="70" width="70">
-  
-<img src ="https://imgs.search.brave.com/2S35nSrSLFzTHnNrNiLbEforkEfJsccbjGjW1P3Lt7s/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9sb2dv/bG9vay5uZXQvd3At/Y29udGVudC91cGxv/YWRzLzIwMjIvMDYv/S3ViZXJuZXRlcy1M/b2dvLnBuZw"  alt="Kubernetes" height="80" width="150" >
-     
-<img src ="https://imgs.search.brave.com/ZLV530QWi7Bxrq8DbHYRoup5hSVV7E2Z7uaflq2eYwo/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9sb2dv/dHlwLnVzL2ZpbGUv/dHlwZXNjcmlwdC5z/dmc.svg" alt ="TypeScript" height ="70" widht="70">
-  
- <img src ="https://imgs.search.brave.com/NqTFiGguTBXv-I84u6cf0MLkNB5hyu0glxO_aUXD4kI/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODQ3Zjk4MWNlZjEw/MTRjMGI1ZTQ4YmUu/cG5n" alt ="Git" height ="70" widht="70">
-  
-  <img src ="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt ="Linux" height ="90" widht="90">
-  
-  <img src ="https://imgs.search.brave.com/0jkDF2nUSvaH3qeBeDX7zlTjavRgp6xtLdCviGTgb4o/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93d3cu/bmljZXBuZy5jb20v/cG5nL2RldGFpbC8z/OTEtMzkxMDYzNV9k/ZXZvcHMtY3ljbGUt/Y29udGludW91cy10/ZXN0aW5nLnBuZw" alt ="DevOps" height ="90" widht="90">
-  
-  <img src ="https://imgs.search.brave.com/NISnD8YFcMl35wjpL1aGxexN4wnI-VBZ_2SrrgkAQpI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy85/LzkzL0FtYXpvbl9X/ZWJfU2VydmljZXNf/TG9nby5zdmc.svg" alt ="AWS" height ="90" widht="90">
-
-  <img src ="https://imgs.search.brave.com/rPXrOBfg1UX07mG36biYbu-tQLE4NDzVLEwrJGYEMgc/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cHVsdW1pLmNvbS9s/b2dvcy9jdXN0b21l/cnMvZG9ja2VyLWxv/Z28tcHJpbWFyeS1i/bHVlLnBuZw" alt ="Docker" height ="90" widht="90">
-  
-  
-</p>
-<h2 align="left">Connect with me:</h2>
-<p align="left">
-<a href="https://linkedin.com/in/hanshal-mehta-b57768197" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="hanshal-mehta-b57768197" height="50" width="50" /></a>
-<a href="https://hashnode.com/@hanshal101" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hashnode.svg" alt="@hanshal101" height="50" width="50" /></a>
-<a href="https://www.codechef.com/users/hanshal101" target="blank"><img align="center" src="https://cdn.jsdelivr.net/npm/simple-icons@3.1.0/icons/codechef.svg" alt="hanshal101" height="50" width="50" /></a>
-<a href="https://www.hackerrank.com/hanshalmehta10" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" alt="hanshalmehta10" height="50" width="50" /></a>
-<a href="https://www.leetcode.com/hanshal101" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg" alt="hanshal101" height="50" width="50" /></a>
-<a href="https://www.hackerearth.com/@hanshal.m" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerearth.svg" alt="@hanshal.m" height="50" width="50" /></a>
-<a href="https://auth.geeksforgeeks.org/user/hanshal101" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/geeks-for-geeks.svg" alt="hanshal101" height="50" width="50" /></a>
+<p align="center">
+  <em>"Innovation distinguishes between a leader and a follower." - Steve Jobs</em>
 </p>
 
-<p align="center"> <img src="https://komarev.com/ghpvc/?username=hanshal101&label=Profile%20views&color=0e75b6&style=flat" alt="hanshal101" /> </p>
+[![GitHub stats](https://github-readme-stats.vercel.app/api?username=hanshal101&show_icons=true&theme=dracula&count_private=true)](https://github.com/hanshal101/github-readme-stats)
+[![GitHub Streaks stats](https://github-readme-streak-stats.herokuapp.com?user=hanshal101&theme=radical&hide_border=true)](https://github.com/hanshal101/github-readme-stats)    
 
+---
+
+### About Me
+- 🔭 **Name:** Hanshal Mehta
+- 🌱 **Education:** Pursuing BTech in Electronics and Telecommunication Engineering from KJSIT Mumbai
+- 👯 **Interests:** Open-Source Development, Cloud Security, DevSecOps
+- 💬 **Skills:** Golang, Kubernetes, DevOps Practices
+- 🧑‍💻 **Learning:** Machine Learning, Rust, Real-Time Systems
+- 🤝 **Seeking:** Mentorship in Open-Source Development
+- ⚡ **Pronouns:** He/Him
+
+### 🛠️ Technologies & Tools
+
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Go" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" width="50" height="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" width="50" height="50"/>
+  <img src="https://imgs.search.brave.com/6F8oyDQOSSluAZLE_FRbcUZu_T0GMkZSnc1L1-LYgik/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9ob2xv/cmkuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzA1L0FX/Uy5wbmc" alt="AWS" width="50" height="50"/>
+</p>
+
+### 🚀 Projects & Contributions
+- **Kubectl Clone:** Developed a powerful CLI tool for managing Kubernetes clusters.
+- **Student Management System:** Built an efficient system for managing student data in college.
+- **Cyclops-UI:** Contributed to an intuitive UI for managing Kubernetes clusters.
+- **Glasskube:** Worked on simplifying Kubernetes package management.
+- **Apache DevLake:** Enhanced integration of DevOps practices.
+- **Apache Eventmesh:** Improved documentation and user guides.
+
+## 🎓 Learning & Development
+### Constantly expanding my knowledge in:
+- Cloud Security
+- DevSecOps
+- Distributed Systems
+- Infrastructure
+- Machine Learning
+- Rust
+- Real-Time Systems
+  many more........
+
+### 🌐 Connect with Me
+<p align="center">
+  <a href="https://linkedin.com/in/hanshal-mehta-b57768197" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+  <a href="https://hashnode.com/@hanshal101" target="_blank"><img src="https://img.shields.io/badge/Hashnode-%232962FF.svg?style=for-the-badge&logo=hashnode&logoColor=white" alt="Hashnode" /></a>
+ <a href="https://hanshal101.github.io" target="_blank"><img src="https://img.shields.io/badge/Personal%20Website-%23000000.svg?style=for-the-badge&logo=personal&logoColor=white" alt="Personal Website" /></a>
+</p>
+
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=hanshal101&label=Profile%20views&color=0e75b6&style=flat" alt="Profile Views" />
+</p>
+
+---
