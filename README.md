@@ -40,7 +40,11 @@
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" width="50" height="50"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" width="50" height="50"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" width="50" height="50"/>
-  <img src="https://imgs.search.brave.com/6F8oyDQOSSluAZLE_FRbcUZu_T0GMkZSnc1L1-LYgik/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9ob2xv/cmkuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzA1L0FX/Uy5wbmc" alt="AWS" width="50" height="50"/>
+  <img src="https://imgs.search.brave.com/6F8oyDQOSSluAZLE_FRbcUZu_T0GMkZSnc1L1-LYgik/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9ob2xv/cmkuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIxLzA1L0FX/Uy5wbmc" alt="AWS" width="70" height="50"/>
+  <img src="https://imgs.search.brave.com/vHczQkmGFhrlAMmntJR9CCvZyBf-5y_5q_kd-Kcqlro/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9yYXcu/Z2l0aHVidXNlcmNv/bnRlbnQuY29tL2Nu/Y2YvbGFuZHNjYXBl/L21hc3Rlci9ob3N0/ZWRfbG9nb3MvdGVy/cmFmb3JtLnN2Zw" alt="Terraform" width="50" height="50"/>
+  <img src="https://imgs.search.brave.com/8Y1EwNg4xWxnySVrnyIYg9XxwhptyjSQmtXMq3v0Ugw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuY2hhaW5ndWFy/ZC5kZXYvbG9nb3Mv/YXJnb2NkLnN2Zw" alt="ArgoCD" width="50" height="50"/>
+  <img src="https://imgs.search.brave.com/K3Qc7XJurk_CoPwxKjutsqlKAc-ITjuo8b1FxcyROiE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zZWVr/bG9nby5jb20vaW1h/Z2VzL0cvZ2l0aHVi/LWFjdGlvbnMtbG9n/by0wMzE3MDRCREM2/LXNlZWtsb2dvLmNv/bS5wbmc" alt="GithubActions" width="50" height="50"/>
+  <img src="https://glasskube.dev/img/glasskube-logo.svg" alt="Glasskube" width="50" height="50"/>
 </p>
 
 ### 🚀 Projects & Contributions
