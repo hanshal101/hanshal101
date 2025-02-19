@@ -1,0 +1,106 @@
+baseURL: "https://hanshal101.github.io/"
+languageCode: en-us
+title: Hanshal Mehta
+theme: PaperMod
+
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 10
+    - identifier: blog
+      name: Blog
+      url: /blog
+      weight: 20
+      children:
+        - identifier: ebpf
+          name: "ebpf"
+          url: /blog/ebpf
+          weight: 10
+    # - identifier: projects
+    #   name: Projects
+    #   url: /projects
+    #   weight: 30
+    - identifier: experience
+      name: Experience
+      url: /experience
+      weight: 40
+    - identifier: search
+      name: Search
+      url: /search
+      weight: 50
+    # - identifier: tags
+    #   name: Tags
+    #   url: /tags
+    #   weight: 60
+    # - identifier: notes
+    #   name: Notes
+    #   url: 
+    #   weight: 70
+
+params:
+  # theme
+  showToc: true
+  TocOpen: false
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  hideMeta: false
+
+  # for enchanced SEO
+  env: production
+
+  # Home Page
+  profileMode:
+    enabled: true
+    title: "Hanshal Mehta"
+    subtitle: Hi 👋 I'm Hanshal, a tech enthusiast who loves solving complex problems. I am an open-source developer, contributed to various organizations like BuildSafe, Glasskube, Open Telemetry, Cyclops, and a couple of Apache's. I'm building robust systems to transform the legal experience for all. By evening, you can find me pushing the limits of my strength at the gym or whipping up my favorite recipe in the kitchen. Let's connect and create something awesome together!
+
+ 
+    imageUrl: "home/profile.png"
+    imageWidth: 220
+    imageHeight: 220
+    # buttons:
+    #   - name: Resume
+    #     url: ""
+
+  # List View
+  hideDescriptionInList: false
+
+  # cover image for posts
+  cover:
+    hiddenInList: false # hide on list pages and home
+    hiddenInSingle: false # hide on single page
+
+  socialIcons:
+    - name: "email"
+      url: "mailto:mehta.hanshal10@gmail.com"
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/hanshal-mehta-b57768197/"
+    - name: "github"
+      url: "https://github.com/hanshal101"
+    - name: "twitter"
+      url: "https://x.com/MehtaHanshal"
+
+  # text search
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+# for search using Fuse.js
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# allow HTML in MD
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
