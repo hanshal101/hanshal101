@@ -18,6 +18,10 @@ menu:
           name: "ebpf"
           url: /blog/ebpf
           weight: 10
+    - identifier: open-source
+      name: Open Source
+      url: /open-source
+      weight: 40
     # - identifier: projects
     #   name: Projects
     #   url: /projects
@@ -106,4 +110,5 @@ markup:
       unsafe: true
 
 taxonomies:
-  social: social
+  tag: "tags"
+  category: "categories"
