@@ -104,3 +104,6 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+
+taxonomies:
+  social: social
