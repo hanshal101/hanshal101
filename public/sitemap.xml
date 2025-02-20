@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:52189/blog/ebpf/introduction-to-ebpf/</loc>
+    <loc>http://localhost:52736/blog/ebpf/introduction-to-ebpf/</loc>
   </url><url>
-    <loc>http://localhost:52189/experience/new-leap-initiative/</loc>
+    <loc>http://localhost:52736/experience/new-leap-initiative/</loc>
   </url><url>
-    <loc>http://localhost:52189/experience/cloudraft/</loc>
+    <loc>http://localhost:52736/experience/cloudraft/</loc>
   </url><url>
-    <loc>http://localhost:52189/blog/</loc>
+    <loc>http://localhost:52736/blog/</loc>
   </url><url>
-    <loc>http://localhost:52189/blog/ebpf/</loc>
+    <loc>http://localhost:52736/blog/ebpf/</loc>
   </url><url>
-    <loc>http://localhost:52189/experience/</loc>
+    <loc>http://localhost:52736/experience/</loc>
   </url><url>
-    <loc>http://localhost:52189/</loc>
+    <loc>http://localhost:52736/</loc>
   </url><url>
-    <loc>http://localhost:52189/search/</loc>
+    <loc>http://localhost:52736/search/</loc>
   </url><url>
-    <loc>http://localhost:52189/social/</loc>
+    <loc>http://localhost:52736/social/</loc>
   </url>
 </urlset>
