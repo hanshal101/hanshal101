@@ -42,7 +42,7 @@ In a higher level abstraction
 
 We can also make the eBPF program to interact with the `user-space` of the system. This is done for better visibility of the traces. At last once the task is completed or when no longer needed, eBPF programs can be unloaded from the kernel using system calls again.
 
-![Linux Kernel](/blog/ebpf/01/01-ebpf-process.png)
+![eBPF Process](/blog/ebpf/01/01-ebpf-process.png)
 
 ### Basic Terminologies in eBPF
 
