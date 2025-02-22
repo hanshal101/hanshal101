@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Kernal on Hanshal Mehta</title>
-    <link>http://localhost:52912/tags/kernal/</link>
+    <link>http://localhost:1313/tags/kernal/</link>
     <description>Recent content in Kernal on Hanshal Mehta</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://localhost:52912/tags/kernal/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://localhost:1313/tags/kernal/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Introduction to eBPF</title>
-      <link>http://localhost:52912/blog/ebpf/introduction-to-ebpf/</link>
+      <title>An Introduction to eBPF</title>
+      <link>http://localhost:1313/blog/ebpf/introduction-to-ebpf/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:52912/blog/ebpf/introduction-to-ebpf/</guid>
-      <description>A breif introduction to eBPF. What/Why/Where eBPF!</description>
+      <guid>http://localhost:1313/blog/ebpf/introduction-to-ebpf/</guid>
+      <description>Motivation In this blog series, we will deep dive into the fascinating world of eBPF (Extended Berkley Packet Filter) and its internals. Along the way, we will explore core BPF (Berkley Packet Filter) internals that are essential to understanding how eBPF operates under the hood. This journey will also include networking concepts, operating system principles, and computer architecture, all of which play a crucial role in making eBPF effective and powerful.</description>
     </item>
     
   </channel>
