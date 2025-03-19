@@ -1,0 +1,11 @@
+.center-image {
+    display: flex;          /* Use flexbox for centering */
+    flex-direction: column; 
+    align-items: center;    
+    text-align: center;     
+  }
+  
+  .center-image img {
+    margin: 0 auto;         
+    display: block;          
+  }

@@ -11,7 +11,7 @@ In this blog series, we will deep dive into the fascinating world of eBPF (Exten
 will explore core BPF (Berkley Packet Filter) internals that are essential to understanding how eBPF operates under the hood. This journey will also
 include networking concepts, operating system principles, and computer architecture, all of which play a crucial role in making eBPF effective and
 powerful.
-Who should read this?: Everyone who's curious about eBPF and Linux Kernal.
+Who should read this?: Everyone who's curious about eBPF and Linux Kernel.
 
 ### What is eBPF?
 eBPF is a revolutionary kernel technology that allows developers to write
@@ -24,12 +24,14 @@ Just a few of the things you can do with eBPF include:
 3. Detecting and (optionally) preventing malicious activity
 
 ### History of eBPF
-Previously our OS was the center for all observability, networking and security functionality due to Kernal's ability to oversee and control entire system. However, evolving these functionalities within the kernel was challenging due to its critical role in maintaining stability and security. This limitation led to slower innovation compared to functionalities developed outside of the operating system. The introduction of eBPF (Extended Berkeley Packet Filter) in 2014 revolutionized this landscape by allowing developers to run sandboxed programs directly within the Linux kernel without modifying its source code or loading additional modules.
+Previously our OS was the center for all observability, networking and security functionality due to Kernel's ability to oversee and control entire system. However, evolving these functionalities within the kernel was challenging due to its critical role in maintaining stability and security. This limitation led to slower innovation compared to functionalities developed outside of the operating system. The introduction of eBPF (Extended Berkeley Packet Filter) in 2014 revolutionized this landscape by allowing developers to run sandboxed programs directly within the Linux kernel without modifying its source code or loading additional modules.
 
-#### The Linux Kernal
+#### The Linux Kernel
 The Linux kernel is the software layer between your applications and the hardware they're running on. Applications run in an unprivileged layer called user space, which can't access hardware directly. Instead, an application makes requests using the system call (syscall) interface to request the kernel to act on its behalf. That hardware access can involve reading and writing to files, sending or receiving network traffic, or even just accessing memory. The kernel is also responsible for coordinating concurrent processes, enabling many applications to run at once.
 
-![Linux Kernel](/blog/ebpf/01-linux-kernel.png)
+<center>
+{{< figure src="/blog/ebpf/01-linux-kernel.png" alt="Linux Kernel" caption="A diagram of the Linux Kernel" class="center-image" width="600" >}}
+</center>
 
 ### How does eBPF programs run?
 In a higher level abstraction
@@ -42,7 +44,10 @@ In a higher level abstraction
 
 We can also make the eBPF program to interact with the `user-space` of the system. This is done for better visibility of the traces. At last once the task is completed or when no longer needed, eBPF programs can be unloaded from the kernel using system calls again.
 
-![eBPF Process](/blog/ebpf/01-ebpf-process.png)
+<center>
+{{< figure src="/blog/ebpf/01-ebpf-process.png" alt="eBPF Process" caption="A diagram of the eBPF process" class="center-image" width="600" >}}
+</center>
+
 
 ### Basic Terminologies in eBPF
 
