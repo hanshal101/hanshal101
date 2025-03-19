@@ -30,7 +30,7 @@ Previously our OS was the center for all observability, networking and security 
 The Linux kernel is the software layer between your applications and the hardware they're running on. Applications run in an unprivileged layer called user space, which can't access hardware directly. Instead, an application makes requests using the system call (syscall) interface to request the kernel to act on its behalf. That hardware access can involve reading and writing to files, sending or receiving network traffic, or even just accessing memory. The kernel is also responsible for coordinating concurrent processes, enabling many applications to run at once.
 
 <center>
-{{< figure src="/blog/ebpf/01-linux-kernel.png" alt="Linux Kernel" caption="A diagram of the Linux Kernel" class="center-image" width="600" >}}
+{{< figure src="https://raw.githubusercontent.com/hanshal101/hanshal101/main/static/blog/ebpf/01-linux-kernel.png" alt="Linux Kernel" caption="A diagram of the Linux Kernel" class="center-image" width="600" >}}
 </center>
 
 ### How does eBPF programs run?
@@ -45,7 +45,7 @@ In a higher level abstraction
 We can also make the eBPF program to interact with the `user-space` of the system. This is done for better visibility of the traces. At last once the task is completed or when no longer needed, eBPF programs can be unloaded from the kernel using system calls again.
 
 <center>
-{{< figure src="/blog/ebpf/01-ebpf-process.png" alt="eBPF Process" caption="A diagram of the eBPF process" class="center-image" width="600" >}}
+{{< figure src="https://raw.githubusercontent.com/hanshal101/hanshal101/main/static/blog/ebpf/01-ebpf-process.png" alt="eBPF Process" caption="A diagram of the eBPF process" class="center-image" width="600" >}}
 </center>
 
 

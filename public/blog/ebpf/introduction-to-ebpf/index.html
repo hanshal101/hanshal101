@@ -285,7 +285,7 @@ Just a few of the things you can do with eBPF include:</p>
 <p>The Linux kernel is the software layer between your applications and the hardware they&rsquo;re running on. Applications run in an unprivileged layer called user space, which can&rsquo;t access hardware directly. Instead, an application makes requests using the system call (syscall) interface to request the kernel to act on its behalf. That hardware access can involve reading and writing to files, sending or receiving network traffic, or even just accessing memory. The kernel is also responsible for coordinating concurrent processes, enabling many applications to run at once.</p>
 <center>
 <figure class="center-image">
-    <img loading="lazy" src="/blog/ebpf/01-linux-kernel.png"
+    <img loading="lazy" src="https://raw.githubusercontent.com/hanshal101/hanshal101/main/static/blog/ebpf/01-linux-kernel.png"
          alt="Linux Kernel" width="600"/> <figcaption>
             <p>A diagram of the Linux Kernel</p>
         </figcaption>
@@ -305,7 +305,7 @@ Just a few of the things you can do with eBPF include:</p>
 <p>We can also make the eBPF program to interact with the <code>user-space</code> of the system. This is done for better visibility of the traces. At last once the task is completed or when no longer needed, eBPF programs can be unloaded from the kernel using system calls again.</p>
 <center>
 <figure class="center-image">
-    <img loading="lazy" src="/blog/ebpf/01-ebpf-process.png"
+    <img loading="lazy" src="https://raw.githubusercontent.com/hanshal101/hanshal101/main/static/blog/ebpf/01-ebpf-process.png"
          alt="eBPF Process" width="600"/> <figcaption>
             <p>A diagram of the eBPF process</p>
         </figcaption>
