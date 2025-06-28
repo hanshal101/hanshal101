@@ -40,7 +40,7 @@ menu:
     #   weight: 60
     # - identifier: notes
     #   name: Notes
-    #   url: 
+    #   url:
     #   weight: 70
 
 params:
@@ -60,7 +60,6 @@ params:
     title: "Hanshal Mehta"
     subtitle: Hi 👋 I'm Hanshal, a tech enthusiast who loves solving complex problems. I am an open-source developer, contributed to various organizations like BuildSafe, Glasskube, Open Telemetry, Cyclops, and a couple of Apache's. I'm building robust systems to transform the legal experience for all. By evening, you can find me pushing the limits of my strength at the gym or whipping up my favorite recipe in the kitchen. Let's connect and create something awesome together!
 
- 
     imageUrl: "home/profile.png"
     imageWidth: 220
     imageHeight: 220

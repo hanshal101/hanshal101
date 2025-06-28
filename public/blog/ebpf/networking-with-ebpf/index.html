@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Networking with eBPF: From Fundamentals to Advanced Applications | Hanshal Mehta</title>
+<meta name="keywords" content="Networking, eBPF, Linux, Kernel">
+<meta name="description" content="Motivation eBPF (extended Berkeley Packet Filter) has revolutionized how we implement networking functionality in Linux systems. This comprehensive blog explores the networking concepts involved in eBPF, covering everything from fundamental principles to advanced implementations. With eBPF, developers can run sandboxed programs within the kernel space, providing unprecedented control over network traffic without compromising system stability or requiring kernel modifications.
+Introduction to eBPF eBPF represents a significant evolution from the original Berkeley Packet Filter.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/blog/ebpf/networking-with-ebpf/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.ec8da366ca2fb647537ccb7a8f6fa5b4e9cd3c7a0d3171dd2d3baad1e49c8bfc.css" integrity="sha256-7I2jZsovtkdTfMt6j2&#43;ltOnNPHoNMXHdLTuq0eSci/w=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.30d2332871da51f600f574811c17751e6c862577d450b624f86e2bc8a6e31221.js" integrity="sha256-MNIzKHHaUfYA9XSBHBd1HmyGJXfUULYk&#43;G4ryKbjEiE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/blog/ebpf/networking-with-ebpf/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Networking with eBPF: From Fundamentals to Advanced Applications" />
+<meta property="og:description" content="Motivation eBPF (extended Berkeley Packet Filter) has revolutionized how we implement networking functionality in Linux systems. This comprehensive blog explores the networking concepts involved in eBPF, covering everything from fundamental principles to advanced implementations. With eBPF, developers can run sandboxed programs within the kernel space, providing unprecedented control over network traffic without compromising system stability or requiring kernel modifications.
+Introduction to eBPF eBPF represents a significant evolution from the original Berkeley Packet Filter." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/ebpf/networking-with-ebpf/" /><meta property="article:section" content="blog" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Networking with eBPF: From Fundamentals to Advanced Applications"/>
+<meta name="twitter:description" content="Motivation eBPF (extended Berkeley Packet Filter) has revolutionized how we implement networking functionality in Linux systems. This comprehensive blog explores the networking concepts involved in eBPF, covering everything from fundamental principles to advanced implementations. With eBPF, developers can run sandboxed programs within the kernel space, providing unprecedented control over network traffic without compromising system stability or requiring kernel modifications.
+Introduction to eBPF eBPF represents a significant evolution from the original Berkeley Packet Filter."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Unlocking Linux Superpowers: A DEEP guide to eBPF",
+      "item": "http://localhost:1313/blog/ebpf/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Networking with eBPF: From Fundamentals to Advanced Applications",
+      "item": "http://localhost:1313/blog/ebpf/networking-with-ebpf/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Networking with eBPF: From Fundamentals to Advanced Applications",
+  "name": "Networking with eBPF: From Fundamentals to Advanced Applications",
+  "description": "Motivation eBPF (extended Berkeley Packet Filter) has revolutionized how we implement networking functionality in Linux systems. This comprehensive blog explores the networking concepts involved in eBPF, covering everything from fundamental principles to advanced implementations. With eBPF, developers can run sandboxed programs within the kernel space, providing unprecedented control over network traffic without compromising system stability or requiring kernel modifications.\nIntroduction to eBPF eBPF represents a significant evolution from the original Berkeley Packet Filter.",
+  "keywords": [
+    "Networking", "eBPF", "Linux", "Kernel"
+  ],
+  "articleBody": "Motivation eBPF (extended Berkeley Packet Filter) has revolutionized how we implement networking functionality in Linux systems. This comprehensive blog explores the networking concepts involved in eBPF, covering everything from fundamental principles to advanced implementations. With eBPF, developers can run sandboxed programs within the kernel space, providing unprecedented control over network traffic without compromising system stability or requiring kernel modifications.\nIntroduction to eBPF eBPF represents a significant evolution from the original Berkeley Packet Filter. Created initially for filtering network packets, eBPF has expanded into a versatile execution engine that can be leveraged for numerous use cases, with networking remaining one of its most prominent applications.\nThe Evolution of BPF to eBPF The original BPF was designed as a simple packet filtering mechanism, but its capabilities were radically expanded in 2014. The result-extended BPF or eBPF-allows programs broad access to kernel functions and system memory, but in a protected way. This expansion enables eBPF to gather detailed information about low-level networking, security, and other system-level activities within the kernel without requiring direct modifications to kernel code.\nUnlike programs that run in user space, eBPF programs are inherently more efficient and potentially more powerful because they can see and respond to nearly all operations performed by the operating system. For application tracing, eBPF provides the advantage of not requiring any code instrumentation, and since it supports event-driven functions, tracing can be performed efficiently as CPU cycles are used only when needed.\nWhy eBPF is Revolutionary for Networking eBPF has transformed network programming in Linux by:\nProviding built-in hooks for programs based on system calls, kernel functions, network events, and other triggers Offering a mechanism for compiling and verifying code prior to running, ensuring security and stability Enabling a more straightforward way to enhance kernel functionality than is possible through Loadable Kernel Modules (LKMs) These capabilities make eBPF particularly valuable for networking challenges that traditional tools struggle to address efficiently or with sufficient granularity. Because eBPF programs are event-based, they can enable efficient but complex processing of network traffic and design detailed but lightweight security and observability features.\nLinux Networking Fundamentals To understand how eBPF enhances networking, we first need to grasp the fundamentals of Linux networking architecture and how packets flow through the kernel.\nLinux Kernel Networking Stack The Linux networking stack follows a layered model similar to the OSI model but with Linux-specific adaptations. When a network packet arrives, it flows through several layers before reaching user-space applications:\nPhysical Layer: Managed by network interface card (NIC) drivers that handle the physical reception of packets Link Layer: Handles Ethernet frames and addressing Network Layer: Processes IP packets, handles routing decisions Transport Layer: Manages TCP/UDP connections and reliability Socket Interface: Connects kernel networking to userspace applications eBPF can attach to various points within this stack, allowing for unprecedented control over packet processing.\nLinux Kernel Networking Stack\nPacket Flow in Linux Understanding packet flow is crucial for effective eBPF programming. A packet typically follows this path:\nIngress Path:\nPacket arrives at the NIC XDP (eXpress Data Path) hook - earliest point for eBPF interception NIC driver processing Traffic Control (TC) ingress hook - another eBPF interception point Netfilter hooks (used by iptables) Protocol handlers (IP, TCP, UDP) Socket delivery to applications Egress Path:\nApplication sends data through socket Protocol handlers process outgoing data Routing subsystem makes forwarding decisions Netfilter hooks process outgoing packets Traffic Control (TC) egress hook - eBPF interception point NIC driver prepares packet for transmission Packet transmitted by NIC Each of these points offers opportunities for eBPF programs to intercept, analyze, modify, or redirect network traffic.\neBPF Program Types for Networking eBPF provides several program types specifically designed for different networking use cases. Each program type corresponds to a specific attachment point in the networking stack.\nSocket Filter Programs Socket filter programs (BPF_PROG_TYPE_SOCKET_FILTER) represent one of the earliest applications of BPF. These programs can hook into network sockets and are designed to filter or modify packets received by that socket. Importantly, these programs only operate on ingress (received) packets, not outgoing packets.\nSocket filter programs are called by the kernel with a __sk_buff context. The return value from these programs indicates how many bytes of the message should be kept. Returning a value less than the size of the packet will truncate it, and returning 0 will discard the packet entirely.\nA notable use case for this program type is tcpdump, which uses raw sockets in combination with socket filters generated from filter queries to efficiently process only packets of interest, minimizing the cost of kernel-userspace transitions.\nTo use socket filter programs, they are typically placed in an ELF section prefixed with socket and attached to network sockets using the setsockopt syscall with the SOL_SOCKET socket level and SO_ATTACH_BPF socket option.\nTraffic Control (TC) Programs Traffic Control (TC) is Linux’s mechanism for controlling packet sending and receiving in terms of rate, sequence, and other aspects. Located at the link layer, TC comes into play after sk_buff allocation and operates later in the processing path than XDP.\nIn the TC subsystem, the corresponding data structure and algorithm control mechanism are abstracted as qdisc (Queueing discipline). It exposes two callback interfaces for enqueuing and dequeuing packets externally while internally hiding the implementation of queuing algorithms.\nTC can implement complex tree structures based on filters and classes:\nFilters are mounted on qdisc or class to implement specific filtering logic Classes organize packets into different categories Actions are executed when packets match specific filters When a packet reaches the top-level qdisc, its enqueue interface is called, and mounted filters are executed sequentially until one matches successfully. The packet is then sent to the class pointed to by that filter and enters the qdisc processing configured for that class.\nThe TC framework with eBPF provides a classifier-action mechanism, allowing an eBPF program loaded as a filter to return values that determine packet handling, implementing a complete packet classification and processing system.\nXDP (eXpress Data Path) Programs XDP programs represent one of the most powerful networking applications of eBPF. They operate at the earliest possible point in the networking stack, before the kernel allocates memory structures for packets. This early interception enables extremely high-performance packet processing.\nXDP programs can return several actions that determine the packet’s fate:\nXDP_DROP: Tells the driver to drop packets at an early stage, which is extremely efficient for filtering and DDoS mitigation XDP_PASS: Allows packets to continue to the normal network stack XDP_TX: Forwards packets using the same NIC by which they were received XDP_REDIRECT: Forwards packets to a different network interface or CPU These capabilities make XDP ideal for high-performance networking applications such as:\nDDoS mitigation and firewalling Forwarding and load balancing Network monitoring Protocol translation cGroup Socket Programs cGroup socket programs (BPF_PROG_TYPE_CGROUP_SOCK) are attached to cGroups and triggered when sockets are created, released, or bound by a process in that cGroup. These programs allow for policy enforcement and monitoring at the socket level based on a process’s cGroup membership.\nThis program type enables fine-grained control over socket operations for processes in specific cGroups, which is particularly useful in containerized environments.\nXDP: High-Performance Packet Processing XDP (eXpress Data Path) represents one of the most transformative networking features enabled by eBPF, offering unprecedented performance for packet processing applications.\nXDP Architecture and Hook Points XDP operates directly at the driver level, intercepting packets immediately as they arrive from the network interface, before any memory allocations or other kernel processing occurs. This early interception point provides several advantages:\nMinimal Processing Overhead: Packets can be processed or dropped before the kernel allocates memory for them Reduced Latency: Fast-path operations can bypass much of the kernel’s networking stack High Throughput: XDP can process millions of packets per second on a single CPU core XDP provides several hook points for attaching eBPF programs:\nDriver/Native XDP: Implemented directly in the network driver, offering the best performance but requiring driver support Generic XDP: Runs later in the stack after the sk_buff allocation, with somewhat reduced performance but broader compatibility Offloaded XDP: Programs are offloaded to the NIC hardware, enabling wire-speed processing without CPU involvement for supported NICs XDP Actions and Use Cases XDP programs can implement various packet handling strategies through several return values:\nXDP_DROP: Instructs the driver to drop the packet immediately, which is extremely efficient for filtering and DDoS mitigation XDP_PASS: Allows the packet to continue to the normal network stack for further processing XDP_TX: Transmits the modified packet back out through the same NIC it arrived on, useful for creating simple packet responders or modifying and returning packets XDP_REDIRECT: Forwards the packet to a different network interface or to a different CPU for processing, enabling advanced use cases like load balancing or packet steering These actions make XDP particularly well-suited for several networking applications:\nDDoS Mitigation and Firewalling One of the fundamental functions of XDP is using XDP_DROP to eliminate unwanted traffic at an early stage. This capability allows for implementing various efficient network security strategies while keeping the processing cost of each packet very low.\nXDP excels at handling DDoS attacks by scrubbing illegitimate traffic and forwarding legitimate packets to their destination using XDP_TX. It can be deployed either in standalone network appliances or distributed to multiple nodes that protect the host.\nFor maximum performance, offloaded XDP can shift processing entirely to the NIC, allowing packets to be processed at wire speed.\nForwarding and Load Balancing XDP enables efficient packet forwarding and load balancing through XDP_TX or XDP_REDIRECT operations. This allows data packets to be manipulated using BPF helper functions to increase or decrease packet headroom, or to encapsulate and decapsulate packets before sending them.\nLoad balancers can be implemented using either:\nXDP_TX to forward packets using the same NIC by which they were received XDP_REDIRECT to forward packets to a different network interface Programming with XDP Creating an XDP program involves several steps:\nSetting up the development environment by installing required packages: sudo dnf install clang llvm gcc libbpf libbpf-devel libxdp libxdp-devel xdp-tools bpftool kernel-headers Writing the XDP program in C, such as a simple program to drop all packets: #include SEC(\"xdp\") int xdp_drop(struct xdp_md *ctx) { return XDP_DROP; } Building the program using Clang: clang -O2 -g -Wall -target bpf -c xdp_drop.c -o xdp_drop.o Loading the program using appropriate tools like bpftool or xdp-loader This straightforward approach allows for rapid development and deployment of high-performance networking applications.\nTraffic Control with eBPF Traffic Control (TC) is Linux’s subsystem for controlling packet sending and receiving. With eBPF support, TC has become a powerful platform for implementing complex packet processing logic.\nTC Architecture and Components TC is located at the link layer in the Linux networking stack, operating after sk_buff allocation has been completed. The TC subsystem consists of several components:\nQueueing Disciplines (qdiscs): Algorithms that control how packets are queued and dequeued Classes: Organize packets into categories for different treatment Filters: Match packets based on criteria and assign them to classes Actions: Operations performed on packets when they match filters In the TC subsystem, the corresponding data structure and algorithm control mechanism are abstracted as qdisc (Queueing discipline). It exposes two callback interfaces for enqueuing and dequeuing packets externally while internally hiding the implementation of queuing algorithms.\nFilters and Classes in TC TC can implement complex packet processing through filters and classes:\nFilters are mounted on qdisc or class to implement specific filtering logic Classes organize packets into different categories Actions are executed when packets match specific filters When a packet reaches the top-level qdisc:\nIts enqueue interface is called Mounted filters are executed sequentially until one matches The packet is sent to the class pointed to by that filter The packet enters the qdisc processing configured for that class The TC framework with eBPF provides a classifier-action mechanism that enables both packet classification and processing in an integrated way.\nTC vs. XDP: When to Use Which While both TC and XDP enable programmable packet processing, they have different characteristics that make them suitable for different use cases:\nXDP advantages:\nProcesses packets earlier, before sk_buff allocation Higher performance for simple packet filtering and dropping Better suited for DDoS mitigation and high-throughput applications TC advantages:\nRicher context with full sk_buff access Better integration with existing traffic control mechanisms More suitable for complex packet transformation and manipulation Works with virtual interfaces and in scenarios where XDP is not supported Generally, use XDP for high-performance packet filtering and forwarding, and TC for complex traffic shaping, detailed packet manipulation, and where integration with existing QoS mechanisms is required.\neBPF Maps for Networking eBPF maps are key-value stores that allow data sharing between eBPF programs and between kernel and user space. They are crucial for networking applications, providing state storage, configuration, and inter-program communication.\nMap Types Overview Linux kernel provides numerous map types for various use cases. For networking applications, these can be categorized as:\nGeneric map types: General-purpose storage like hash tables and arrays Map-in-map types: Maps that store references to other maps Streaming maps: For large data transfer between kernel and user space Packet redirection maps: For steering packets between devices, CPUs, or sockets Special-purpose maps: For specific networking functions Hash and Array Maps These fundamental map types provide the building blocks for many networking applications:\nBPF_MAP_TYPE_HASH: A generic hash table for key-value lookups BPF_MAP_TYPE_ARRAY: An array with fixed-size entries, indexed by integers BPF_MAP_TYPE_LRU_HASH: A hash with least-recently-used eviction policy BPF_MAP_TYPE_LPM_TRIE: A longest-prefix match tree, ideal for IP routing tables These maps are commonly used for connection tracking tables, flow state storage, configuration parameters, and statistics collection.\nPer-CPU Maps Per-CPU map variants maintain separate copies of the map for each logical CPU, eliminating the need for synchronization:\nBPF_MAP_TYPE_PERCPU_HASH: Per-CPU version of hash map BPF_MAP_TYPE_PERCPU_ARRAY: Per-CPU version of array map These maps offer superior performance for high-traffic networking applications by eliminating contention between CPUs. Since multiple CPUs never read or write to memory accessed by another CPU, these maps avoid race conditions and the need for synchronization mechanisms like spin-locks or atomic instructions.\nPer-CPU maps also improve performance through better cache locality and can serve as efficient scratch buffers for temporary storage during packet processing.\nSocket Maps and Packet Redirection Maps Specialized maps designed for networking operations:\nBPF_MAP_TYPE_SOCKMAP: Stores socket references for redirection between sockets BPF_MAP_TYPE_SOCKHASH: Hash-based socket storage for efficient lookups BPF_MAP_TYPE_DEVMAP: Stores network device references for XDP redirection between interfaces BPF_MAP_TYPE_CPUMAP: Enables XDP packet redirection between CPUs for balanced processing These maps facilitate packet steering between network devices, CPUs, and sockets, enabling efficient implementation of load balancing, forwarding, and network function virtualization.\nRingbuf and Perf Event Arrays Maps that enable efficient data streaming between kernel and user space:\nBPF_MAP_TYPE_RINGBUF: A ring buffer for efficient bulk data transfer BPF_MAP_TYPE_PERF_EVENT_ARRAY: Uses perf subsystem for event notification For networking applications, these maps are valuable for packet sampling and capture, network telemetry and monitoring, flow record export, and network analytics.\nMap-in-Map Structures Map-in-map types store references to other maps, enabling complex data structures:\nBPF_MAP_TYPE_ARRAY_OF_MAPS: An array where each element is a map BPF_MAP_TYPE_HASH_OF_MAPS: A hash table where values are maps These structures enable sophisticated networking applications like multi-level routing tables, hierarchical policy enforcement, and tenant isolation in multi-tenant networks.\nSocket Filtering and Manipulation Socket filtering is one of the original use cases for BPF and continues to be a powerful application of eBPF. Socket filters allow programs to inspect and filter packets at the socket level, providing an efficient way to process only relevant network traffic.\nSocket Filter Programs Socket filter programs (BPF_PROG_TYPE_SOCKET_FILTER) are designed to filter or modify packets received by network sockets. These programs hook into network sockets but only operate on ingress (received) packets, not egress (outgoing) packets.\nSocket filter programs are called by the kernel with a __sk_buff context, and their return value indicates how many bytes of the message should be kept. Returning a value less than the size of the packet truncates it, while returning 0 discards the packet completely.\nA common use case for socket filters is tcpdump, which uses raw sockets with socket filters generated from filter queries to efficiently process only packets of interest, minimizing the kernel-userspace barrier cost.\nSocket filter programs are typically placed in an ELF section prefixed with socket and attached to network sockets using the setsockopt syscall with SOL_SOCKET socket level and SO_ATTACH_BPF socket option.\nHelper Functions for Socket Programs Socket filter programs can use various helper functions to interact with the system and the context in which they operate. Some of the helper functions available to socket filter programs include:\nbpf_get_socket_cookie bpf_get_socket_uid bpf_ktime_get_ns bpf_map_lookup_elem bpf_map_update_elem bpf_perf_event_output bpf_get_current_pid_tgid bpf_get_current_task These helpers enable socket filter programs to access various information about sockets, processes, and system state, enhancing their capabilities for packet processing and analysis.\nSocket Map Usage eBPF provides special map types for socket operations:\nBPF_MAP_TYPE_SOCKMAP: Stores references to sockets for redirection BPF_MAP_TYPE_SOCKHASH: A hash-based version of SOCKMAP for efficient lookups These maps enable advanced socket operations like fast socket lookup based on connection information, efficient socket redirection, and socket message forwarding between sockets.\nPacket Redirection and Forwarding Packet redirection is a powerful capability of eBPF that allows packets to be steered between interfaces, CPUs, and sockets without traversing the entire networking stack. This capability enables efficient implementation of networking functions like load balancing, forwarding, and NAT.\nInterface Redirection with XDP XDP allows packets to be redirected between network interfaces using the BPF_MAP_TYPE_DEVMAP and the bpf_redirect_map() helper function. This capability enables:\nSoftware-defined networking Virtual switching Service chaining Policy-based routing Interface redirection typically involves:\nDetermining the target interface based on packet attributes or policy Looking up the interface in a DEVMAP Using XDP_REDIRECT action with appropriate helper function CPU Redirection CPU redirection allows packets to be distributed across CPU cores for balanced processing:\nXDP CPU Redirection: Using BPF_MAP_TYPE_CPUMAP and the bpf_redirect_map() helper RSS (Receive Side Scaling): Hardware-based distribution that can be influenced by eBPF CPU redirection enables load balancing across cores, processor affinity for related flows, and optimization of cache locality.\nImplementing Load Balancing XDP is particularly well-suited for implementing load balancers:\nL3/L4 Load Balancing: Based on IP addresses and ports Extract flow information (IPs, ports) Compute consistent hash Select backend using hash Redirect to selected backend using XDP_TX or XDP_REDIRECT L7 Load Balancing: Based on application-layer information Parse HTTP/gRPC/etc. headers Apply load balancing logic based on content Redirect to appropriate backend Load balancers can be implemented using either:\nXDP_TX to forward packets using the same NIC by which they were received XDP_REDIRECT to forward packets to a different network interface Network Monitoring and Observability eBPF provides unprecedented capabilities for network monitoring and observability, enabling detailed visibility into network behavior without modifying applications or introducing significant overhead.\nTracing Network Functions eBPF can trace network-related kernel functions to provide insights into network behavior:\nKprobe-based tracing: Attaching eBPF programs to entry and exit points of kernel networking functions Tracepoint-based tracing: Using predefined tracepoints in the networking stack Raw tracepoints: Lower-overhead alternatives to standard tracepoints These tracing mechanisms enable detailed function call tracking, parameter inspection, performance analysis, and debugging of network issues.\nSocket Monitoring eBPF programs can monitor socket operations to provide insights into application network behavior:\nSocket creation and binding: Tracking when sockets are created and bound to addresses Connection establishment: Monitoring TCP connection setup and teardown Data transfer: Measuring throughput and patterns of data flow Error conditions: Detecting socket errors and failures This monitoring provides valuable insights into application networking behavior and performance.\nFlow Monitoring eBPF facilitates detailed flow monitoring at wire speed:\nFlow identification: Based on 5-tuple (IPs, ports, protocol) Flow statistics: Packets, bytes, duration Flow behavior analysis: Patterns, protocols, periodicity Flow sampling: Efficient collection of representative data Flow monitoring applications include:\nTraffic accounting Anomaly detection Capacity planning Application dependency mapping Security Applications of eBPF Networking eBPF has revolutionized network security by enabling programmable, high-performance security functions directly in the kernel.\nFirewalling with eBPF eBPF enables next-generation firewall capabilities:\nXDP-based firewalling: Ultra-fast packet filtering at the driver level, ideal for volumetric attack mitigation Stateful firewalling: Using eBPF maps to track connection state Dynamic rule updates: Modifying firewall behavior without service disruption Using XDP_DROP with eBPF allows for implementing firewall policies with very little overhead per packet, making it extremely efficient for filtering large volumes of traffic.\nDDoS Mitigation Strategies eBPF is particularly effective for DDoS mitigation:\nEarly packet dropping: Using XDP to drop attack traffic before it consumes system resources Traffic classification: Distinguishing legitimate from attack traffic Rate limiting: Implementing per-source rate limiting to contain attacks XDP can handle DDoS scenarios by scrubbing illegitimate traffic and forwarding legitimate packets to their destination using XDP_TX. This approach can be implemented either in standalone network appliances or distributed across multiple nodes that protect the host.\nFor maximum performance, offloaded XDP can shift processing entirely to the NIC, allowing packets to be processed at wire speed.\nConclusion In this first part of our deep dive into networking with eBPF, we explored the fundamental building blocks that make eBPF a game-changer for modern networking on Linux. Starting with a historical evolution from classic BPF to the powerful eBPF framework, we examined how eBPF empowers developers to gain unprecedented control over packet flow within the kernel without compromising stability or requiring kernel modifications.\nWe navigated the Linux networking stack to understand where and how eBPF programs can be attached. We covered various eBPF program types such as socket filters, traffic control programs, XDP for high-performance packet processing, and cGroup socket programs. Each of these offers unique capabilities tailored to different networking needs.\nWe also delved into the rich landscape of eBPF maps that underpin stateful packet processing and data sharing, from basic hash maps to advanced per-CPU and redirection maps. Furthermore, we covered packet redirection strategies, load balancing techniques, observability through tracing and monitoring, and security applications including DDoS mitigation and firewalling—all achieved using eBPF’s flexible and performant architecture.\neBPF is redefining what’s possible in networking—bringing high throughput, fine-grained control, and programmability directly into the kernel. In the next part of this series, we’ll go deeper into real-world use cases, practical implementation patterns, and performance tuning techniques to harness the full potential of eBPF in production environments.\n",
+  "wordCount" : "3672",
+  "inLanguage": "en",
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/ebpf/networking-with-ebpf/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hanshal Mehta",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header sticky-header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Hanshal Mehta (Alt + H)">Hanshal Mehta</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/blog" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/experience" title="Experience">
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/open-source" title="Open Source">
+                    <span>Open Source</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/blog/">Blogs</a>&nbsp;»&nbsp;<a href="http://localhost:1313/blog/ebpf/">Unlocking Linux Superpowers: A DEEP guide to eBPF</a></div>
+    <h1 class="post-title">
+      Networking with eBPF: From Fundamentals to Advanced Applications
+    </h1>
+    <div class="post-meta">
+
+
+28th June 2025
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">‎ Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul><ul>
+                <li>
+                    <a href="#motivation" aria-label="Motivation">Motivation</a></li></ul>
+                    
+                <li>
+                    <a href="#introduction-to-ebpf" aria-label="Introduction to eBPF">Introduction to eBPF</a><ul>
+                        
+                <li>
+                    <a href="#the-evolution-of-bpf-to-ebpf" aria-label="The Evolution of BPF to eBPF">The Evolution of BPF to eBPF</a></li>
+                <li>
+                    <a href="#why-ebpf-is-revolutionary-for-networking" aria-label="Why eBPF is Revolutionary for Networking">Why eBPF is Revolutionary for Networking</a></li></ul>
+                </li>
+                <li>
+                    <a href="#linux-networking-fundamentals" aria-label="Linux Networking Fundamentals">Linux Networking Fundamentals</a><ul>
+                        
+                <li>
+                    <a href="#linux-kernel-networking-stack" aria-label="Linux Kernel Networking Stack">Linux Kernel Networking Stack</a></li>
+                <li>
+                    <a href="#packet-flow-in-linux" aria-label="Packet Flow in Linux">Packet Flow in Linux</a></li></ul>
+                </li>
+                <li>
+                    <a href="#ebpf-program-types-for-networking" aria-label="eBPF Program Types for Networking">eBPF Program Types for Networking</a><ul>
+                        
+                <li>
+                    <a href="#socket-filter-programs" aria-label="Socket Filter Programs">Socket Filter Programs</a></li>
+                <li>
+                    <a href="#traffic-control-tc-programs" aria-label="Traffic Control (TC) Programs">Traffic Control (TC) Programs</a></li>
+                <li>
+                    <a href="#xdp-express-data-path-programs" aria-label="XDP (eXpress Data Path) Programs">XDP (eXpress Data Path) Programs</a></li>
+                <li>
+                    <a href="#cgroup-socket-programs" aria-label="cGroup Socket Programs">cGroup Socket Programs</a></li></ul>
+                </li>
+                <li>
+                    <a href="#xdp-high-performance-packet-processing" aria-label="XDP: High-Performance Packet Processing">XDP: High-Performance Packet Processing</a><ul>
+                        
+                <li>
+                    <a href="#xdp-architecture-and-hook-points" aria-label="XDP Architecture and Hook Points">XDP Architecture and Hook Points</a></li>
+                <li>
+                    <a href="#xdp-actions-and-use-cases" aria-label="XDP Actions and Use Cases">XDP Actions and Use Cases</a><ul>
+                        
+                <li>
+                    <a href="#ddos-mitigation-and-firewalling" aria-label="DDoS Mitigation and Firewalling">DDoS Mitigation and Firewalling</a></li>
+                <li>
+                    <a href="#forwarding-and-load-balancing" aria-label="Forwarding and Load Balancing">Forwarding and Load Balancing</a></li></ul>
+                </li>
+                <li>
+                    <a href="#programming-with-xdp" aria-label="Programming with XDP">Programming with XDP</a></li></ul>
+                </li>
+                <li>
+                    <a href="#traffic-control-with-ebpf" aria-label="Traffic Control with eBPF">Traffic Control with eBPF</a><ul>
+                        
+                <li>
+                    <a href="#tc-architecture-and-components" aria-label="TC Architecture and Components">TC Architecture and Components</a></li>
+                <li>
+                    <a href="#filters-and-classes-in-tc" aria-label="Filters and Classes in TC">Filters and Classes in TC</a></li>
+                <li>
+                    <a href="#tc-vs-xdp-when-to-use-which" aria-label="TC vs. XDP: When to Use Which">TC vs. XDP: When to Use Which</a></li></ul>
+                </li>
+                <li>
+                    <a href="#ebpf-maps-for-networking" aria-label="eBPF Maps for Networking">eBPF Maps for Networking</a><ul>
+                        
+                <li>
+                    <a href="#map-types-overview" aria-label="Map Types Overview">Map Types Overview</a></li>
+                <li>
+                    <a href="#hash-and-array-maps" aria-label="Hash and Array Maps">Hash and Array Maps</a></li>
+                <li>
+                    <a href="#per-cpu-maps" aria-label="Per-CPU Maps">Per-CPU Maps</a></li>
+                <li>
+                    <a href="#socket-maps-and-packet-redirection-maps" aria-label="Socket Maps and Packet Redirection Maps">Socket Maps and Packet Redirection Maps</a></li>
+                <li>
+                    <a href="#ringbuf-and-perf-event-arrays" aria-label="Ringbuf and Perf Event Arrays">Ringbuf and Perf Event Arrays</a></li>
+                <li>
+                    <a href="#map-in-map-structures" aria-label="Map-in-Map Structures">Map-in-Map Structures</a></li></ul>
+                </li>
+                <li>
+                    <a href="#socket-filtering-and-manipulation" aria-label="Socket Filtering and Manipulation">Socket Filtering and Manipulation</a><ul>
+                        
+                <li>
+                    <a href="#socket-filter-programs-1" aria-label="Socket Filter Programs">Socket Filter Programs</a></li>
+                <li>
+                    <a href="#helper-functions-for-socket-programs" aria-label="Helper Functions for Socket Programs">Helper Functions for Socket Programs</a></li>
+                <li>
+                    <a href="#socket-map-usage" aria-label="Socket Map Usage">Socket Map Usage</a></li></ul>
+                </li>
+                <li>
+                    <a href="#packet-redirection-and-forwarding" aria-label="Packet Redirection and Forwarding">Packet Redirection and Forwarding</a><ul>
+                        
+                <li>
+                    <a href="#interface-redirection-with-xdp" aria-label="Interface Redirection with XDP">Interface Redirection with XDP</a></li>
+                <li>
+                    <a href="#cpu-redirection" aria-label="CPU Redirection">CPU Redirection</a></li>
+                <li>
+                    <a href="#implementing-load-balancing" aria-label="Implementing Load Balancing">Implementing Load Balancing</a></li></ul>
+                </li>
+                <li>
+                    <a href="#network-monitoring-and-observability" aria-label="Network Monitoring and Observability">Network Monitoring and Observability</a><ul>
+                        
+                <li>
+                    <a href="#tracing-network-functions" aria-label="Tracing Network Functions">Tracing Network Functions</a></li>
+                <li>
+                    <a href="#socket-monitoring" aria-label="Socket Monitoring">Socket Monitoring</a></li>
+                <li>
+                    <a href="#flow-monitoring" aria-label="Flow Monitoring">Flow Monitoring</a></li></ul>
+                </li>
+                <li>
+                    <a href="#security-applications-of-ebpf-networking" aria-label="Security Applications of eBPF Networking">Security Applications of eBPF Networking</a><ul>
+                        
+                <li>
+                    <a href="#firewalling-with-ebpf" aria-label="Firewalling with eBPF">Firewalling with eBPF</a></li>
+                <li>
+                    <a href="#ddos-mitigation-strategies" aria-label="DDoS Mitigation Strategies">DDoS Mitigation Strategies</a></li>
+                <li>
+                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="motivation">Motivation<a hidden class="anchor" aria-hidden="true" href="#motivation">#</a></h3>
+<p>eBPF (extended Berkeley Packet Filter) has revolutionized how we implement networking functionality in Linux systems. This comprehensive blog explores the networking concepts involved in eBPF, covering everything from fundamental principles to advanced implementations. With eBPF, developers can run sandboxed programs within the kernel space, providing unprecedented control over network traffic without compromising system stability or requiring kernel modifications.</p>
+<h2 id="introduction-to-ebpf">Introduction to eBPF<a hidden class="anchor" aria-hidden="true" href="#introduction-to-ebpf">#</a></h2>
+<p>eBPF represents a significant evolution from the original Berkeley Packet Filter. Created initially for filtering network packets, eBPF has expanded into a versatile execution engine that can be leveraged for numerous use cases, with networking remaining one of its most prominent applications.</p>
+<h3 id="the-evolution-of-bpf-to-ebpf">The Evolution of BPF to eBPF<a hidden class="anchor" aria-hidden="true" href="#the-evolution-of-bpf-to-ebpf">#</a></h3>
+<p>The original BPF was designed as a simple packet filtering mechanism, but its capabilities were radically expanded in 2014. The result-extended BPF or eBPF-allows programs broad access to kernel functions and system memory, but in a protected way. This expansion enables eBPF to gather detailed information about low-level networking, security, and other system-level activities within the kernel without requiring direct modifications to kernel code.</p>
+<p>Unlike programs that run in user space, eBPF programs are inherently more efficient and potentially more powerful because they can see and respond to nearly all operations performed by the operating system. For application tracing, eBPF provides the advantage of not requiring any code instrumentation, and since it supports event-driven functions, tracing can be performed efficiently as CPU cycles are used only when needed.</p>
+<h3 id="why-ebpf-is-revolutionary-for-networking">Why eBPF is Revolutionary for Networking<a hidden class="anchor" aria-hidden="true" href="#why-ebpf-is-revolutionary-for-networking">#</a></h3>
+<p>eBPF has transformed network programming in Linux by:</p>
+<ol>
+<li>Providing built-in hooks for programs based on system calls, kernel functions, network events, and other triggers</li>
+<li>Offering a mechanism for compiling and verifying code prior to running, ensuring security and stability</li>
+<li>Enabling a more straightforward way to enhance kernel functionality than is possible through Loadable Kernel Modules (LKMs)</li>
+</ol>
+<p>These capabilities make eBPF particularly valuable for networking challenges that traditional tools struggle to address efficiently or with sufficient granularity. Because eBPF programs are event-based, they can enable efficient but complex processing of network traffic and design detailed but lightweight security and observability features.</p>
+<h2 id="linux-networking-fundamentals">Linux Networking Fundamentals<a hidden class="anchor" aria-hidden="true" href="#linux-networking-fundamentals">#</a></h2>
+<p>To understand how eBPF enhances networking, we first need to grasp the fundamentals of Linux networking architecture and how packets flow through the kernel.</p>
+<h3 id="linux-kernel-networking-stack">Linux Kernel Networking Stack<a hidden class="anchor" aria-hidden="true" href="#linux-kernel-networking-stack">#</a></h3>
+<p>The Linux networking stack follows a layered model similar to the OSI model but with Linux-specific adaptations. When a network packet arrives, it flows through several layers before reaching user-space applications:</p>
+<ol>
+<li><strong>Physical Layer</strong>: Managed by network interface card (NIC) drivers that handle the physical reception of packets</li>
+<li><strong>Link Layer</strong>: Handles Ethernet frames and addressing</li>
+<li><strong>Network Layer</strong>: Processes IP packets, handles routing decisions</li>
+<li><strong>Transport Layer</strong>: Manages TCP/UDP connections and reliability</li>
+<li><strong>Socket Interface</strong>: Connects kernel networking to userspace applications</li>
+</ol>
+<p>eBPF can attach to various points within this stack, allowing for unprecedented control over packet processing.</p>
+<figure class="center-image">
+    <img loading="lazy" src="https://raw.githubusercontent.com/hanshal101/hanshal101/main/static/blog/ebpf/02-linux-kernel-networking-stack.png"
+         alt="Linux Kernel Networking Stack" width="600"/> <figcaption>
+            <p>Linux Kernel Networking Stack</p>
+        </figcaption>
+</figure>
+
+<h3 id="packet-flow-in-linux">Packet Flow in Linux<a hidden class="anchor" aria-hidden="true" href="#packet-flow-in-linux">#</a></h3>
+<p>Understanding packet flow is crucial for effective eBPF programming. A packet typically follows this path:</p>
+<p><strong>Ingress Path:</strong></p>
+<ol>
+<li>Packet arrives at the NIC</li>
+<li>XDP (eXpress Data Path) hook - earliest point for eBPF interception</li>
+<li>NIC driver processing</li>
+<li>Traffic Control (TC) ingress hook - another eBPF interception point</li>
+<li>Netfilter hooks (used by iptables)</li>
+<li>Protocol handlers (IP, TCP, UDP)</li>
+<li>Socket delivery to applications</li>
+</ol>
+<p><strong>Egress Path:</strong></p>
+<ol>
+<li>Application sends data through socket</li>
+<li>Protocol handlers process outgoing data</li>
+<li>Routing subsystem makes forwarding decisions</li>
+<li>Netfilter hooks process outgoing packets</li>
+<li>Traffic Control (TC) egress hook - eBPF interception point</li>
+<li>NIC driver prepares packet for transmission</li>
+<li>Packet transmitted by NIC</li>
+</ol>
+<p>Each of these points offers opportunities for eBPF programs to intercept, analyze, modify, or redirect network traffic.</p>
+<h2 id="ebpf-program-types-for-networking">eBPF Program Types for Networking<a hidden class="anchor" aria-hidden="true" href="#ebpf-program-types-for-networking">#</a></h2>
+<p>eBPF provides several program types specifically designed for different networking use cases. Each program type corresponds to a specific attachment point in the networking stack.</p>
+<h3 id="socket-filter-programs">Socket Filter Programs<a hidden class="anchor" aria-hidden="true" href="#socket-filter-programs">#</a></h3>
+<p>Socket filter programs (BPF_PROG_TYPE_SOCKET_FILTER) represent one of the earliest applications of BPF. These programs can hook into network sockets and are designed to filter or modify packets received by that socket. Importantly, these programs only operate on ingress (received) packets, not outgoing packets.</p>
+<p>Socket filter programs are called by the kernel with a <code>__sk_buff</code> context. The return value from these programs indicates how many bytes of the message should be kept. Returning a value less than the size of the packet will truncate it, and returning <code>0</code> will discard the packet entirely.</p>
+<p>A notable use case for this program type is <code>tcpdump</code>, which uses raw sockets in combination with socket filters generated from filter queries to efficiently process only packets of interest, minimizing the cost of kernel-userspace transitions.</p>
+<p>To use socket filter programs, they are typically placed in an ELF section prefixed with <code>socket</code> and attached to network sockets using the <code>setsockopt</code> syscall with the <code>SOL_SOCKET</code> socket level and <code>SO_ATTACH_BPF</code> socket option.</p>
+<h3 id="traffic-control-tc-programs">Traffic Control (TC) Programs<a hidden class="anchor" aria-hidden="true" href="#traffic-control-tc-programs">#</a></h3>
+<p>Traffic Control (TC) is Linux&rsquo;s mechanism for controlling packet sending and receiving in terms of rate, sequence, and other aspects. Located at the link layer, TC comes into play after sk_buff allocation and operates later in the processing path than XDP.</p>
+<p>In the TC subsystem, the corresponding data structure and algorithm control mechanism are abstracted as qdisc (Queueing discipline). It exposes two callback interfaces for enqueuing and dequeuing packets externally while internally hiding the implementation of queuing algorithms.</p>
+<p>TC can implement complex tree structures based on filters and classes:</p>
+<ul>
+<li><strong>Filters</strong> are mounted on qdisc or class to implement specific filtering logic</li>
+<li><strong>Classes</strong> organize packets into different categories</li>
+<li><strong>Actions</strong> are executed when packets match specific filters</li>
+</ul>
+<p>When a packet reaches the top-level qdisc, its enqueue interface is called, and mounted filters are executed sequentially until one matches successfully. The packet is then sent to the class pointed to by that filter and enters the qdisc processing configured for that class.</p>
+<p>The TC framework with eBPF provides a classifier-action mechanism, allowing an eBPF program loaded as a filter to return values that determine packet handling, implementing a complete packet classification and processing system.</p>
+<h3 id="xdp-express-data-path-programs">XDP (eXpress Data Path) Programs<a hidden class="anchor" aria-hidden="true" href="#xdp-express-data-path-programs">#</a></h3>
+<p>XDP programs represent one of the most powerful networking applications of eBPF. They operate at the earliest possible point in the networking stack, before the kernel allocates memory structures for packets. This early interception enables extremely high-performance packet processing.</p>
+<p>XDP programs can return several actions that determine the packet&rsquo;s fate:</p>
+<ol>
+<li><strong>XDP_DROP</strong>: Tells the driver to drop packets at an early stage, which is extremely efficient for filtering and DDoS mitigation</li>
+<li><strong>XDP_PASS</strong>: Allows packets to continue to the normal network stack</li>
+<li><strong>XDP_TX</strong>: Forwards packets using the same NIC by which they were received</li>
+<li><strong>XDP_REDIRECT</strong>: Forwards packets to a different network interface or CPU</li>
+</ol>
+<p>These capabilities make XDP ideal for high-performance networking applications such as:</p>
+<ul>
+<li>DDoS mitigation and firewalling</li>
+<li>Forwarding and load balancing</li>
+<li>Network monitoring</li>
+<li>Protocol translation</li>
+</ul>
+<h3 id="cgroup-socket-programs">cGroup Socket Programs<a hidden class="anchor" aria-hidden="true" href="#cgroup-socket-programs">#</a></h3>
+<p>cGroup socket programs (BPF_PROG_TYPE_CGROUP_SOCK) are attached to cGroups and triggered when sockets are created, released, or bound by a process in that cGroup. These programs allow for policy enforcement and monitoring at the socket level based on a process&rsquo;s cGroup membership.</p>
+<p>This program type enables fine-grained control over socket operations for processes in specific cGroups, which is particularly useful in containerized environments.</p>
+<h2 id="xdp-high-performance-packet-processing">XDP: High-Performance Packet Processing<a hidden class="anchor" aria-hidden="true" href="#xdp-high-performance-packet-processing">#</a></h2>
+<p>XDP (eXpress Data Path) represents one of the most transformative networking features enabled by eBPF, offering unprecedented performance for packet processing applications.</p>
+<h3 id="xdp-architecture-and-hook-points">XDP Architecture and Hook Points<a hidden class="anchor" aria-hidden="true" href="#xdp-architecture-and-hook-points">#</a></h3>
+<p>XDP operates directly at the driver level, intercepting packets immediately as they arrive from the network interface, before any memory allocations or other kernel processing occurs. This early interception point provides several advantages:</p>
+<ol>
+<li><strong>Minimal Processing Overhead</strong>: Packets can be processed or dropped before the kernel allocates memory for them</li>
+<li><strong>Reduced Latency</strong>: Fast-path operations can bypass much of the kernel&rsquo;s networking stack</li>
+<li><strong>High Throughput</strong>: XDP can process millions of packets per second on a single CPU core</li>
+</ol>
+<p>XDP provides several hook points for attaching eBPF programs:</p>
+<ol>
+<li><strong>Driver/Native XDP</strong>: Implemented directly in the network driver, offering the best performance but requiring driver support</li>
+<li><strong>Generic XDP</strong>: Runs later in the stack after the <code>sk_buff</code> allocation, with somewhat reduced performance but broader compatibility</li>
+<li><strong>Offloaded XDP</strong>: Programs are offloaded to the NIC hardware, enabling wire-speed processing without CPU involvement for supported NICs</li>
+</ol>
+<h3 id="xdp-actions-and-use-cases">XDP Actions and Use Cases<a hidden class="anchor" aria-hidden="true" href="#xdp-actions-and-use-cases">#</a></h3>
+<p>XDP programs can implement various packet handling strategies through several return values:</p>
+<ol>
+<li><strong>XDP_DROP</strong>: Instructs the driver to drop the packet immediately, which is extremely efficient for filtering and DDoS mitigation</li>
+<li><strong>XDP_PASS</strong>: Allows the packet to continue to the normal network stack for further processing</li>
+<li><strong>XDP_TX</strong>: Transmits the modified packet back out through the same NIC it arrived on, useful for creating simple packet responders or modifying and returning packets</li>
+<li><strong>XDP_REDIRECT</strong>: Forwards the packet to a different network interface or to a different CPU for processing, enabling advanced use cases like load balancing or packet steering</li>
+</ol>
+<p>These actions make XDP particularly well-suited for several networking applications:</p>
+<h4 id="ddos-mitigation-and-firewalling">DDoS Mitigation and Firewalling<a hidden class="anchor" aria-hidden="true" href="#ddos-mitigation-and-firewalling">#</a></h4>
+<p>One of the fundamental functions of XDP is using XDP_DROP to eliminate unwanted traffic at an early stage. This capability allows for implementing various efficient network security strategies while keeping the processing cost of each packet very low.</p>
+<p>XDP excels at handling DDoS attacks by scrubbing illegitimate traffic and forwarding legitimate packets to their destination using XDP_TX. It can be deployed either in standalone network appliances or distributed to multiple nodes that protect the host.</p>
+<p>For maximum performance, offloaded XDP can shift processing entirely to the NIC, allowing packets to be processed at wire speed.</p>
+<h4 id="forwarding-and-load-balancing">Forwarding and Load Balancing<a hidden class="anchor" aria-hidden="true" href="#forwarding-and-load-balancing">#</a></h4>
+<p>XDP enables efficient packet forwarding and load balancing through XDP_TX or XDP_REDIRECT operations. This allows data packets to be manipulated using BPF helper functions to increase or decrease packet headroom, or to encapsulate and decapsulate packets before sending them.</p>
+<p>Load balancers can be implemented using either:</p>
+<ul>
+<li>XDP_TX to forward packets using the same NIC by which they were received</li>
+<li>XDP_REDIRECT to forward packets to a different network interface</li>
+</ul>
+<h3 id="programming-with-xdp">Programming with XDP<a hidden class="anchor" aria-hidden="true" href="#programming-with-xdp">#</a></h3>
+<p>Creating an XDP program involves several steps:</p>
+<ol>
+<li><strong>Setting up the development environment</strong> by installing required packages:</li>
+</ol>
+<pre tabindex="0"><code>sudo dnf install clang llvm gcc libbpf libbpf-devel libxdp libxdp-devel xdp-tools bpftool kernel-headers
+</code></pre><ol start="2">
+<li><strong>Writing the XDP program</strong> in C, such as a simple program to drop all packets:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;linux/bpf.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">SEC</span>(<span style="color:#e6db74">&#34;xdp&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">xdp_drop</span>(<span style="color:#66d9ef">struct</span> xdp_md <span style="color:#f92672">*</span>ctx) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> XDP_DROP;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="3">
+<li><strong>Building the program</strong> using Clang:</li>
+</ol>
+<pre tabindex="0"><code>clang -O2 -g -Wall -target bpf -c xdp_drop.c -o xdp_drop.o
+</code></pre><ol start="4">
+<li><strong>Loading the program</strong> using appropriate tools like bpftool or xdp-loader</li>
+</ol>
+<p>This straightforward approach allows for rapid development and deployment of high-performance networking applications.</p>
+<h2 id="traffic-control-with-ebpf">Traffic Control with eBPF<a hidden class="anchor" aria-hidden="true" href="#traffic-control-with-ebpf">#</a></h2>
+<p>Traffic Control (TC) is Linux&rsquo;s subsystem for controlling packet sending and receiving. With eBPF support, TC has become a powerful platform for implementing complex packet processing logic.</p>
+<h3 id="tc-architecture-and-components">TC Architecture and Components<a hidden class="anchor" aria-hidden="true" href="#tc-architecture-and-components">#</a></h3>
+<p>TC is located at the link layer in the Linux networking stack, operating after sk_buff allocation has been completed. The TC subsystem consists of several components:</p>
+<ol>
+<li><strong>Queueing Disciplines (qdiscs)</strong>: Algorithms that control how packets are queued and dequeued</li>
+<li><strong>Classes</strong>: Organize packets into categories for different treatment</li>
+<li><strong>Filters</strong>: Match packets based on criteria and assign them to classes</li>
+<li><strong>Actions</strong>: Operations performed on packets when they match filters</li>
+</ol>
+<p>In the TC subsystem, the corresponding data structure and algorithm control mechanism are abstracted as qdisc (Queueing discipline). It exposes two callback interfaces for enqueuing and dequeuing packets externally while internally hiding the implementation of queuing algorithms.</p>
+<h3 id="filters-and-classes-in-tc">Filters and Classes in TC<a hidden class="anchor" aria-hidden="true" href="#filters-and-classes-in-tc">#</a></h3>
+<p>TC can implement complex packet processing through filters and classes:</p>
+<ul>
+<li><strong>Filters</strong> are mounted on qdisc or class to implement specific filtering logic</li>
+<li><strong>Classes</strong> organize packets into different categories</li>
+<li><strong>Actions</strong> are executed when packets match specific filters</li>
+</ul>
+<p>When a packet reaches the top-level qdisc:</p>
+<ol>
+<li>Its enqueue interface is called</li>
+<li>Mounted filters are executed sequentially until one matches</li>
+<li>The packet is sent to the class pointed to by that filter</li>
+<li>The packet enters the qdisc processing configured for that class</li>
+</ol>
+<p>The TC framework with eBPF provides a classifier-action mechanism that enables both packet classification and processing in an integrated way.</p>
+<h3 id="tc-vs-xdp-when-to-use-which">TC vs. XDP: When to Use Which<a hidden class="anchor" aria-hidden="true" href="#tc-vs-xdp-when-to-use-which">#</a></h3>
+<p>While both TC and XDP enable programmable packet processing, they have different characteristics that make them suitable for different use cases:</p>
+<p><strong>XDP advantages</strong>:</p>
+<ul>
+<li>Processes packets earlier, before sk_buff allocation</li>
+<li>Higher performance for simple packet filtering and dropping</li>
+<li>Better suited for DDoS mitigation and high-throughput applications</li>
+</ul>
+<p><strong>TC advantages</strong>:</p>
+<ul>
+<li>Richer context with full sk_buff access</li>
+<li>Better integration with existing traffic control mechanisms</li>
+<li>More suitable for complex packet transformation and manipulation</li>
+<li>Works with virtual interfaces and in scenarios where XDP is not supported</li>
+</ul>
+<p>Generally, use XDP for high-performance packet filtering and forwarding, and TC for complex traffic shaping, detailed packet manipulation, and where integration with existing QoS mechanisms is required.</p>
+<h2 id="ebpf-maps-for-networking">eBPF Maps for Networking<a hidden class="anchor" aria-hidden="true" href="#ebpf-maps-for-networking">#</a></h2>
+<p>eBPF maps are key-value stores that allow data sharing between eBPF programs and between kernel and user space. They are crucial for networking applications, providing state storage, configuration, and inter-program communication.</p>
+<h3 id="map-types-overview">Map Types Overview<a hidden class="anchor" aria-hidden="true" href="#map-types-overview">#</a></h3>
+<p>Linux kernel provides numerous map types for various use cases. For networking applications, these can be categorized as:</p>
+<ol>
+<li><strong>Generic map types</strong>: General-purpose storage like hash tables and arrays</li>
+<li><strong>Map-in-map types</strong>: Maps that store references to other maps</li>
+<li><strong>Streaming maps</strong>: For large data transfer between kernel and user space</li>
+<li><strong>Packet redirection maps</strong>: For steering packets between devices, CPUs, or sockets</li>
+<li><strong>Special-purpose maps</strong>: For specific networking functions</li>
+</ol>
+<h3 id="hash-and-array-maps">Hash and Array Maps<a hidden class="anchor" aria-hidden="true" href="#hash-and-array-maps">#</a></h3>
+<p>These fundamental map types provide the building blocks for many networking applications:</p>
+<ol>
+<li><strong>BPF_MAP_TYPE_HASH</strong>: A generic hash table for key-value lookups</li>
+<li><strong>BPF_MAP_TYPE_ARRAY</strong>: An array with fixed-size entries, indexed by integers</li>
+<li><strong>BPF_MAP_TYPE_LRU_HASH</strong>: A hash with least-recently-used eviction policy</li>
+<li><strong>BPF_MAP_TYPE_LPM_TRIE</strong>: A longest-prefix match tree, ideal for IP routing tables</li>
+</ol>
+<p>These maps are commonly used for connection tracking tables, flow state storage, configuration parameters, and statistics collection.</p>
+<h3 id="per-cpu-maps">Per-CPU Maps<a hidden class="anchor" aria-hidden="true" href="#per-cpu-maps">#</a></h3>
+<p>Per-CPU map variants maintain separate copies of the map for each logical CPU, eliminating the need for synchronization:</p>
+<ol>
+<li><strong>BPF_MAP_TYPE_PERCPU_HASH</strong>: Per-CPU version of hash map</li>
+<li><strong>BPF_MAP_TYPE_PERCPU_ARRAY</strong>: Per-CPU version of array map</li>
+</ol>
+<p>These maps offer superior performance for high-traffic networking applications by eliminating contention between CPUs. Since multiple CPUs never read or write to memory accessed by another CPU, these maps avoid race conditions and the need for synchronization mechanisms like spin-locks or atomic instructions.</p>
+<p>Per-CPU maps also improve performance through better cache locality and can serve as efficient scratch buffers for temporary storage during packet processing.</p>
+<h3 id="socket-maps-and-packet-redirection-maps">Socket Maps and Packet Redirection Maps<a hidden class="anchor" aria-hidden="true" href="#socket-maps-and-packet-redirection-maps">#</a></h3>
+<p>Specialized maps designed for networking operations:</p>
+<ol>
+<li><strong>BPF_MAP_TYPE_SOCKMAP</strong>: Stores socket references for redirection between sockets</li>
+<li><strong>BPF_MAP_TYPE_SOCKHASH</strong>: Hash-based socket storage for efficient lookups</li>
+<li><strong>BPF_MAP_TYPE_DEVMAP</strong>: Stores network device references for XDP redirection between interfaces</li>
+<li><strong>BPF_MAP_TYPE_CPUMAP</strong>: Enables XDP packet redirection between CPUs for balanced processing</li>
+</ol>
+<p>These maps facilitate packet steering between network devices, CPUs, and sockets, enabling efficient implementation of load balancing, forwarding, and network function virtualization.</p>
+<h3 id="ringbuf-and-perf-event-arrays">Ringbuf and Perf Event Arrays<a hidden class="anchor" aria-hidden="true" href="#ringbuf-and-perf-event-arrays">#</a></h3>
+<p>Maps that enable efficient data streaming between kernel and user space:</p>
+<ol>
+<li><strong>BPF_MAP_TYPE_RINGBUF</strong>: A ring buffer for efficient bulk data transfer</li>
+<li><strong>BPF_MAP_TYPE_PERF_EVENT_ARRAY</strong>: Uses perf subsystem for event notification</li>
+</ol>
+<p>For networking applications, these maps are valuable for packet sampling and capture, network telemetry and monitoring, flow record export, and network analytics.</p>
+<h3 id="map-in-map-structures">Map-in-Map Structures<a hidden class="anchor" aria-hidden="true" href="#map-in-map-structures">#</a></h3>
+<p>Map-in-map types store references to other maps, enabling complex data structures:</p>
+<ol>
+<li><strong>BPF_MAP_TYPE_ARRAY_OF_MAPS</strong>: An array where each element is a map</li>
+<li><strong>BPF_MAP_TYPE_HASH_OF_MAPS</strong>: A hash table where values are maps</li>
+</ol>
+<p>These structures enable sophisticated networking applications like multi-level routing tables, hierarchical policy enforcement, and tenant isolation in multi-tenant networks.</p>
+<h2 id="socket-filtering-and-manipulation">Socket Filtering and Manipulation<a hidden class="anchor" aria-hidden="true" href="#socket-filtering-and-manipulation">#</a></h2>
+<p>Socket filtering is one of the original use cases for BPF and continues to be a powerful application of eBPF. Socket filters allow programs to inspect and filter packets at the socket level, providing an efficient way to process only relevant network traffic.</p>
+<h3 id="socket-filter-programs-1">Socket Filter Programs<a hidden class="anchor" aria-hidden="true" href="#socket-filter-programs-1">#</a></h3>
+<p>Socket filter programs (BPF_PROG_TYPE_SOCKET_FILTER) are designed to filter or modify packets received by network sockets. These programs hook into network sockets but only operate on ingress (received) packets, not egress (outgoing) packets.</p>
+<p>Socket filter programs are called by the kernel with a <code>__sk_buff</code> context, and their return value indicates how many bytes of the message should be kept. Returning a value less than the size of the packet truncates it, while returning <code>0</code> discards the packet completely.</p>
+<p>A common use case for socket filters is <code>tcpdump</code>, which uses raw sockets with socket filters generated from filter queries to efficiently process only packets of interest, minimizing the kernel-userspace barrier cost.</p>
+<p>Socket filter programs are typically placed in an ELF section prefixed with <code>socket</code> and attached to network sockets using the <code>setsockopt</code> syscall with <code>SOL_SOCKET</code> socket level and <code>SO_ATTACH_BPF</code> socket option.</p>
+<h3 id="helper-functions-for-socket-programs">Helper Functions for Socket Programs<a hidden class="anchor" aria-hidden="true" href="#helper-functions-for-socket-programs">#</a></h3>
+<p>Socket filter programs can use various helper functions to interact with the system and the context in which they operate. Some of the helper functions available to socket filter programs include:</p>
+<ul>
+<li><code>bpf_get_socket_cookie</code></li>
+<li><code>bpf_get_socket_uid</code></li>
+<li><code>bpf_ktime_get_ns</code></li>
+<li><code>bpf_map_lookup_elem</code></li>
+<li><code>bpf_map_update_elem</code></li>
+<li><code>bpf_perf_event_output</code></li>
+<li><code>bpf_get_current_pid_tgid</code></li>
+<li><code>bpf_get_current_task</code></li>
+</ul>
+<p>These helpers enable socket filter programs to access various information about sockets, processes, and system state, enhancing their capabilities for packet processing and analysis.</p>
+<h3 id="socket-map-usage">Socket Map Usage<a hidden class="anchor" aria-hidden="true" href="#socket-map-usage">#</a></h3>
+<p>eBPF provides special map types for socket operations:</p>
+<ol>
+<li><strong>BPF_MAP_TYPE_SOCKMAP</strong>: Stores references to sockets for redirection</li>
+<li><strong>BPF_MAP_TYPE_SOCKHASH</strong>: A hash-based version of SOCKMAP for efficient lookups</li>
+</ol>
+<p>These maps enable advanced socket operations like fast socket lookup based on connection information, efficient socket redirection, and socket message forwarding between sockets.</p>
+<h2 id="packet-redirection-and-forwarding">Packet Redirection and Forwarding<a hidden class="anchor" aria-hidden="true" href="#packet-redirection-and-forwarding">#</a></h2>
+<p>Packet redirection is a powerful capability of eBPF that allows packets to be steered between interfaces, CPUs, and sockets without traversing the entire networking stack. This capability enables efficient implementation of networking functions like load balancing, forwarding, and NAT.</p>
+<h3 id="interface-redirection-with-xdp">Interface Redirection with XDP<a hidden class="anchor" aria-hidden="true" href="#interface-redirection-with-xdp">#</a></h3>
+<p>XDP allows packets to be redirected between network interfaces using the BPF_MAP_TYPE_DEVMAP and the bpf_redirect_map() helper function. This capability enables:</p>
+<ul>
+<li>Software-defined networking</li>
+<li>Virtual switching</li>
+<li>Service chaining</li>
+<li>Policy-based routing</li>
+</ul>
+<p>Interface redirection typically involves:</p>
+<ol>
+<li>Determining the target interface based on packet attributes or policy</li>
+<li>Looking up the interface in a DEVMAP</li>
+<li>Using XDP_REDIRECT action with appropriate helper function</li>
+</ol>
+<h3 id="cpu-redirection">CPU Redirection<a hidden class="anchor" aria-hidden="true" href="#cpu-redirection">#</a></h3>
+<p>CPU redirection allows packets to be distributed across CPU cores for balanced processing:</p>
+<ol>
+<li><strong>XDP CPU Redirection</strong>: Using BPF_MAP_TYPE_CPUMAP and the bpf_redirect_map() helper</li>
+<li><strong>RSS (Receive Side Scaling)</strong>: Hardware-based distribution that can be influenced by eBPF</li>
+</ol>
+<p>CPU redirection enables load balancing across cores, processor affinity for related flows, and optimization of cache locality.</p>
+<h3 id="implementing-load-balancing">Implementing Load Balancing<a hidden class="anchor" aria-hidden="true" href="#implementing-load-balancing">#</a></h3>
+<p>XDP is particularly well-suited for implementing load balancers:</p>
+<ol>
+<li><strong>L3/L4 Load Balancing</strong>: Based on IP addresses and ports
+<ul>
+<li>Extract flow information (IPs, ports)</li>
+<li>Compute consistent hash</li>
+<li>Select backend using hash</li>
+<li>Redirect to selected backend using XDP_TX or XDP_REDIRECT</li>
+</ul>
+</li>
+<li><strong>L7 Load Balancing</strong>: Based on application-layer information
+<ul>
+<li>Parse HTTP/gRPC/etc. headers</li>
+<li>Apply load balancing logic based on content</li>
+<li>Redirect to appropriate backend</li>
+</ul>
+</li>
+</ol>
+<p>Load balancers can be implemented using either:</p>
+<ul>
+<li>XDP_TX to forward packets using the same NIC by which they were received</li>
+<li>XDP_REDIRECT to forward packets to a different network interface</li>
+</ul>
+<h2 id="network-monitoring-and-observability">Network Monitoring and Observability<a hidden class="anchor" aria-hidden="true" href="#network-monitoring-and-observability">#</a></h2>
+<p>eBPF provides unprecedented capabilities for network monitoring and observability, enabling detailed visibility into network behavior without modifying applications or introducing significant overhead.</p>
+<h3 id="tracing-network-functions">Tracing Network Functions<a hidden class="anchor" aria-hidden="true" href="#tracing-network-functions">#</a></h3>
+<p>eBPF can trace network-related kernel functions to provide insights into network behavior:</p>
+<ol>
+<li><strong>Kprobe-based tracing</strong>: Attaching eBPF programs to entry and exit points of kernel networking functions</li>
+<li><strong>Tracepoint-based tracing</strong>: Using predefined tracepoints in the networking stack</li>
+<li><strong>Raw tracepoints</strong>: Lower-overhead alternatives to standard tracepoints</li>
+</ol>
+<p>These tracing mechanisms enable detailed function call tracking, parameter inspection, performance analysis, and debugging of network issues.</p>
+<h3 id="socket-monitoring">Socket Monitoring<a hidden class="anchor" aria-hidden="true" href="#socket-monitoring">#</a></h3>
+<p>eBPF programs can monitor socket operations to provide insights into application network behavior:</p>
+<ol>
+<li><strong>Socket creation and binding</strong>: Tracking when sockets are created and bound to addresses</li>
+<li><strong>Connection establishment</strong>: Monitoring TCP connection setup and teardown</li>
+<li><strong>Data transfer</strong>: Measuring throughput and patterns of data flow</li>
+<li><strong>Error conditions</strong>: Detecting socket errors and failures</li>
+</ol>
+<p>This monitoring provides valuable insights into application networking behavior and performance.</p>
+<h3 id="flow-monitoring">Flow Monitoring<a hidden class="anchor" aria-hidden="true" href="#flow-monitoring">#</a></h3>
+<p>eBPF facilitates detailed flow monitoring at wire speed:</p>
+<ol>
+<li><strong>Flow identification</strong>: Based on 5-tuple (IPs, ports, protocol)</li>
+<li><strong>Flow statistics</strong>: Packets, bytes, duration</li>
+<li><strong>Flow behavior analysis</strong>: Patterns, protocols, periodicity</li>
+<li><strong>Flow sampling</strong>: Efficient collection of representative data</li>
+</ol>
+<p>Flow monitoring applications include:</p>
+<ul>
+<li>Traffic accounting</li>
+<li>Anomaly detection</li>
+<li>Capacity planning</li>
+<li>Application dependency mapping</li>
+</ul>
+<h2 id="security-applications-of-ebpf-networking">Security Applications of eBPF Networking<a hidden class="anchor" aria-hidden="true" href="#security-applications-of-ebpf-networking">#</a></h2>
+<p>eBPF has revolutionized network security by enabling programmable, high-performance security functions directly in the kernel.</p>
+<h3 id="firewalling-with-ebpf">Firewalling with eBPF<a hidden class="anchor" aria-hidden="true" href="#firewalling-with-ebpf">#</a></h3>
+<p>eBPF enables next-generation firewall capabilities:</p>
+<ol>
+<li><strong>XDP-based firewalling</strong>: Ultra-fast packet filtering at the driver level, ideal for volumetric attack mitigation</li>
+<li><strong>Stateful firewalling</strong>: Using eBPF maps to track connection state</li>
+<li><strong>Dynamic rule updates</strong>: Modifying firewall behavior without service disruption</li>
+</ol>
+<p>Using XDP_DROP with eBPF allows for implementing firewall policies with very little overhead per packet, making it extremely efficient for filtering large volumes of traffic.</p>
+<h3 id="ddos-mitigation-strategies">DDoS Mitigation Strategies<a hidden class="anchor" aria-hidden="true" href="#ddos-mitigation-strategies">#</a></h3>
+<p>eBPF is particularly effective for DDoS mitigation:</p>
+<ol>
+<li><strong>Early packet dropping</strong>: Using XDP to drop attack traffic before it consumes system resources</li>
+<li><strong>Traffic classification</strong>: Distinguishing legitimate from attack traffic</li>
+<li><strong>Rate limiting</strong>: Implementing per-source rate limiting to contain attacks</li>
+</ol>
+<p>XDP can handle DDoS scenarios by scrubbing illegitimate traffic and forwarding legitimate packets to their destination using XDP_TX. This approach can be implemented either in standalone network appliances or distributed across multiple nodes that protect the host.</p>
+<p>For maximum performance, offloaded XDP can shift processing entirely to the NIC, allowing packets to be processed at wire speed.</p>
+<h3 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h3>
+<p>In this first part of our deep dive into networking with eBPF, we explored the fundamental building blocks that make eBPF a game-changer for modern networking on Linux. Starting with a historical evolution from classic BPF to the powerful eBPF framework, we examined how eBPF empowers developers to gain unprecedented control over packet flow within the kernel without compromising stability or requiring kernel modifications.</p>
+<p>We navigated the Linux networking stack to understand where and how eBPF programs can be attached. We covered various eBPF program types such as socket filters, traffic control programs, XDP for high-performance packet processing, and cGroup socket programs. Each of these offers unique capabilities tailored to different networking needs.</p>
+<p>We also delved into the rich landscape of eBPF maps that underpin stateful packet processing and data sharing, from basic hash maps to advanced per-CPU and redirection maps. Furthermore, we covered packet redirection strategies, load balancing techniques, observability through tracing and monitoring, and security applications including DDoS mitigation and firewalling—all achieved using eBPF’s flexible and performant architecture.</p>
+<p>eBPF is redefining what’s possible in networking—bringing high throughput, fine-grained control, and programmability directly into the kernel. In the next part of this series, we’ll go deeper into real-world use cases, practical implementation patterns, and performance tuning techniques to harness the full potential of eBPF in production environments.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/networking/">Networking</a></li>
+      <li><a href="http://localhost:1313/tags/ebpf/">EBPF</a></li>
+      <li><a href="http://localhost:1313/tags/linux/">Linux</a></li>
+      <li><a href="http://localhost:1313/tags/kernel/">Kernel</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2025 <a href="http://localhost:1313/">Hanshal Mehta</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

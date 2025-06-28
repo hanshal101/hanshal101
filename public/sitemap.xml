@@ -4,6 +4,8 @@
   <url>
     <loc>http://localhost:1313/blog/ebpf/introduction-to-ebpf/</loc>
   </url><url>
+    <loc>http://localhost:1313/blog/ebpf/networking-with-ebpf/</loc>
+  </url><url>
     <loc>http://localhost:1313/experience/new-leap-initiative/</loc>
   </url><url>
     <loc>http://localhost:1313/open-source/buildsafe/</loc>
@@ -37,6 +39,8 @@
     <loc>http://localhost:1313/tags/kubernetes/</loc>
   </url><url>
     <loc>http://localhost:1313/tags/linux/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/networking/</loc>
   </url><url>
     <loc>http://localhost:1313/open-source/</loc>
   </url><url>
