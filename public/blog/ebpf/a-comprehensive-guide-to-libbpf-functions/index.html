@@ -1,0 +1,2488 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions | Hanshal Mehta</title>
+<meta name="keywords" content="libbpf, eBPF, Linux, Kernel">
+<meta name="description" content="Motivation The extended Berkeley Packet Filter (eBPF) has rapidly evolved from a low-level packet filtering mechanism to a powerful framework for building high-performance, programmable applications within the Linux kernel. As its ecosystem has grown, so too has the complexity of its supporting libraries. One of the famous and most reliable library developers uses is libbpf.
+For developers diving into eBPF, libbpf serves as the essential user-space library to interact with BPF objects, manage maps and programs, handle kernel integration, and access advanced features like BTF (BPF Type Format).">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/blog/ebpf/a-comprehensive-guide-to-libbpf-functions/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.ec8da366ca2fb647537ccb7a8f6fa5b4e9cd3c7a0d3171dd2d3baad1e49c8bfc.css" integrity="sha256-7I2jZsovtkdTfMt6j2&#43;ltOnNPHoNMXHdLTuq0eSci/w=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.30d2332871da51f600f574811c17751e6c862577d450b624f86e2bc8a6e31221.js" integrity="sha256-MNIzKHHaUfYA9XSBHBd1HmyGJXfUULYk&#43;G4ryKbjEiE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/blog/ebpf/a-comprehensive-guide-to-libbpf-functions/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions" />
+<meta property="og:description" content="Motivation The extended Berkeley Packet Filter (eBPF) has rapidly evolved from a low-level packet filtering mechanism to a powerful framework for building high-performance, programmable applications within the Linux kernel. As its ecosystem has grown, so too has the complexity of its supporting libraries. One of the famous and most reliable library developers uses is libbpf.
+For developers diving into eBPF, libbpf serves as the essential user-space library to interact with BPF objects, manage maps and programs, handle kernel integration, and access advanced features like BTF (BPF Type Format)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/ebpf/a-comprehensive-guide-to-libbpf-functions/" /><meta property="article:section" content="blog" />
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions"/>
+<meta name="twitter:description" content="Motivation The extended Berkeley Packet Filter (eBPF) has rapidly evolved from a low-level packet filtering mechanism to a powerful framework for building high-performance, programmable applications within the Linux kernel. As its ecosystem has grown, so too has the complexity of its supporting libraries. One of the famous and most reliable library developers uses is libbpf.
+For developers diving into eBPF, libbpf serves as the essential user-space library to interact with BPF objects, manage maps and programs, handle kernel integration, and access advanced features like BTF (BPF Type Format)."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "http://localhost:1313/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Unlocking Linux Superpowers: A DEEP guide to eBPF",
+      "item": "http://localhost:1313/blog/ebpf/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions",
+      "item": "http://localhost:1313/blog/ebpf/a-comprehensive-guide-to-libbpf-functions/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions",
+  "name": "The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions",
+  "description": "Motivation The extended Berkeley Packet Filter (eBPF) has rapidly evolved from a low-level packet filtering mechanism to a powerful framework for building high-performance, programmable applications within the Linux kernel. As its ecosystem has grown, so too has the complexity of its supporting libraries. One of the famous and most reliable library developers uses is libbpf.\nFor developers diving into eBPF, libbpf serves as the essential user-space library to interact with BPF objects, manage maps and programs, handle kernel integration, and access advanced features like BTF (BPF Type Format).",
+  "keywords": [
+    "libbpf", "eBPF", "Linux", "Kernel"
+  ],
+  "articleBody": "Motivation The extended Berkeley Packet Filter (eBPF) has rapidly evolved from a low-level packet filtering mechanism to a powerful framework for building high-performance, programmable applications within the Linux kernel. As its ecosystem has grown, so too has the complexity of its supporting libraries. One of the famous and most reliable library developers uses is libbpf.\nFor developers diving into eBPF, libbpf serves as the essential user-space library to interact with BPF objects, manage maps and programs, handle kernel integration, and access advanced features like BTF (BPF Type Format). However, despite its critical role, libbpf’s documentation remains fragmented, and many of its functions are poorly understood or underutilized.\nI am writting this post to change that.\nIn this comprehensive reference guide, you’ll find categorized, structured documentation of libbpf functions, complete with parameters, return types, use cases, and practical explanations. Whether you’re building observability tools, network filters, or system profilers, this guide is designed to help you quickly locate and understand the exact function you need.\nFor reference I have taken the following libraries into consideration: libbpf (C/C++) and libbpf-rs (Rust - I Code a lot here) the two most widely used APIs for managing eBPF programs, maps, links, and metadata.\nOn top of that I’ll be attaching a Google Doc at the end, just incase you wish to download this guide and modify according to your preferences.\n1. BTF (BPF Type Format) Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_btf_get_fd_by_id Get BTF file descriptor by ID __u32 id int When you need to access BTF object with known ID Returns file descriptor for BTF object with given ID. Useful for introspection tools to examine type information of loaded programs bpf_btf_get_fd_by_id_opts Get BTF file descriptor by ID with options __u32 id, const struct bpf_get_fd_by_id_opts *opts int When you need BTF access with specific options Extended version with options like token_fd for permission delegation bpf_btf_get_info_by_fd Get BTF information by file descriptor int btf_fd, struct bpf_btf_info *info, __u32 *info_len int When you need metadata about BTF object Populates BTF object information structure with metadata like name, BTF data size, etc. bpf_btf_get_next_id Get next BTF ID __u32 start_id, __u32 *next_id int For iterating through all BTF objects Used by introspection tools to enumerate all loaded BTF objects in the system bpf_btf_load Load BTF data into kernel const void *btf_data, size_t btf_size, struct bpf_btf_load_opts *opts int When loading BTF type information Loads BTF blob into kernel, returns BTF file descriptor for use with maps and programs btf__new Create new BTF object from raw data const void *data, __u32 size struct btf * When parsing BTF from ELF or raw bytes Creates BTF object instance from raw BTF section data, used during program loading btf__free Free BTF object struct btf *btf void When cleaning up BTF resources Frees all memory associated with BTF object, should be called for every btf__new() btf__load_into_kernel Load BTF into kernel struct btf *btf int When making BTF available to kernel Uploads BTF object to kernel, making it available for program verification and map creation btf__parse Parse BTF from file const char *path, struct btf_ext **btf_ext struct btf * When loading BTF from ELF file Parses BTF section from ELF file, commonly used with compiled BPF programs 2. BPF Link Management Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_link__destroy Destroy BPF link struct bpf_link *link int When detaching and cleaning up program Detaches program from kernel hook and frees all associated resources bpf_link__detach Detach BPF link struct bpf_link *link int When you want to detach but keep link object Detaches program from hook point but preserves link object for potential reuse bpf_link__disconnect Disconnect BPF link struct bpf_link *link void When severing link connection Disconnects link from underlying kernel attachment without destroying the object bpf_link__fd Get link file descriptor const struct bpf_link *link int When you need raw FD for operations Returns underlying file descriptor for direct syscall operations bpf_link__open Open existing link from filesystem const char *path struct bpf_link * When loading pinned link Opens previously pinned link from BPF filesystem bpf_link__pin Pin link to filesystem struct bpf_link *link, const char *path int When persisting link beyond process lifetime Pins link to BPF filesystem, allowing it to persist after process exits bpf_link__pin_path Get pin path of link const struct bpf_link *link const char * When checking where link is pinned Returns filesystem path where link is pinned, NULL if not pinned bpf_link__unpin Unpin link from filesystem struct bpf_link *link int When removing persisted link Removes link from filesystem, decrementing reference count bpf_link__update_map Update map associated with link struct bpf_link *link, const struct bpf_map *map int When changing map for struct_ops Updates the map associated with struct_ops link to different map bpf_link__update_program Update program in link struct bpf_link *link, struct bpf_program *prog int When hot-swapping programs Atomically replaces program in existing link without recreating attachment bpf_link_create Create new BPF link int prog_fd, int target_fd, enum bpf_attach_type attach_type, const struct bpf_link_create_opts *opts int When you need low-level link control Low-level wrapper around BPF_LINK_CREATE syscall for precise control bpf_link_detach Detach link by FD int link_fd int When detaching using raw file descriptor Detaches link using its file descriptor directly bpf_link_get_fd_by_id Get link FD by ID __u32 id int When accessing link with known ID Returns file descriptor for link with specified ID bpf_link_get_fd_by_id_opts Get link FD by ID with options __u32 id, const struct bpf_get_fd_by_id_opts *opts int When accessing link with options Extended version with additional options like token_fd bpf_link_get_info_by_fd Get link information int link_fd, struct bpf_link_info *info, __u32 *info_len int When querying link metadata Retrieves link information including type, program ID, and attach information bpf_link_get_next_id Get next link ID __u32 start_id, __u32 *next_id int For enumerating all links Used by introspection tools to iterate through all links in system bpf_link_update Update existing link int link_fd, int new_prog_fd, const struct bpf_link_update_opts *opts int When replacing program in link Updates link to use different program, useful for program hot-swapping 3. BPF Map Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_map__attach_struct_ops Attach struct_ops map const struct bpf_map *map struct bpf_link * When using struct_ops maps Attaches struct_ops map to kernel subsystem, enabling callback function registration bpf_map__autoattach Check if map auto-attaches const struct bpf_map *map bool When checking map attachment behavior Returns whether map will automatically attach during skeleton attach phase bpf_map__autocreate Check if map auto-creates const struct bpf_map *map bool When checking map creation behavior Returns whether map will be automatically created during object load bpf_map__btf_key_type_id Get BTF key type ID const struct bpf_map *map __u32 When working with typed maps Returns BTF type ID for map key, enabling type-aware operations bpf_map__btf_value_type_id Get BTF value type ID const struct bpf_map *map __u32 When working with typed maps Returns BTF type ID for map value, used for type verification bpf_map__delete_elem Delete map element const struct bpf_map *map, const void *key, size_t key_sz, __u64 flags int When removing key-value pairs High-level wrapper for deleting map elements with size validation bpf_map__fd Get map file descriptor const struct bpf_map *map int When you need raw FD for operations Returns underlying file descriptor for direct map operations bpf_map__get_next_key Get next key in map const struct bpf_map *map, const void *cur_key, void *next_key, size_t key_sz int When iterating through map keys Retrieves next key for map iteration, returns -ENOENT when reaching end bpf_map__get_pin_path Get map pin path const struct bpf_map *map const char * When checking map persistence Returns filesystem path where map is pinned, NULL if not pinned bpf_map__ifindex Get map network interface index const struct bpf_map *map __u32 When working with device maps Returns network interface index for device-specific maps bpf_map__initial_value Get map initial value const struct bpf_map *map, size_t *psize void * When accessing global data Returns pointer to initial data for global variable maps (bss, data, rodata) bpf_map__inner_map Get inner map template struct bpf_map *map struct bpf_map * When working with map-in-map Returns template map for map-in-map types (array of maps, hash of maps) bpf_map__is_internal Check if map is internal const struct bpf_map *map bool When filtering map types Returns true for internal maps created by libbpf (global vars, externs) bpf_map__is_pinned Check if map is pinned const struct bpf_map *map bool When checking map persistence Returns whether map is currently pinned to filesystem bpf_map__key_size Get map key size const struct bpf_map *map __u32 When validating key sizes Returns size in bytes of map keys bpf_map__lookup_and_delete_elem Lookup and delete atomically const struct bpf_map *map, const void *key, size_t key_sz, void *value, size_t value_sz, __u64 flags int When implementing queues/stacks Atomically retrieves and removes element, useful for FIFO/LIFO operations bpf_map__lookup_elem Lookup map element const struct bpf_map *map, const void *key, size_t key_sz, void *value, size_t value_sz, __u64 flags int When reading map values High-level wrapper for map lookups with size validation bpf_map__map_extra Get map extra parameters const struct bpf_map *map __u64 When accessing map-specific data Returns map-specific extra data (bloom filter hash count, etc.) bpf_map__map_flags Get map flags const struct bpf_map *map __u32 When checking map properties Returns map creation flags (NO_PREALLOC, NUMA_NODE, etc.) bpf_map__max_entries Get maximum entries const struct bpf_map *map __u32 When checking map capacity Returns maximum number of entries the map can hold bpf_map__name Get map name const struct bpf_map *map const char * When identifying maps Returns name of the map as defined in BPF program bpf_map__numa_node Get NUMA node const struct bpf_map *map __u32 When checking NUMA placement Returns NUMA node where map memory is allocated bpf_map__pin Pin map to filesystem struct bpf_map *map, const char *path int When persisting maps Pins map to BPF filesystem for persistence beyond process lifetime bpf_map__pin_path Get pin path const struct bpf_map *map const char * When checking pin location Returns filesystem path where map is pinned bpf_map__reuse_fd Reuse existing map FD struct bpf_map *map, int fd int When sharing maps between processes Makes map object use existing file descriptor instead of creating new map bpf_map__set_autoattach Set auto-attach behavior struct bpf_map *map, bool autoattach int When controlling attachment Sets whether map automatically attaches during skeleton attach phase bpf_map__set_autocreate Set auto-create behavior struct bpf_map *map, bool autocreate int When controlling creation Sets whether map is automatically created during object load bpf_map__set_ifindex Set network interface index struct bpf_map *map, __u32 ifindex int When binding to specific device Sets network interface for device-specific maps bpf_map__set_initial_value Set initial map value struct bpf_map *map, const void *data, size_t size int When initializing global data Sets initial data for global variable maps bpf_map__set_inner_map_fd Set inner map FD struct bpf_map *map, int fd int When configuring map-in-map Sets template map for map-in-map types bpf_map__set_key_size Set key size struct bpf_map *map, __u32 size int When configuring map before load Sets size of map keys, must be called before object load bpf_map__set_map_extra Set map extra parameters struct bpf_map *map, __u64 map_extra int When setting map-specific options Sets map-specific extra parameters bpf_map__set_map_flags Set map flags struct bpf_map *map, __u32 flags int When configuring map behavior Sets map creation flags before load bpf_map__set_max_entries Set maximum entries struct bpf_map *map, __u32 max_entries int When sizing maps Sets maximum number of entries, must be called before load bpf_map__set_numa_node Set NUMA node struct bpf_map *map, __u32 numa_node int When optimizing memory placement Sets NUMA node for map memory allocation bpf_map__set_pin_path Set pin path struct bpf_map *map, const char *path int When configuring persistence Sets filesystem path for map pinning bpf_map__set_type Set map type struct bpf_map *map, enum bpf_map_type type int When changing map type Changes map type, must be called before object load bpf_map__set_value_size Set value size struct bpf_map *map, __u32 size int When configuring value size Sets size of map values, can resize global data sections bpf_map__type Get map type const struct bpf_map *map enum bpf_map_type When checking map type Returns the type of the map (HASH, ARRAY, etc.) bpf_map__unpin Unpin map from filesystem struct bpf_map *map, const char *path int When removing persistence Removes map from filesystem, decrementing reference count bpf_map__update_elem Update map element const struct bpf_map *map, const void *key, size_t key_sz, const void *value, size_t value_sz, __u64 flags int When writing to maps High-level wrapper for map updates with size validation bpf_map__value_size Get value size const struct bpf_map *map __u32 When validating value sizes Returns size in bytes of map values bpf_map_create Create new map enum bpf_map_type map_type, const char *map_name, __u32 key_size, __u32 value_size, __u32 max_entries, const struct bpf_map_create_opts *opts int When creating maps programmatically Low-level map creation with precise control over all parameters 4. BPF Object Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_object__attach_skeleton Attach skeleton programs struct bpf_object_skeleton *s int When using skeleton-based loading Attaches all programs in skeleton to their respective hook points bpf_object__btf Get object’s BTF const struct bpf_object *obj struct btf * When accessing type information Returns BTF object associated with BPF object for type introspection bpf_object__btf_fd Get BTF file descriptor const struct bpf_object *obj int When you need BTF FD Returns file descriptor of BTF object associated with BPF object bpf_object__close Close BPF object struct bpf_object *obj void When cleaning up Frees all resources associated with BPF object bpf_object__destroy_skeleton Destroy skeleton struct bpf_object_skeleton *s void When cleaning up skeleton Frees all skeleton resources including maps, programs, and links bpf_object__destroy_subskeleton Destroy subskeleton struct bpf_object_subskeleton *s void When cleaning up subskeleton Frees subskeleton resources for partial object access bpf_object__detach_skeleton Detach skeleton programs struct bpf_object_skeleton *s void When detaching all programs Detaches all programs in skeleton from their hook points bpf_object__find_map_by_name Find map by name const struct bpf_object *obj, const char *name struct bpf_map * When accessing specific maps Locates map within object by name, returns NULL if not found bpf_object__find_map_fd_by_name Find map FD by name const struct bpf_object *obj, const char *name int When you need map FD directly Returns file descriptor of named map, -1 if not found bpf_object__find_program_by_name Find program by name const struct bpf_object *obj, const char *name struct bpf_program * When accessing specific programs Locates program within object by name bpf_object__gen_loader Generate loader program struct bpf_object *obj, struct gen_loader_opts *opts int When creating loader programs Generates BPF program that can load the object at runtime bpf_object__kversion Get kernel version const struct bpf_object *obj unsigned int When checking version requirements Returns kernel version the object was compiled for bpf_object__load Load object into kernel struct bpf_object *obj int When loading all programs and maps Loads all programs and maps in object into kernel bpf_object__load_skeleton Load skeleton struct bpf_object_skeleton *s int When using skeleton loading Loads all skeleton components into kernel bpf_object__name Get object name const struct bpf_object *obj const char * When identifying objects Returns name of the BPF object bpf_object__next_map Get next map const struct bpf_object *obj, const struct bpf_map *map struct bpf_map * When iterating through maps Iterates through all maps in object, NULL to start bpf_object__next_program Get next program const struct bpf_object *obj, struct bpf_program *prog struct bpf_program * When iterating through programs Iterates through all programs in object, NULL to start bpf_object__open Open BPF object file const char *path struct bpf_object * When loading from ELF file Opens and parses BPF ELF object file bpf_object__open_file Open with options const char *path, const struct bpf_object_open_opts *opts struct bpf_object * When you need open options Extended open with options like BTF custom path bpf_object__open_mem Open from memory const void *obj_buf, size_t obj_buf_sz, const struct bpf_object_open_opts *opts struct bpf_object * When loading from memory buffer Opens BPF object from memory buffer instead of file bpf_object__open_skeleton Open skeleton struct bpf_object_skeleton *s, const struct bpf_object_open_opts *opts int When using skeleton loading Opens skeleton object with specified options bpf_object__open_subskeleton Open subskeleton struct bpf_object_subskeleton *s int When accessing partial object Opens subskeleton for accessing subset of object components bpf_object__pin Pin entire object struct bpf_object *object, const char *path int When persisting entire object Pins all maps and programs in object to filesystem directory bpf_object__pin_maps Pin all maps struct bpf_object *obj, const char *path int When persisting maps only Pins all maps in object to specified directory bpf_object__pin_programs Pin all programs struct bpf_object *obj, const char *path int When persisting programs Pins all programs in object to filesystem directory bpf_object__prev_map Get previous map const struct bpf_object *obj, const struct bpf_map *map struct bpf_map * When reverse-iterating maps Reverse iteration through maps in object bpf_object__prev_program Get previous program const struct bpf_object *obj, struct bpf_program *prog struct bpf_program * When reverse-iterating programs Reverse iteration through programs in object bpf_object__set_kversion Set kernel version struct bpf_object *obj, __u32 kern_version int When targeting specific kernel Sets target kernel version for compatibility bpf_object__token_fd Get token file descriptor const struct bpf_object *obj int When using delegation tokens Returns BPF token FD for permission delegation bpf_object__unpin Unpin entire object struct bpf_object *object, const char *path int When removing object persistence Unpins all object components from filesystem bpf_object__unpin_maps Unpin all maps struct bpf_object *obj, const char *path int When removing map persistence Unpins all maps from filesystem directory bpf_object__unpin_programs Unpin all programs struct bpf_object *obj, const char *path int When removing program persistence Unpins all programs from filesystem directory 5. BPF Program Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_program__attach Generic program attachment const struct bpf_program *prog struct bpf_link * When using auto-detection Automatically detects program type and attaches appropriately bpf_program__attach_cgroup Attach to cgroup const struct bpf_program *prog, int cgroup_fd struct bpf_link * When filtering cgroup operations Attaches program to cgroup for network or process filtering bpf_program__attach_freplace Attach as function replacement const struct bpf_program *prog, int target_fd, const char *attach_func_name struct bpf_link * When replacing kernel functions Replaces existing BPF program function with new implementation bpf_program__attach_iter Attach to iterator const struct bpf_program *prog, const struct bpf_iter_attach_opts *opts struct bpf_link * When creating BPF iterators Attaches program to BPF iterator for custom data traversal bpf_program__attach_kprobe Attach to kernel probe const struct bpf_program *prog, bool retprobe, const char *func_name struct bpf_link * When tracing kernel functions Attaches to kernel function entry or exit for tracing bpf_program__attach_kprobe_multi_opts Attach to multiple kprobes const struct bpf_program *prog, const char *pattern, const struct bpf_kprobe_multi_opts *opts struct bpf_link * When tracing multiple functions Attaches to multiple kernel functions matching pattern bpf_program__attach_kprobe_opts Attach kprobe with options const struct bpf_program *prog, const char *func_name, const struct bpf_kprobe_opts *opts struct bpf_link * When you need kprobe options Extended kprobe attachment with custom options like offset, cookie bpf_program__attach_ksyscall Attach to system call const struct bpf_program *prog, const char *syscall_name, const struct bpf_ksyscall_opts *opts struct bpf_link * When tracing system calls Attaches to kernel system call handlers with arch-independence bpf_program__attach_lsm Attach to LSM hook const struct bpf_program *prog struct bpf_link * When implementing security policies Attaches to Linux Security Module hooks for security enforcement bpf_program__attach_netfilter Attach to netfilter const struct bpf_program *prog, const struct bpf_netfilter_opts *opts struct bpf_link * When filtering network packets Attaches to netfilter hooks for packet filtering bpf_program__attach_netkit Attach to netkit device const struct bpf_program *prog, int ifindex, const struct bpf_netkit_opts *opts struct bpf_link * When working with netkit devices Attaches program to netkit virtual network device bpf_program__attach_netns Attach to network namespace const struct bpf_program *prog, int netns_fd struct bpf_link * When filtering per-netns Attaches program to specific network namespace bpf_program__attach_perf_event Attach to perf event const struct bpf_program *prog, int pfd struct bpf_link * When monitoring performance Attaches to perf event for performance monitoring bpf_program__attach_perf_event_opts Attach to perf event with options const struct bpf_program *prog, int pfd, const struct bpf_perf_event_opts *opts struct bpf_link * When you need perf options Extended perf event attachment with custom options bpf_program__attach_raw_tracepoint Attach to raw tracepoint const struct bpf_program *prog, const char *tp_name struct bpf_link * When you need low-latency tracing Attaches to raw kernel tracepoints for minimal overhead bpf_program__attach_raw_tracepoint_opts Attach raw tracepoint with options const struct bpf_program *prog, const char *tp_name, struct bpf_raw_tracepoint_opts *opts struct bpf_link * When you need raw tracepoint options Extended raw tracepoint with additional options bpf_program__attach_sockmap Attach to socket map const struct bpf_program *prog, int map_fd struct bpf_link * When redirecting sockets Attaches program to socket map for socket redirection bpf_program__attach_tcx Attach to TC express const struct bpf_program *prog, int ifindex, const struct bpf_tcx_opts *opts struct bpf_link * When using TC express datapath Attaches to traffic control express path for high-performance packet processing bpf_program__attach_trace Attach tracing program const struct bpf_program *prog struct bpf_link * When tracing with fentry/fexit Attaches tracing programs like fentry, fexit, fmod_ret bpf_program__attach_trace_opts Attach trace with options const struct bpf_program *prog, const struct bpf_trace_opts *opts struct bpf_link * When you need trace options Extended tracing attachment with additional options bpf_program__attach_tracepoint Attach to tracepoint const struct bpf_program *prog, const char *tp_category, const char *tp_name struct bpf_link * When tracing specific events Attaches to kernel tracepoints for event monitoring bpf_program__attach_tracepoint_opts Attach tracepoint with options const struct bpf_program *prog, const char *tp_category, const char *tp_name, const struct bpf_tracepoint_opts *opts struct bpf_link * When you need tracepoint options Extended tracepoint attachment with custom options bpf_program__attach_uprobe Attach to user probe const struct bpf_program *prog, bool retprobe, pid_t pid, const char *binary_path, size_t func_offset struct bpf_link * When tracing userspace functions Attaches to userspace function for application tracing bpf_program__attach_uprobe_multi Attach to multiple uprobes const struct bpf_program *prog, pid_t pid, const char *binary_path, const char *func_pattern, const struct bpf_uprobe_multi_opts *opts struct bpf_link * When tracing multiple user functions Attaches to multiple userspace functions matching pattern bpf_program__attach_uprobe_opts Attach uprobe with options const struct bpf_program *prog, pid_t pid, const char *binary_path, size_t func_offset, const struct bpf_uprobe_opts *opts struct bpf_link * When you need uprobe options Extended uprobe attachment with custom options bpf_program__attach_usdt Attach to USDT probe const struct bpf_program *prog, pid_t pid, const char *binary_path, const char *usdt_provider, const char *usdt_name, const struct bpf_usdt_opts *opts struct bpf_link * When tracing USDT probes Attaches to User Statically Defined Tracepoints bpf_program__attach_xdp Attach to XDP const struct bpf_program *prog, int ifindex struct bpf_link * When processing packets at driver level Attaches XDP program to network interface for early packet processing bpf_program__autoattach Check auto-attach status const struct bpf_program *prog bool When checking attachment behavior Returns whether program will auto-attach during skeleton attach bpf_program__autoload Check auto-load status const struct bpf_program *prog bool When checking load behavior Returns whether program will be loaded automatically bpf_program__expected_attach_type Get expected attach type const struct bpf_program *prog enum bpf_attach_type When querying attach requirements Returns the expected attachment type for the program bpf_program__fd Get program file descriptor const struct bpf_program *prog int When you need raw FD Returns underlying file descriptor for direct operations bpf_program__flags Get program flags const struct bpf_program *prog __u32 When checking program properties Returns program load flags bpf_program__get_expected_attach_type Get expected attach type const struct bpf_program *prog enum bpf_attach_type When querying attachment requirements Alias for bpf_program__expected_attach_type bpf_program__get_type Get program type const struct bpf_program *prog enum bpf_prog_type When checking program type Returns the BPF program type bpf_program__insn_cnt Get instruction count const struct bpf_program *prog size_t When analyzing program size Returns number of BPF instructions in program bpf_program__insns Get program instructions const struct bpf_program *prog const struct bpf_insn * When analyzing program code Returns pointer to BPF instruction array bpf_program__log_buf Get program log buffer const struct bpf_program *prog, size_t *log_size const char * When debugging program loading Returns verifier log buffer for debugging bpf_program__log_level Get log level const struct bpf_program *prog __u32 When checking debug settings Returns current verifier log level bpf_program__name Get program name const struct bpf_program *prog const char * When identifying programs Returns name of the BPF program bpf_program__pin Pin program to filesystem struct bpf_program *prog, const char *path int When persisting programs Pins program to BPF filesystem for persistence bpf_program__section_name Get section name const struct bpf_program *prog const char * When checking program source Returns ELF section name where program was defined bpf_program__set_attach_target Set attach target struct bpf_program *prog, int attach_prog_fd, const char *attach_func_name int When setting BTF attach targets Sets target for BTF-aware programs (fentry, fexit, etc.) bpf_program__set_autoattach Set auto-attach behavior struct bpf_program *prog, bool autoattach void When controlling attachment Sets whether program auto-attaches during skeleton attach bpf_program__set_autoload Set auto-load behavior struct bpf_program *prog, bool autoload int When controlling loading Sets whether program loads automatically bpf_program__set_expected_attach_type Set expected attach type struct bpf_program *prog, enum bpf_attach_type type int When configuring attachment Sets expected attachment type for program bpf_program__set_flags Set program flags struct bpf_program *prog, __u32 flags int When configuring load behavior Sets program loading flags bpf_program__set_ifindex Set interface index struct bpf_program *prog, __u32 ifindex void When targeting specific interfaces Sets network interface index for device-specific programs bpf_program__set_insns Set program instructions struct bpf_program *prog, struct bpf_insn *new_insns, size_t new_insn_cnt int When modifying program code Replaces program instructions (advanced use only) bpf_program__set_log_buf Set log buffer struct bpf_program *prog, char *log_buf, size_t log_size int When capturing verifier output Sets buffer for verifier log messages bpf_program__set_log_level Set log level struct bpf_program *prog, __u32 log_level int When configuring debug output Sets verifier log verbosity level bpf_program__set_type Set program type struct bpf_program *prog, enum bpf_prog_type type int When changing program type Sets BPF program type, must be called before load bpf_program__type Get program type const struct bpf_program *prog enum bpf_prog_type When checking program type Returns the BPF program type bpf_program__unload Unload program struct bpf_program *prog void When removing from kernel Removes program from kernel, making it loadable again bpf_program__unpin Unpin program struct bpf_program *prog, const char *path int When removing persistence Removes program from filesystem 6. Ring Buffer Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation ring_buffer__new Create ring buffer manager int map_fd, ring_buffer_sample_fn sample_cb, void *ctx, const struct ring_buffer_opts *opts struct ring_buffer * When setting up efficient data transfer Creates ring buffer manager for high-performance data streaming from kernel to userspace ring_buffer__free Free ring buffer struct ring_buffer *rb void When cleaning up Frees all resources associated with ring buffer manager ring_buffer__add Add ring buffer struct ring_buffer *rb, int map_fd, ring_buffer_sample_fn sample_cb, void *ctx int When managing multiple ring buffers Adds additional ring buffer to existing manager ring_buffer__poll Poll for data struct ring_buffer *rb, int timeout_ms int When waiting for data Polls ring buffer for new data with timeout ring_buffer__consume Consume available data struct ring_buffer *rb int When processing all available data Consumes all available data without blocking ring_buffer__consume_n Consume N records struct ring_buffer *rb, size_t n int When limiting processing Consumes up to N records from ring buffer ring_buffer__epoll_fd Get epoll file descriptor const struct ring_buffer *rb int When integrating with event loops Returns FD for epoll integration in event-driven applications ring_buffer__ring Get individual ring struct ring_buffer *rb, unsigned int idx struct ring * When accessing specific rings Returns specific ring buffer instance from manager user_ring_buffer__new Create user ring buffer int map_fd, const struct user_ring_buffer_opts *opts struct user_ring_buffer * When userspace needs to send data to kernel Creates ring buffer for userspace-to-kernel communication user_ring_buffer__reserve Reserve buffer space struct user_ring_buffer *rb, __u32 size void * When writing to ring buffer Reserves space in ring buffer for writing data user_ring_buffer__reserve_blocking Reserve with blocking struct user_ring_buffer *rb, __u32 size, int timeout_ms void * When blocking until space available Blocks until space becomes available in ring buffer user_ring_buffer__submit Submit reserved data struct user_ring_buffer *rb, void *sample void When finalizing data write Submits previously reserved data to ring buffer user_ring_buffer__discard Discard reserved data struct user_ring_buffer *rb, void *sample void When canceling write operation Discards previously reserved space without writing user_ring_buffer__free Free user ring buffer struct user_ring_buffer *rb void When cleaning up Frees user ring buffer resources 7. Performance Buffer Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation perf_buffer__new Create performance buffer int map_fd, size_t page_cnt, perf_buffer_sample_fn sample_cb, perf_buffer_lost_fn lost_cb, void *ctx, const struct perf_buffer_opts *opts struct perf_buffer * When using perf events for data transfer Creates performance event buffer for kernel-to-userspace communication perf_buffer__new_raw Create raw performance buffer int map_fd, size_t page_cnt, struct perf_event_attr *attr, perf_buffer_event_fn event_cb, void *ctx, const struct perf_buffer_raw_opts *opts struct perf_buffer * When you need custom perf event attributes Creates perf buffer with custom performance event configuration perf_buffer__free Free performance buffer struct perf_buffer *pb void When cleaning up Frees all performance buffer resources perf_buffer__epoll_fd Get epoll file descriptor const struct perf_buffer *pb int When integrating with event loops Returns FD for epoll integration perf_buffer__poll Poll for events struct perf_buffer *pb, int timeout_ms int When waiting for perf events Polls performance buffer for new events perf_buffer__consume Consume all events struct perf_buffer *pb int When processing all available events Consumes all available events without blocking perf_buffer__consume_buffer Consume specific buffer struct perf_buffer *pb, size_t buf_idx int When processing specific CPU buffer Consumes events from specific per-CPU buffer perf_buffer__buffer_cnt Get buffer count const struct perf_buffer *pb size_t When checking buffer configuration Returns number of per-CPU buffers perf_buffer__buffer_fd Get buffer file descriptor const struct perf_buffer *pb, size_t buf_idx int When accessing specific buffer FD Returns FD for specific per-CPU buffer perf_buffer__buffer Get raw buffer data struct perf_buffer *pb, int buf_idx, void **buf, size_t *buf_size int When implementing custom event processing Returns raw mmap’d buffer for custom processing 8. Utility Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation libbpf_get_error Extract error from pointer const void *ptr long When checking libbpf API errors Extracts error code from libbpf function pointers (deprecated in 1.0) libbpf_major_version Get major version void __u32 When checking libbpf version Returns major version number of libbpf library libbpf_minor_version Get minor version void __u32 When checking libbpf version Returns minor version number of libbpf library libbpf_version_string Get version string void const char * When displaying version info Returns human-readable version string libbpf_strerror Get error string int err, char *buf, size_t size int When formatting error messages Converts error code to human-readable string libbpf_set_print Set print callback libbpf_print_fn_t fn libbpf_print_fn_t When customizing debug output Sets custom function for libbpf debug/error messages libbpf_num_possible_cpus Get CPU count void int When sizing per-CPU data structures Returns number of possible CPUs for per-CPU map sizing libbpf_find_kernel_btf Find kernel BTF void struct btf * When accessing kernel type info Locates and loads kernel BTF for type information libbpf_find_vmlinux_btf_id Find kernel function BTF ID const char *name, enum bpf_attach_type attach_type int When working with kernel functions Finds BTF ID for kernel function by name libbpf_attach_type_by_name Get attach type by name const char *name, enum bpf_attach_type *attach_type int When parsing attach type strings Converts attach type name to enum value libbpf_prog_type_by_name Get program type by name const char *name, enum bpf_prog_type *prog_type, enum bpf_attach_type *expected_attach_type int When parsing program type strings Converts program type name to enum values libbpf_bpf_attach_type_str Get attach type string enum bpf_attach_type t const char * When displaying attach types Converts attach type enum to string representation libbpf_bpf_link_type_str Get link type string enum bpf_link_type t const char * When displaying link types Converts link type enum to string representation libbpf_bpf_map_type_str Get map type string enum bpf_map_type t const char * When displaying map types Converts map type enum to string representation libbpf_bpf_prog_type_str Get program type string enum bpf_prog_type t const char * When displaying program types Converts program type enum to string representation libbpf_probe_bpf_helper Probe helper availability enum bpf_prog_type prog_type, enum bpf_func_id helper_id, const void *opts int When checking feature support Tests if specific helper is available for program type libbpf_probe_bpf_map_type Probe map type support enum bpf_map_type map_type, const void *opts int When checking map support Tests if specific map type is supported by kernel libbpf_probe_bpf_prog_type Probe program type support enum bpf_prog_type prog_type, const void *opts int When checking program support Tests if specific program type is supported libbpf_set_memlock_rlim Set memory lock limit size_t memlock_bytes int When configuring memory limits Sets RLIMIT_MEMLOCK for BPF memory allocation libbpf_set_strict_mode Set strict mode enum libbpf_strict_mode mode int When enabling strict error handling Enables strict mode for cleaner error handling libbpf_register_prog_handler Register program handler const char *sec, enum bpf_prog_type prog_type, enum bpf_attach_type exp_attach_type, const struct libbpf_prog_handler_opts *opts int When extending libbpf Registers custom program section handler libbpf_unregister_prog_handler Unregister program handler int handler_id int When cleaning up handlers Removes previously registered program handler 9. BPF Linker Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_linker__new Create new linker const char *filename, struct bpf_linker_opts *opts struct bpf_linker * When linking multiple BPF objects Creates linker for combining multiple BPF object files bpf_linker__add_file Add file to linker struct bpf_linker *linker, const char *filename, const struct bpf_linker_file_opts *opts int When adding object files Adds BPF object file to linker for combination bpf_linker__finalize Finalize linking struct bpf_linker *linker int When completing link process Finalizes linking process and generates output bpf_linker__free Free linker struct bpf_linker *linker void When cleaning up linker Frees all linker resources 10. Low-Level BPF System Call Wrappers Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_enable_stats Enable BPF statistics enum bpf_stats_type type int When enabling runtime statistics Enables BPF runtime statistics collection bpf_iter_create Create BPF iterator int link_fd int When creating custom iterators Creates iterator from BPF link for data traversal bpf_obj_get Get object from filesystem const char *pathname int When loading pinned objects Loads pinned BPF object from filesystem bpf_obj_get_info_by_fd Get object info by FD int bpf_fd, void *info, __u32 *info_len int When querying object metadata Generic object information retrieval bpf_obj_get_opts Get object with options const char *pathname, const struct bpf_obj_get_opts *opts int When loading with specific options Extended object loading with options bpf_obj_pin Pin object to filesystem int fd, const char *pathname int When persisting objects Pins BPF object to filesystem for persistence bpf_obj_pin_opts Pin object with options int fd, const char *pathname, const struct bpf_obj_pin_opts *opts int When pinning with options Extended pinning with additional options bpf_prog_attach Attach program int prog_fd, int attachable_fd, enum bpf_attach_type type, unsigned int flags int When attaching with raw FDs Low-level program attachment using file descriptors bpf_prog_attach_opts Attach program with options int prog_fd, int target, enum bpf_attach_type type, const struct bpf_prog_attach_opts *opts int When you need attach options Extended program attachment with additional options bpf_prog_bind_map Bind program to map int prog_fd, int map_fd, const struct bpf_prog_bind_opts *opts int When pre-binding programs to maps Associates program with map for optimization bpf_prog_detach Detach program int attachable_fd, enum bpf_attach_type type int When detaching by type Detaches program from attachment point by type bpf_prog_detach2 Detach specific program int prog_fd, int attachable_fd, enum bpf_attach_type type int When detaching specific program Detaches specific program by file descriptor bpf_prog_detach_opts Detach with options int prog_fd, int target, enum bpf_attach_type type, const struct bpf_prog_detach_opts *opts int When you need detach options Extended program detachment with options bpf_prog_get_fd_by_id Get program FD by ID __u32 id int When accessing program by ID Returns file descriptor for program with specified ID bpf_prog_get_fd_by_id_opts Get program FD with options __u32 id, const struct bpf_get_fd_by_id_opts *opts int When you need access options Extended FD retrieval with options bpf_prog_get_info_by_fd Get program info int prog_fd, struct bpf_prog_info *info, __u32 *info_len int When querying program metadata Retrieves detailed program information bpf_prog_get_next_id Get next program ID __u32 start_id, __u32 *next_id int When enumerating programs Iterates through all loaded programs bpf_prog_load Load program into kernel enum bpf_prog_type prog_type, const char *prog_name, const char *license, const struct bpf_insn *insns, size_t insn_cnt, struct bpf_prog_load_opts *opts int When loading with precise control Low-level program loading with full control over parameters bpf_prog_query Query attached programs int target_fd, enum bpf_attach_type type, __u32 query_flags, __u32 *attach_flags, __u32 *prog_ids, __u32 *prog_cnt int When listing attached programs Queries programs attached to specific target bpf_prog_query_opts Query with options int target, enum bpf_attach_type type, struct bpf_prog_query_opts *opts int When you need query options Extended program querying with options bpf_prog_test_run_opts Test program execution int prog_fd, struct bpf_test_run_opts *opts int When testing programs Runs program in test mode with provided input bpf_raw_tracepoint_open Open raw tracepoint const char *name, int prog_fd int When using raw tracepoints Opens raw tracepoint for minimal-overhead tracing bpf_raw_tracepoint_open_opts Open raw tracepoint with options int prog_fd, struct bpf_raw_tp_opts *opts int When you need raw tracepoint options Extended raw tracepoint opening bpf_task_fd_query Query task file descriptor int pid, int fd, __u32 flags, char *buf, __u32 *buf_len, __u32 *prog_id, __u32 *fd_type, __u64 *probe_offset, __u64 *probe_addr int When debugging attachments Queries information about BPF programs attached to task bpf_token_create Create BPF token int bpffs_fd, struct bpf_token_create_opts *opts int When delegating permissions Creates token for permission delegation to non-privileged processes 11. Traffic Control Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_tc_attach Attach TC program const struct bpf_tc_hook *hook, struct bpf_tc_opts *opts int When attaching to traffic control Attaches BPF program to traffic control hook for packet processing bpf_tc_detach Detach TC program const struct bpf_tc_hook *hook, const struct bpf_tc_opts *opts int When removing TC attachment Detaches BPF program from traffic control hook bpf_tc_hook_create Create TC hook struct bpf_tc_hook *hook int When setting up TC infrastructure Creates traffic control hook for program attachment bpf_tc_hook_destroy Destroy TC hook struct bpf_tc_hook *hook int When cleaning up TC hooks Destroys traffic control hook bpf_tc_query Query TC programs const struct bpf_tc_hook *hook, struct bpf_tc_opts *opts int When listing TC programs Queries programs attached to traffic control hook 12. XDP Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_xdp_attach Attach XDP program int ifindex, int prog_fd, __u32 flags, const struct bpf_xdp_attach_opts *opts int When attaching to network interface Attaches XDP program to network interface for early packet processing bpf_xdp_detach Detach XDP program int ifindex, __u32 flags, const struct bpf_xdp_attach_opts *opts int When removing XDP attachment Detaches XDP program from network interface bpf_xdp_query Query XDP programs int ifindex, int flags, struct bpf_xdp_query_opts *opts int When checking XDP status Queries XDP programs attached to interface bpf_xdp_query_id Query XDP program ID int ifindex, int flags, __u32 *prog_id int When getting attached program ID Returns ID of XDP program attached to interface Google Doc Link : https://docs.google.com/document/d/1ZgRbRbFUFqVlhRi7jPir8cwVJ1i7Gw_YY1rJ-TLNPSY/edit?usp=sharing ",
+  "wordCount" : "6203",
+  "inLanguage": "en",
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "0001-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/blog/ebpf/a-comprehensive-guide-to-libbpf-functions/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hanshal Mehta",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header sticky-header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Hanshal Mehta (Alt + H)">Hanshal Mehta</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/blog" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/experience" title="Experience">
+                    <span>Experience</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/open-source" title="Open Source">
+                    <span>Open Source</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/blog/">Blogs</a>&nbsp;»&nbsp;<a href="http://localhost:1313/blog/ebpf/">Unlocking Linux Superpowers: A DEEP guide to eBPF</a></div>
+    <h1 class="post-title">
+      The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions
+    </h1>
+    <div class="post-meta">
+
+
+30th June 2025
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">‎ Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#motivation" aria-label="Motivation">Motivation</a></li>
+                <li>
+                    <a href="#1-btf-bpf-type-format-functions" aria-label="1. BTF (BPF Type Format) Functions">1. BTF (BPF Type Format) Functions</a></li>
+                <li>
+                    <a href="#2-bpf-link-management-functions" aria-label="2. BPF Link Management Functions">2. BPF Link Management Functions</a></li>
+                <li>
+                    <a href="#3-bpf-map-functions" aria-label="3. BPF Map Functions">3. BPF Map Functions</a></li>
+                <li>
+                    <a href="#4-bpf-object-functions" aria-label="4. BPF Object Functions">4. BPF Object Functions</a></li>
+                <li>
+                    <a href="#5-bpf-program-functions" aria-label="5. BPF Program Functions">5. BPF Program Functions</a></li>
+                <li>
+                    <a href="#6-ring-buffer-functions" aria-label="6. Ring Buffer Functions">6. Ring Buffer Functions</a></li>
+                <li>
+                    <a href="#7-performance-buffer-functions" aria-label="7. Performance Buffer Functions">7. Performance Buffer Functions</a></li>
+                <li>
+                    <a href="#8-utility-functions" aria-label="8. Utility Functions">8. Utility Functions</a></li>
+                <li>
+                    <a href="#9-bpf-linker-functions" aria-label="9. BPF Linker Functions">9. BPF Linker Functions</a></li>
+                <li>
+                    <a href="#10-low-level-bpf-system-call-wrappers" aria-label="10. Low-Level BPF System Call Wrappers">10. Low-Level BPF System Call Wrappers</a></li>
+                <li>
+                    <a href="#11-traffic-control-functions" aria-label="11. Traffic Control Functions">11. Traffic Control Functions</a></li>
+                <li>
+                    <a href="#12-xdp-functions" aria-label="12. XDP Functions">12. XDP Functions</a><ul>
+                        
+                <li>
+                    <a href="#google-doc-link--httpsdocsgooglecomdocumentd1zgrbrbfufqvlhri7jpir8cwvj1i7gw_yy1rj-tlnpsyedituspsharing" aria-label="Google Doc Link : https://docs.google.com/document/d/1ZgRbRbFUFqVlhRi7jPir8cwVJ1i7Gw_YY1rJ-TLNPSY/edit?usp=sharing">Google Doc Link : <a href="https://docs.google.com/document/d/1ZgRbRbFUFqVlhRi7jPir8cwVJ1i7Gw_YY1rJ-TLNPSY/edit?usp=sharing">https://docs.google.com/document/d/1ZgRbRbFUFqVlhRi7jPir8cwVJ1i7Gw_YY1rJ-TLNPSY/edit?usp=sharing</a></a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="motivation">Motivation<a hidden class="anchor" aria-hidden="true" href="#motivation">#</a></h2>
+<p>The extended Berkeley Packet Filter (eBPF) has rapidly evolved from a low-level packet filtering mechanism to a powerful framework for building high-performance, programmable applications within the Linux kernel. As its ecosystem has grown, so too has the complexity of its supporting libraries. One of the famous and most reliable library developers uses is libbpf.</p>
+<p>For developers diving into eBPF, libbpf serves as the essential user-space library to interact with BPF objects, manage maps and programs, handle kernel integration, and access advanced features like BTF (BPF Type Format). However, despite its critical role, libbpf&rsquo;s documentation remains fragmented, and many of its functions are poorly understood or underutilized.</p>
+<p>I am writting this post to change that.</p>
+<p>In this comprehensive reference guide, you&rsquo;ll find categorized, structured documentation of libbpf functions, complete with parameters, return types, use cases, and practical explanations. Whether you&rsquo;re building observability tools, network filters, or system profilers, this guide is designed to help you quickly locate and understand the exact function you need.</p>
+<p>For reference I have taken the following libraries into consideration:
+<strong><a href="https://github.com/libbpf/libbpf"><code>libbpf</code></a> (C/C++) and <a href="https://github.com/libbpf/libbpf-rs"><code>libbpf-rs</code></a> (Rust - I Code a lot here)</strong> the two most widely used APIs for managing eBPF programs, maps, links, and metadata.</p>
+<p>On top of that I&rsquo;ll be attaching a Google Doc at the end, just incase you wish to download this guide and modify according to your preferences.</p>
+<h2 id="1-btf-bpf-type-format-functions">1. BTF (BPF Type Format) Functions<a hidden class="anchor" aria-hidden="true" href="#1-btf-bpf-type-format-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_btf_get_fd_by_id</code></td>
+<td style="text-align:left">Get BTF file descriptor by ID</td>
+<td style="text-align:left"><code>__u32 id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need to access BTF object with known ID</td>
+<td style="text-align:left">Returns file descriptor for BTF object with given ID. Useful for introspection tools to examine type information of loaded programs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_btf_get_fd_by_id_opts</code></td>
+<td style="text-align:left">Get BTF file descriptor by ID with options</td>
+<td style="text-align:left"><code>__u32 id</code>, <code>const struct bpf_get_fd_by_id_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need BTF access with specific options</td>
+<td style="text-align:left">Extended version with options like token_fd for permission delegation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_btf_get_info_by_fd</code></td>
+<td style="text-align:left">Get BTF information by file descriptor</td>
+<td style="text-align:left"><code>int btf_fd</code>, <code>struct bpf_btf_info *info</code>, <code>__u32 *info_len</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need metadata about BTF object</td>
+<td style="text-align:left">Populates BTF object information structure with metadata like name, BTF data size, etc.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_btf_get_next_id</code></td>
+<td style="text-align:left">Get next BTF ID</td>
+<td style="text-align:left"><code>__u32 start_id</code>, <code>__u32 *next_id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">For iterating through all BTF objects</td>
+<td style="text-align:left">Used by introspection tools to enumerate all loaded BTF objects in the system</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_btf_load</code></td>
+<td style="text-align:left">Load BTF data into kernel</td>
+<td style="text-align:left"><code>const void *btf_data</code>, <code>size_t btf_size</code>, <code>struct bpf_btf_load_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When loading BTF type information</td>
+<td style="text-align:left">Loads BTF blob into kernel, returns BTF file descriptor for use with maps and programs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>btf__new</code></td>
+<td style="text-align:left">Create new BTF object from raw data</td>
+<td style="text-align:left"><code>const void *data</code>, <code>__u32 size</code></td>
+<td style="text-align:left"><code>struct btf *</code></td>
+<td style="text-align:left">When parsing BTF from ELF or raw bytes</td>
+<td style="text-align:left">Creates BTF object instance from raw BTF section data, used during program loading</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>btf__free</code></td>
+<td style="text-align:left">Free BTF object</td>
+<td style="text-align:left"><code>struct btf *btf</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up BTF resources</td>
+<td style="text-align:left">Frees all memory associated with BTF object, should be called for every btf__new()</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>btf__load_into_kernel</code></td>
+<td style="text-align:left">Load BTF into kernel</td>
+<td style="text-align:left"><code>struct btf *btf</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When making BTF available to kernel</td>
+<td style="text-align:left">Uploads BTF object to kernel, making it available for program verification and map creation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>btf__parse</code></td>
+<td style="text-align:left">Parse BTF from file</td>
+<td style="text-align:left"><code>const char *path</code>, <code>struct btf_ext **btf_ext</code></td>
+<td style="text-align:left"><code>struct btf *</code></td>
+<td style="text-align:left">When loading BTF from ELF file</td>
+<td style="text-align:left">Parses BTF section from ELF file, commonly used with compiled BPF programs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-bpf-link-management-functions">2. BPF Link Management Functions<a hidden class="anchor" aria-hidden="true" href="#2-bpf-link-management-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_link__destroy</code></td>
+<td style="text-align:left">Destroy BPF link</td>
+<td style="text-align:left"><code>struct bpf_link *link</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When detaching and cleaning up program</td>
+<td style="text-align:left">Detaches program from kernel hook and frees all associated resources</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__detach</code></td>
+<td style="text-align:left">Detach BPF link</td>
+<td style="text-align:left"><code>struct bpf_link *link</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you want to detach but keep link object</td>
+<td style="text-align:left">Detaches program from hook point but preserves link object for potential reuse</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__disconnect</code></td>
+<td style="text-align:left">Disconnect BPF link</td>
+<td style="text-align:left"><code>struct bpf_link *link</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When severing link connection</td>
+<td style="text-align:left">Disconnects link from underlying kernel attachment without destroying the object</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__fd</code></td>
+<td style="text-align:left">Get link file descriptor</td>
+<td style="text-align:left"><code>const struct bpf_link *link</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need raw FD for operations</td>
+<td style="text-align:left">Returns underlying file descriptor for direct syscall operations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__open</code></td>
+<td style="text-align:left">Open existing link from filesystem</td>
+<td style="text-align:left"><code>const char *path</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When loading pinned link</td>
+<td style="text-align:left">Opens previously pinned link from BPF filesystem</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__pin</code></td>
+<td style="text-align:left">Pin link to filesystem</td>
+<td style="text-align:left"><code>struct bpf_link *link</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When persisting link beyond process lifetime</td>
+<td style="text-align:left">Pins link to BPF filesystem, allowing it to persist after process exits</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__pin_path</code></td>
+<td style="text-align:left">Get pin path of link</td>
+<td style="text-align:left"><code>const struct bpf_link *link</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When checking where link is pinned</td>
+<td style="text-align:left">Returns filesystem path where link is pinned, NULL if not pinned</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__unpin</code></td>
+<td style="text-align:left">Unpin link from filesystem</td>
+<td style="text-align:left"><code>struct bpf_link *link</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing persisted link</td>
+<td style="text-align:left">Removes link from filesystem, decrementing reference count</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__update_map</code></td>
+<td style="text-align:left">Update map associated with link</td>
+<td style="text-align:left"><code>struct bpf_link *link</code>, <code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When changing map for struct_ops</td>
+<td style="text-align:left">Updates the map associated with struct_ops link to different map</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link__update_program</code></td>
+<td style="text-align:left">Update program in link</td>
+<td style="text-align:left"><code>struct bpf_link *link</code>, <code>struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When hot-swapping programs</td>
+<td style="text-align:left">Atomically replaces program in existing link without recreating attachment</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link_create</code></td>
+<td style="text-align:left">Create new BPF link</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>int target_fd</code>, <code>enum bpf_attach_type attach_type</code>, <code>const struct bpf_link_create_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need low-level link control</td>
+<td style="text-align:left">Low-level wrapper around BPF_LINK_CREATE syscall for precise control</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link_detach</code></td>
+<td style="text-align:left">Detach link by FD</td>
+<td style="text-align:left"><code>int link_fd</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When detaching using raw file descriptor</td>
+<td style="text-align:left">Detaches link using its file descriptor directly</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link_get_fd_by_id</code></td>
+<td style="text-align:left">Get link FD by ID</td>
+<td style="text-align:left"><code>__u32 id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When accessing link with known ID</td>
+<td style="text-align:left">Returns file descriptor for link with specified ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link_get_fd_by_id_opts</code></td>
+<td style="text-align:left">Get link FD by ID with options</td>
+<td style="text-align:left"><code>__u32 id</code>, <code>const struct bpf_get_fd_by_id_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When accessing link with options</td>
+<td style="text-align:left">Extended version with additional options like token_fd</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link_get_info_by_fd</code></td>
+<td style="text-align:left">Get link information</td>
+<td style="text-align:left"><code>int link_fd</code>, <code>struct bpf_link_info *info</code>, <code>__u32 *info_len</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When querying link metadata</td>
+<td style="text-align:left">Retrieves link information including type, program ID, and attach information</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link_get_next_id</code></td>
+<td style="text-align:left">Get next link ID</td>
+<td style="text-align:left"><code>__u32 start_id</code>, <code>__u32 *next_id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">For enumerating all links</td>
+<td style="text-align:left">Used by introspection tools to iterate through all links in system</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_link_update</code></td>
+<td style="text-align:left">Update existing link</td>
+<td style="text-align:left"><code>int link_fd</code>, <code>int new_prog_fd</code>, <code>const struct bpf_link_update_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When replacing program in link</td>
+<td style="text-align:left">Updates link to use different program, useful for program hot-swapping</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-bpf-map-functions">3. BPF Map Functions<a hidden class="anchor" aria-hidden="true" href="#3-bpf-map-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_map__attach_struct_ops</code></td>
+<td style="text-align:left">Attach struct_ops map</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When using struct_ops maps</td>
+<td style="text-align:left">Attaches struct_ops map to kernel subsystem, enabling callback function registration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__autoattach</code></td>
+<td style="text-align:left">Check if map auto-attaches</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left">When checking map attachment behavior</td>
+<td style="text-align:left">Returns whether map will automatically attach during skeleton attach phase</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__autocreate</code></td>
+<td style="text-align:left">Check if map auto-creates</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left">When checking map creation behavior</td>
+<td style="text-align:left">Returns whether map will be automatically created during object load</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__btf_key_type_id</code></td>
+<td style="text-align:left">Get BTF key type ID</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When working with typed maps</td>
+<td style="text-align:left">Returns BTF type ID for map key, enabling type-aware operations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__btf_value_type_id</code></td>
+<td style="text-align:left">Get BTF value type ID</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When working with typed maps</td>
+<td style="text-align:left">Returns BTF type ID for map value, used for type verification</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__delete_elem</code></td>
+<td style="text-align:left">Delete map element</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code>, <code>const void *key</code>, <code>size_t key_sz</code>, <code>__u64 flags</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing key-value pairs</td>
+<td style="text-align:left">High-level wrapper for deleting map elements with size validation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__fd</code></td>
+<td style="text-align:left">Get map file descriptor</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need raw FD for operations</td>
+<td style="text-align:left">Returns underlying file descriptor for direct map operations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__get_next_key</code></td>
+<td style="text-align:left">Get next key in map</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code>, <code>const void *cur_key</code>, <code>void *next_key</code>, <code>size_t key_sz</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When iterating through map keys</td>
+<td style="text-align:left">Retrieves next key for map iteration, returns -ENOENT when reaching end</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__get_pin_path</code></td>
+<td style="text-align:left">Get map pin path</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When checking map persistence</td>
+<td style="text-align:left">Returns filesystem path where map is pinned, NULL if not pinned</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__ifindex</code></td>
+<td style="text-align:left">Get map network interface index</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When working with device maps</td>
+<td style="text-align:left">Returns network interface index for device-specific maps</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__initial_value</code></td>
+<td style="text-align:left">Get map initial value</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code>, <code>size_t *psize</code></td>
+<td style="text-align:left"><code>void *</code></td>
+<td style="text-align:left">When accessing global data</td>
+<td style="text-align:left">Returns pointer to initial data for global variable maps (bss, data, rodata)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__inner_map</code></td>
+<td style="text-align:left">Get inner map template</td>
+<td style="text-align:left"><code>struct bpf_map *map</code></td>
+<td style="text-align:left"><code>struct bpf_map *</code></td>
+<td style="text-align:left">When working with map-in-map</td>
+<td style="text-align:left">Returns template map for map-in-map types (array of maps, hash of maps)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__is_internal</code></td>
+<td style="text-align:left">Check if map is internal</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left">When filtering map types</td>
+<td style="text-align:left">Returns true for internal maps created by libbpf (global vars, externs)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__is_pinned</code></td>
+<td style="text-align:left">Check if map is pinned</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left">When checking map persistence</td>
+<td style="text-align:left">Returns whether map is currently pinned to filesystem</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__key_size</code></td>
+<td style="text-align:left">Get map key size</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When validating key sizes</td>
+<td style="text-align:left">Returns size in bytes of map keys</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__lookup_and_delete_elem</code></td>
+<td style="text-align:left">Lookup and delete atomically</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code>, <code>const void *key</code>, <code>size_t key_sz</code>, <code>void *value</code>, <code>size_t value_sz</code>, <code>__u64 flags</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When implementing queues/stacks</td>
+<td style="text-align:left">Atomically retrieves and removes element, useful for FIFO/LIFO operations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__lookup_elem</code></td>
+<td style="text-align:left">Lookup map element</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code>, <code>const void *key</code>, <code>size_t key_sz</code>, <code>void *value</code>, <code>size_t value_sz</code>, <code>__u64 flags</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When reading map values</td>
+<td style="text-align:left">High-level wrapper for map lookups with size validation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__map_extra</code></td>
+<td style="text-align:left">Get map extra parameters</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u64</code></td>
+<td style="text-align:left">When accessing map-specific data</td>
+<td style="text-align:left">Returns map-specific extra data (bloom filter hash count, etc.)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__map_flags</code></td>
+<td style="text-align:left">Get map flags</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When checking map properties</td>
+<td style="text-align:left">Returns map creation flags (NO_PREALLOC, NUMA_NODE, etc.)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__max_entries</code></td>
+<td style="text-align:left">Get maximum entries</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When checking map capacity</td>
+<td style="text-align:left">Returns maximum number of entries the map can hold</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__name</code></td>
+<td style="text-align:left">Get map name</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When identifying maps</td>
+<td style="text-align:left">Returns name of the map as defined in BPF program</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__numa_node</code></td>
+<td style="text-align:left">Get NUMA node</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When checking NUMA placement</td>
+<td style="text-align:left">Returns NUMA node where map memory is allocated</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__pin</code></td>
+<td style="text-align:left">Pin map to filesystem</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When persisting maps</td>
+<td style="text-align:left">Pins map to BPF filesystem for persistence beyond process lifetime</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__pin_path</code></td>
+<td style="text-align:left">Get pin path</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When checking pin location</td>
+<td style="text-align:left">Returns filesystem path where map is pinned</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__reuse_fd</code></td>
+<td style="text-align:left">Reuse existing map FD</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>int fd</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When sharing maps between processes</td>
+<td style="text-align:left">Makes map object use existing file descriptor instead of creating new map</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_autoattach</code></td>
+<td style="text-align:left">Set auto-attach behavior</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>bool autoattach</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When controlling attachment</td>
+<td style="text-align:left">Sets whether map automatically attaches during skeleton attach phase</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_autocreate</code></td>
+<td style="text-align:left">Set auto-create behavior</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>bool autocreate</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When controlling creation</td>
+<td style="text-align:left">Sets whether map is automatically created during object load</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_ifindex</code></td>
+<td style="text-align:left">Set network interface index</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>__u32 ifindex</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When binding to specific device</td>
+<td style="text-align:left">Sets network interface for device-specific maps</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_initial_value</code></td>
+<td style="text-align:left">Set initial map value</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>const void *data</code>, <code>size_t size</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When initializing global data</td>
+<td style="text-align:left">Sets initial data for global variable maps</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_inner_map_fd</code></td>
+<td style="text-align:left">Set inner map FD</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>int fd</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring map-in-map</td>
+<td style="text-align:left">Sets template map for map-in-map types</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_key_size</code></td>
+<td style="text-align:left">Set key size</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>__u32 size</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring map before load</td>
+<td style="text-align:left">Sets size of map keys, must be called before object load</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_map_extra</code></td>
+<td style="text-align:left">Set map extra parameters</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>__u64 map_extra</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When setting map-specific options</td>
+<td style="text-align:left">Sets map-specific extra parameters</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_map_flags</code></td>
+<td style="text-align:left">Set map flags</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>__u32 flags</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring map behavior</td>
+<td style="text-align:left">Sets map creation flags before load</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_max_entries</code></td>
+<td style="text-align:left">Set maximum entries</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>__u32 max_entries</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When sizing maps</td>
+<td style="text-align:left">Sets maximum number of entries, must be called before load</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_numa_node</code></td>
+<td style="text-align:left">Set NUMA node</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>__u32 numa_node</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When optimizing memory placement</td>
+<td style="text-align:left">Sets NUMA node for map memory allocation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_pin_path</code></td>
+<td style="text-align:left">Set pin path</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring persistence</td>
+<td style="text-align:left">Sets filesystem path for map pinning</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_type</code></td>
+<td style="text-align:left">Set map type</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>enum bpf_map_type type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When changing map type</td>
+<td style="text-align:left">Changes map type, must be called before object load</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__set_value_size</code></td>
+<td style="text-align:left">Set value size</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>__u32 size</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring value size</td>
+<td style="text-align:left">Sets size of map values, can resize global data sections</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__type</code></td>
+<td style="text-align:left">Get map type</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>enum bpf_map_type</code></td>
+<td style="text-align:left">When checking map type</td>
+<td style="text-align:left">Returns the type of the map (HASH, ARRAY, etc.)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__unpin</code></td>
+<td style="text-align:left">Unpin map from filesystem</td>
+<td style="text-align:left"><code>struct bpf_map *map</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing persistence</td>
+<td style="text-align:left">Removes map from filesystem, decrementing reference count</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__update_elem</code></td>
+<td style="text-align:left">Update map element</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code>, <code>const void *key</code>, <code>size_t key_sz</code>, <code>const void *value</code>, <code>size_t value_sz</code>, <code>__u64 flags</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When writing to maps</td>
+<td style="text-align:left">High-level wrapper for map updates with size validation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map__value_size</code></td>
+<td style="text-align:left">Get value size</td>
+<td style="text-align:left"><code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When validating value sizes</td>
+<td style="text-align:left">Returns size in bytes of map values</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_map_create</code></td>
+<td style="text-align:left">Create new map</td>
+<td style="text-align:left"><code>enum bpf_map_type map_type</code>, <code>const char *map_name</code>, <code>__u32 key_size</code>, <code>__u32 value_size</code>, <code>__u32 max_entries</code>, <code>const struct bpf_map_create_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When creating maps programmatically</td>
+<td style="text-align:left">Low-level map creation with precise control over all parameters</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-bpf-object-functions">4. BPF Object Functions<a hidden class="anchor" aria-hidden="true" href="#4-bpf-object-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_object__attach_skeleton</code></td>
+<td style="text-align:left">Attach skeleton programs</td>
+<td style="text-align:left"><code>struct bpf_object_skeleton *s</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When using skeleton-based loading</td>
+<td style="text-align:left">Attaches all programs in skeleton to their respective hook points</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__btf</code></td>
+<td style="text-align:left">Get object&rsquo;s BTF</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code></td>
+<td style="text-align:left"><code>struct btf *</code></td>
+<td style="text-align:left">When accessing type information</td>
+<td style="text-align:left">Returns BTF object associated with BPF object for type introspection</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__btf_fd</code></td>
+<td style="text-align:left">Get BTF file descriptor</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need BTF FD</td>
+<td style="text-align:left">Returns file descriptor of BTF object associated with BPF object</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__close</code></td>
+<td style="text-align:left">Close BPF object</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up</td>
+<td style="text-align:left">Frees all resources associated with BPF object</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__destroy_skeleton</code></td>
+<td style="text-align:left">Destroy skeleton</td>
+<td style="text-align:left"><code>struct bpf_object_skeleton *s</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up skeleton</td>
+<td style="text-align:left">Frees all skeleton resources including maps, programs, and links</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__destroy_subskeleton</code></td>
+<td style="text-align:left">Destroy subskeleton</td>
+<td style="text-align:left"><code>struct bpf_object_subskeleton *s</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up subskeleton</td>
+<td style="text-align:left">Frees subskeleton resources for partial object access</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__detach_skeleton</code></td>
+<td style="text-align:left">Detach skeleton programs</td>
+<td style="text-align:left"><code>struct bpf_object_skeleton *s</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When detaching all programs</td>
+<td style="text-align:left">Detaches all programs in skeleton from their hook points</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__find_map_by_name</code></td>
+<td style="text-align:left">Find map by name</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code>, <code>const char *name</code></td>
+<td style="text-align:left"><code>struct bpf_map *</code></td>
+<td style="text-align:left">When accessing specific maps</td>
+<td style="text-align:left">Locates map within object by name, returns NULL if not found</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__find_map_fd_by_name</code></td>
+<td style="text-align:left">Find map FD by name</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code>, <code>const char *name</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need map FD directly</td>
+<td style="text-align:left">Returns file descriptor of named map, -1 if not found</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__find_program_by_name</code></td>
+<td style="text-align:left">Find program by name</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code>, <code>const char *name</code></td>
+<td style="text-align:left"><code>struct bpf_program *</code></td>
+<td style="text-align:left">When accessing specific programs</td>
+<td style="text-align:left">Locates program within object by name</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__gen_loader</code></td>
+<td style="text-align:left">Generate loader program</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code>, <code>struct gen_loader_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When creating loader programs</td>
+<td style="text-align:left">Generates BPF program that can load the object at runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__kversion</code></td>
+<td style="text-align:left">Get kernel version</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code></td>
+<td style="text-align:left"><code>unsigned int</code></td>
+<td style="text-align:left">When checking version requirements</td>
+<td style="text-align:left">Returns kernel version the object was compiled for</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__load</code></td>
+<td style="text-align:left">Load object into kernel</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When loading all programs and maps</td>
+<td style="text-align:left">Loads all programs and maps in object into kernel</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__load_skeleton</code></td>
+<td style="text-align:left">Load skeleton</td>
+<td style="text-align:left"><code>struct bpf_object_skeleton *s</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When using skeleton loading</td>
+<td style="text-align:left">Loads all skeleton components into kernel</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__name</code></td>
+<td style="text-align:left">Get object name</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When identifying objects</td>
+<td style="text-align:left">Returns name of the BPF object</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__next_map</code></td>
+<td style="text-align:left">Get next map</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code>, <code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>struct bpf_map *</code></td>
+<td style="text-align:left">When iterating through maps</td>
+<td style="text-align:left">Iterates through all maps in object, NULL to start</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__next_program</code></td>
+<td style="text-align:left">Get next program</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code>, <code>struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>struct bpf_program *</code></td>
+<td style="text-align:left">When iterating through programs</td>
+<td style="text-align:left">Iterates through all programs in object, NULL to start</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__open</code></td>
+<td style="text-align:left">Open BPF object file</td>
+<td style="text-align:left"><code>const char *path</code></td>
+<td style="text-align:left"><code>struct bpf_object *</code></td>
+<td style="text-align:left">When loading from ELF file</td>
+<td style="text-align:left">Opens and parses BPF ELF object file</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__open_file</code></td>
+<td style="text-align:left">Open with options</td>
+<td style="text-align:left"><code>const char *path</code>, <code>const struct bpf_object_open_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_object *</code></td>
+<td style="text-align:left">When you need open options</td>
+<td style="text-align:left">Extended open with options like BTF custom path</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__open_mem</code></td>
+<td style="text-align:left">Open from memory</td>
+<td style="text-align:left"><code>const void *obj_buf</code>, <code>size_t obj_buf_sz</code>, <code>const struct bpf_object_open_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_object *</code></td>
+<td style="text-align:left">When loading from memory buffer</td>
+<td style="text-align:left">Opens BPF object from memory buffer instead of file</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__open_skeleton</code></td>
+<td style="text-align:left">Open skeleton</td>
+<td style="text-align:left"><code>struct bpf_object_skeleton *s</code>, <code>const struct bpf_object_open_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When using skeleton loading</td>
+<td style="text-align:left">Opens skeleton object with specified options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__open_subskeleton</code></td>
+<td style="text-align:left">Open subskeleton</td>
+<td style="text-align:left"><code>struct bpf_object_subskeleton *s</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When accessing partial object</td>
+<td style="text-align:left">Opens subskeleton for accessing subset of object components</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__pin</code></td>
+<td style="text-align:left">Pin entire object</td>
+<td style="text-align:left"><code>struct bpf_object *object</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When persisting entire object</td>
+<td style="text-align:left">Pins all maps and programs in object to filesystem directory</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__pin_maps</code></td>
+<td style="text-align:left">Pin all maps</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When persisting maps only</td>
+<td style="text-align:left">Pins all maps in object to specified directory</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__pin_programs</code></td>
+<td style="text-align:left">Pin all programs</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When persisting programs</td>
+<td style="text-align:left">Pins all programs in object to filesystem directory</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__prev_map</code></td>
+<td style="text-align:left">Get previous map</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code>, <code>const struct bpf_map *map</code></td>
+<td style="text-align:left"><code>struct bpf_map *</code></td>
+<td style="text-align:left">When reverse-iterating maps</td>
+<td style="text-align:left">Reverse iteration through maps in object</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__prev_program</code></td>
+<td style="text-align:left">Get previous program</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code>, <code>struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>struct bpf_program *</code></td>
+<td style="text-align:left">When reverse-iterating programs</td>
+<td style="text-align:left">Reverse iteration through programs in object</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__set_kversion</code></td>
+<td style="text-align:left">Set kernel version</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code>, <code>__u32 kern_version</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When targeting specific kernel</td>
+<td style="text-align:left">Sets target kernel version for compatibility</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__token_fd</code></td>
+<td style="text-align:left">Get token file descriptor</td>
+<td style="text-align:left"><code>const struct bpf_object *obj</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When using delegation tokens</td>
+<td style="text-align:left">Returns BPF token FD for permission delegation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__unpin</code></td>
+<td style="text-align:left">Unpin entire object</td>
+<td style="text-align:left"><code>struct bpf_object *object</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing object persistence</td>
+<td style="text-align:left">Unpins all object components from filesystem</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__unpin_maps</code></td>
+<td style="text-align:left">Unpin all maps</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing map persistence</td>
+<td style="text-align:left">Unpins all maps from filesystem directory</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_object__unpin_programs</code></td>
+<td style="text-align:left">Unpin all programs</td>
+<td style="text-align:left"><code>struct bpf_object *obj</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing program persistence</td>
+<td style="text-align:left">Unpins all programs from filesystem directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-bpf-program-functions">5. BPF Program Functions<a hidden class="anchor" aria-hidden="true" href="#5-bpf-program-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach</code></td>
+<td style="text-align:left">Generic program attachment</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When using auto-detection</td>
+<td style="text-align:left">Automatically detects program type and attaches appropriately</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_cgroup</code></td>
+<td style="text-align:left">Attach to cgroup</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int cgroup_fd</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When filtering cgroup operations</td>
+<td style="text-align:left">Attaches program to cgroup for network or process filtering</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_freplace</code></td>
+<td style="text-align:left">Attach as function replacement</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int target_fd</code>, <code>const char *attach_func_name</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When replacing kernel functions</td>
+<td style="text-align:left">Replaces existing BPF program function with new implementation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_iter</code></td>
+<td style="text-align:left">Attach to iterator</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const struct bpf_iter_attach_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When creating BPF iterators</td>
+<td style="text-align:left">Attaches program to BPF iterator for custom data traversal</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_kprobe</code></td>
+<td style="text-align:left">Attach to kernel probe</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>bool retprobe</code>, <code>const char *func_name</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing kernel functions</td>
+<td style="text-align:left">Attaches to kernel function entry or exit for tracing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_kprobe_multi_opts</code></td>
+<td style="text-align:left">Attach to multiple kprobes</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const char *pattern</code>, <code>const struct bpf_kprobe_multi_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing multiple functions</td>
+<td style="text-align:left">Attaches to multiple kernel functions matching pattern</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_kprobe_opts</code></td>
+<td style="text-align:left">Attach kprobe with options</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const char *func_name</code>, <code>const struct bpf_kprobe_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When you need kprobe options</td>
+<td style="text-align:left">Extended kprobe attachment with custom options like offset, cookie</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_ksyscall</code></td>
+<td style="text-align:left">Attach to system call</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const char *syscall_name</code>, <code>const struct bpf_ksyscall_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing system calls</td>
+<td style="text-align:left">Attaches to kernel system call handlers with arch-independence</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_lsm</code></td>
+<td style="text-align:left">Attach to LSM hook</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When implementing security policies</td>
+<td style="text-align:left">Attaches to Linux Security Module hooks for security enforcement</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_netfilter</code></td>
+<td style="text-align:left">Attach to netfilter</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const struct bpf_netfilter_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When filtering network packets</td>
+<td style="text-align:left">Attaches to netfilter hooks for packet filtering</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_netkit</code></td>
+<td style="text-align:left">Attach to netkit device</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int ifindex</code>, <code>const struct bpf_netkit_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When working with netkit devices</td>
+<td style="text-align:left">Attaches program to netkit virtual network device</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_netns</code></td>
+<td style="text-align:left">Attach to network namespace</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int netns_fd</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When filtering per-netns</td>
+<td style="text-align:left">Attaches program to specific network namespace</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_perf_event</code></td>
+<td style="text-align:left">Attach to perf event</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int pfd</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When monitoring performance</td>
+<td style="text-align:left">Attaches to perf event for performance monitoring</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_perf_event_opts</code></td>
+<td style="text-align:left">Attach to perf event with options</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int pfd</code>, <code>const struct bpf_perf_event_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When you need perf options</td>
+<td style="text-align:left">Extended perf event attachment with custom options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_raw_tracepoint</code></td>
+<td style="text-align:left">Attach to raw tracepoint</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const char *tp_name</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When you need low-latency tracing</td>
+<td style="text-align:left">Attaches to raw kernel tracepoints for minimal overhead</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_raw_tracepoint_opts</code></td>
+<td style="text-align:left">Attach raw tracepoint with options</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const char *tp_name</code>, <code>struct bpf_raw_tracepoint_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When you need raw tracepoint options</td>
+<td style="text-align:left">Extended raw tracepoint with additional options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_sockmap</code></td>
+<td style="text-align:left">Attach to socket map</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int map_fd</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When redirecting sockets</td>
+<td style="text-align:left">Attaches program to socket map for socket redirection</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_tcx</code></td>
+<td style="text-align:left">Attach to TC express</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int ifindex</code>, <code>const struct bpf_tcx_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When using TC express datapath</td>
+<td style="text-align:left">Attaches to traffic control express path for high-performance packet processing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_trace</code></td>
+<td style="text-align:left">Attach tracing program</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing with fentry/fexit</td>
+<td style="text-align:left">Attaches tracing programs like fentry, fexit, fmod_ret</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_trace_opts</code></td>
+<td style="text-align:left">Attach trace with options</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const struct bpf_trace_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When you need trace options</td>
+<td style="text-align:left">Extended tracing attachment with additional options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_tracepoint</code></td>
+<td style="text-align:left">Attach to tracepoint</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const char *tp_category</code>, <code>const char *tp_name</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing specific events</td>
+<td style="text-align:left">Attaches to kernel tracepoints for event monitoring</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_tracepoint_opts</code></td>
+<td style="text-align:left">Attach tracepoint with options</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>const char *tp_category</code>, <code>const char *tp_name</code>, <code>const struct bpf_tracepoint_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When you need tracepoint options</td>
+<td style="text-align:left">Extended tracepoint attachment with custom options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_uprobe</code></td>
+<td style="text-align:left">Attach to user probe</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>bool retprobe</code>, <code>pid_t pid</code>, <code>const char *binary_path</code>, <code>size_t func_offset</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing userspace functions</td>
+<td style="text-align:left">Attaches to userspace function for application tracing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_uprobe_multi</code></td>
+<td style="text-align:left">Attach to multiple uprobes</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>pid_t pid</code>, <code>const char *binary_path</code>, <code>const char *func_pattern</code>, <code>const struct bpf_uprobe_multi_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing multiple user functions</td>
+<td style="text-align:left">Attaches to multiple userspace functions matching pattern</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_uprobe_opts</code></td>
+<td style="text-align:left">Attach uprobe with options</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>pid_t pid</code>, <code>const char *binary_path</code>, <code>size_t func_offset</code>, <code>const struct bpf_uprobe_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When you need uprobe options</td>
+<td style="text-align:left">Extended uprobe attachment with custom options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_usdt</code></td>
+<td style="text-align:left">Attach to USDT probe</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>pid_t pid</code>, <code>const char *binary_path</code>, <code>const char *usdt_provider</code>, <code>const char *usdt_name</code>, <code>const struct bpf_usdt_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When tracing USDT probes</td>
+<td style="text-align:left">Attaches to User Statically Defined Tracepoints</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__attach_xdp</code></td>
+<td style="text-align:left">Attach to XDP</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>int ifindex</code></td>
+<td style="text-align:left"><code>struct bpf_link *</code></td>
+<td style="text-align:left">When processing packets at driver level</td>
+<td style="text-align:left">Attaches XDP program to network interface for early packet processing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__autoattach</code></td>
+<td style="text-align:left">Check auto-attach status</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left">When checking attachment behavior</td>
+<td style="text-align:left">Returns whether program will auto-attach during skeleton attach</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__autoload</code></td>
+<td style="text-align:left">Check auto-load status</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left">When checking load behavior</td>
+<td style="text-align:left">Returns whether program will be loaded automatically</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__expected_attach_type</code></td>
+<td style="text-align:left">Get expected attach type</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>enum bpf_attach_type</code></td>
+<td style="text-align:left">When querying attach requirements</td>
+<td style="text-align:left">Returns the expected attachment type for the program</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__fd</code></td>
+<td style="text-align:left">Get program file descriptor</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need raw FD</td>
+<td style="text-align:left">Returns underlying file descriptor for direct operations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__flags</code></td>
+<td style="text-align:left">Get program flags</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When checking program properties</td>
+<td style="text-align:left">Returns program load flags</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__get_expected_attach_type</code></td>
+<td style="text-align:left">Get expected attach type</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>enum bpf_attach_type</code></td>
+<td style="text-align:left">When querying attachment requirements</td>
+<td style="text-align:left">Alias for bpf_program__expected_attach_type</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__get_type</code></td>
+<td style="text-align:left">Get program type</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>enum bpf_prog_type</code></td>
+<td style="text-align:left">When checking program type</td>
+<td style="text-align:left">Returns the BPF program type</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__insn_cnt</code></td>
+<td style="text-align:left">Get instruction count</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>size_t</code></td>
+<td style="text-align:left">When analyzing program size</td>
+<td style="text-align:left">Returns number of BPF instructions in program</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__insns</code></td>
+<td style="text-align:left">Get program instructions</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>const struct bpf_insn *</code></td>
+<td style="text-align:left">When analyzing program code</td>
+<td style="text-align:left">Returns pointer to BPF instruction array</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__log_buf</code></td>
+<td style="text-align:left">Get program log buffer</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code>, <code>size_t *log_size</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When debugging program loading</td>
+<td style="text-align:left">Returns verifier log buffer for debugging</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__log_level</code></td>
+<td style="text-align:left">Get log level</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When checking debug settings</td>
+<td style="text-align:left">Returns current verifier log level</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__name</code></td>
+<td style="text-align:left">Get program name</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When identifying programs</td>
+<td style="text-align:left">Returns name of the BPF program</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__pin</code></td>
+<td style="text-align:left">Pin program to filesystem</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When persisting programs</td>
+<td style="text-align:left">Pins program to BPF filesystem for persistence</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__section_name</code></td>
+<td style="text-align:left">Get section name</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When checking program source</td>
+<td style="text-align:left">Returns ELF section name where program was defined</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_attach_target</code></td>
+<td style="text-align:left">Set attach target</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>int attach_prog_fd</code>, <code>const char *attach_func_name</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When setting BTF attach targets</td>
+<td style="text-align:left">Sets target for BTF-aware programs (fentry, fexit, etc.)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_autoattach</code></td>
+<td style="text-align:left">Set auto-attach behavior</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>bool autoattach</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When controlling attachment</td>
+<td style="text-align:left">Sets whether program auto-attaches during skeleton attach</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_autoload</code></td>
+<td style="text-align:left">Set auto-load behavior</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>bool autoload</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When controlling loading</td>
+<td style="text-align:left">Sets whether program loads automatically</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_expected_attach_type</code></td>
+<td style="text-align:left">Set expected attach type</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>enum bpf_attach_type type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring attachment</td>
+<td style="text-align:left">Sets expected attachment type for program</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_flags</code></td>
+<td style="text-align:left">Set program flags</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>__u32 flags</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring load behavior</td>
+<td style="text-align:left">Sets program loading flags</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_ifindex</code></td>
+<td style="text-align:left">Set interface index</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>__u32 ifindex</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When targeting specific interfaces</td>
+<td style="text-align:left">Sets network interface index for device-specific programs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_insns</code></td>
+<td style="text-align:left">Set program instructions</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>struct bpf_insn *new_insns</code>, <code>size_t new_insn_cnt</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When modifying program code</td>
+<td style="text-align:left">Replaces program instructions (advanced use only)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_log_buf</code></td>
+<td style="text-align:left">Set log buffer</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>char *log_buf</code>, <code>size_t log_size</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When capturing verifier output</td>
+<td style="text-align:left">Sets buffer for verifier log messages</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_log_level</code></td>
+<td style="text-align:left">Set log level</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>__u32 log_level</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring debug output</td>
+<td style="text-align:left">Sets verifier log verbosity level</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__set_type</code></td>
+<td style="text-align:left">Set program type</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>enum bpf_prog_type type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When changing program type</td>
+<td style="text-align:left">Sets BPF program type, must be called before load</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__type</code></td>
+<td style="text-align:left">Get program type</td>
+<td style="text-align:left"><code>const struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>enum bpf_prog_type</code></td>
+<td style="text-align:left">When checking program type</td>
+<td style="text-align:left">Returns the BPF program type</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__unload</code></td>
+<td style="text-align:left">Unload program</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When removing from kernel</td>
+<td style="text-align:left">Removes program from kernel, making it loadable again</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_program__unpin</code></td>
+<td style="text-align:left">Unpin program</td>
+<td style="text-align:left"><code>struct bpf_program *prog</code>, <code>const char *path</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing persistence</td>
+<td style="text-align:left">Removes program from filesystem</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-ring-buffer-functions">6. Ring Buffer Functions<a hidden class="anchor" aria-hidden="true" href="#6-ring-buffer-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ring_buffer__new</code></td>
+<td style="text-align:left">Create ring buffer manager</td>
+<td style="text-align:left"><code>int map_fd</code>, <code>ring_buffer_sample_fn sample_cb</code>, <code>void *ctx</code>, <code>const struct ring_buffer_opts *opts</code></td>
+<td style="text-align:left"><code>struct ring_buffer *</code></td>
+<td style="text-align:left">When setting up efficient data transfer</td>
+<td style="text-align:left">Creates ring buffer manager for high-performance data streaming from kernel to userspace</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_buffer__free</code></td>
+<td style="text-align:left">Free ring buffer</td>
+<td style="text-align:left"><code>struct ring_buffer *rb</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up</td>
+<td style="text-align:left">Frees all resources associated with ring buffer manager</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_buffer__add</code></td>
+<td style="text-align:left">Add ring buffer</td>
+<td style="text-align:left"><code>struct ring_buffer *rb</code>, <code>int map_fd</code>, <code>ring_buffer_sample_fn sample_cb</code>, <code>void *ctx</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When managing multiple ring buffers</td>
+<td style="text-align:left">Adds additional ring buffer to existing manager</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_buffer__poll</code></td>
+<td style="text-align:left">Poll for data</td>
+<td style="text-align:left"><code>struct ring_buffer *rb</code>, <code>int timeout_ms</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When waiting for data</td>
+<td style="text-align:left">Polls ring buffer for new data with timeout</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_buffer__consume</code></td>
+<td style="text-align:left">Consume available data</td>
+<td style="text-align:left"><code>struct ring_buffer *rb</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When processing all available data</td>
+<td style="text-align:left">Consumes all available data without blocking</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_buffer__consume_n</code></td>
+<td style="text-align:left">Consume N records</td>
+<td style="text-align:left"><code>struct ring_buffer *rb</code>, <code>size_t n</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When limiting processing</td>
+<td style="text-align:left">Consumes up to N records from ring buffer</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_buffer__epoll_fd</code></td>
+<td style="text-align:left">Get epoll file descriptor</td>
+<td style="text-align:left"><code>const struct ring_buffer *rb</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When integrating with event loops</td>
+<td style="text-align:left">Returns FD for epoll integration in event-driven applications</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ring_buffer__ring</code></td>
+<td style="text-align:left">Get individual ring</td>
+<td style="text-align:left"><code>struct ring_buffer *rb</code>, <code>unsigned int idx</code></td>
+<td style="text-align:left"><code>struct ring *</code></td>
+<td style="text-align:left">When accessing specific rings</td>
+<td style="text-align:left">Returns specific ring buffer instance from manager</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>user_ring_buffer__new</code></td>
+<td style="text-align:left">Create user ring buffer</td>
+<td style="text-align:left"><code>int map_fd</code>, <code>const struct user_ring_buffer_opts *opts</code></td>
+<td style="text-align:left"><code>struct user_ring_buffer *</code></td>
+<td style="text-align:left">When userspace needs to send data to kernel</td>
+<td style="text-align:left">Creates ring buffer for userspace-to-kernel communication</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>user_ring_buffer__reserve</code></td>
+<td style="text-align:left">Reserve buffer space</td>
+<td style="text-align:left"><code>struct user_ring_buffer *rb</code>, <code>__u32 size</code></td>
+<td style="text-align:left"><code>void *</code></td>
+<td style="text-align:left">When writing to ring buffer</td>
+<td style="text-align:left">Reserves space in ring buffer for writing data</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>user_ring_buffer__reserve_blocking</code></td>
+<td style="text-align:left">Reserve with blocking</td>
+<td style="text-align:left"><code>struct user_ring_buffer *rb</code>, <code>__u32 size</code>, <code>int timeout_ms</code></td>
+<td style="text-align:left"><code>void *</code></td>
+<td style="text-align:left">When blocking until space available</td>
+<td style="text-align:left">Blocks until space becomes available in ring buffer</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>user_ring_buffer__submit</code></td>
+<td style="text-align:left">Submit reserved data</td>
+<td style="text-align:left"><code>struct user_ring_buffer *rb</code>, <code>void *sample</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When finalizing data write</td>
+<td style="text-align:left">Submits previously reserved data to ring buffer</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>user_ring_buffer__discard</code></td>
+<td style="text-align:left">Discard reserved data</td>
+<td style="text-align:left"><code>struct user_ring_buffer *rb</code>, <code>void *sample</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When canceling write operation</td>
+<td style="text-align:left">Discards previously reserved space without writing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>user_ring_buffer__free</code></td>
+<td style="text-align:left">Free user ring buffer</td>
+<td style="text-align:left"><code>struct user_ring_buffer *rb</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up</td>
+<td style="text-align:left">Frees user ring buffer resources</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-performance-buffer-functions">7. Performance Buffer Functions<a hidden class="anchor" aria-hidden="true" href="#7-performance-buffer-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>perf_buffer__new</code></td>
+<td style="text-align:left">Create performance buffer</td>
+<td style="text-align:left"><code>int map_fd</code>, <code>size_t page_cnt</code>, <code>perf_buffer_sample_fn sample_cb</code>, <code>perf_buffer_lost_fn lost_cb</code>, <code>void *ctx</code>, <code>const struct perf_buffer_opts *opts</code></td>
+<td style="text-align:left"><code>struct perf_buffer *</code></td>
+<td style="text-align:left">When using perf events for data transfer</td>
+<td style="text-align:left">Creates performance event buffer for kernel-to-userspace communication</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__new_raw</code></td>
+<td style="text-align:left">Create raw performance buffer</td>
+<td style="text-align:left"><code>int map_fd</code>, <code>size_t page_cnt</code>, <code>struct perf_event_attr *attr</code>, <code>perf_buffer_event_fn event_cb</code>, <code>void *ctx</code>, <code>const struct perf_buffer_raw_opts *opts</code></td>
+<td style="text-align:left"><code>struct perf_buffer *</code></td>
+<td style="text-align:left">When you need custom perf event attributes</td>
+<td style="text-align:left">Creates perf buffer with custom performance event configuration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__free</code></td>
+<td style="text-align:left">Free performance buffer</td>
+<td style="text-align:left"><code>struct perf_buffer *pb</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up</td>
+<td style="text-align:left">Frees all performance buffer resources</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__epoll_fd</code></td>
+<td style="text-align:left">Get epoll file descriptor</td>
+<td style="text-align:left"><code>const struct perf_buffer *pb</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When integrating with event loops</td>
+<td style="text-align:left">Returns FD for epoll integration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__poll</code></td>
+<td style="text-align:left">Poll for events</td>
+<td style="text-align:left"><code>struct perf_buffer *pb</code>, <code>int timeout_ms</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When waiting for perf events</td>
+<td style="text-align:left">Polls performance buffer for new events</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__consume</code></td>
+<td style="text-align:left">Consume all events</td>
+<td style="text-align:left"><code>struct perf_buffer *pb</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When processing all available events</td>
+<td style="text-align:left">Consumes all available events without blocking</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__consume_buffer</code></td>
+<td style="text-align:left">Consume specific buffer</td>
+<td style="text-align:left"><code>struct perf_buffer *pb</code>, <code>size_t buf_idx</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When processing specific CPU buffer</td>
+<td style="text-align:left">Consumes events from specific per-CPU buffer</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__buffer_cnt</code></td>
+<td style="text-align:left">Get buffer count</td>
+<td style="text-align:left"><code>const struct perf_buffer *pb</code></td>
+<td style="text-align:left"><code>size_t</code></td>
+<td style="text-align:left">When checking buffer configuration</td>
+<td style="text-align:left">Returns number of per-CPU buffers</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__buffer_fd</code></td>
+<td style="text-align:left">Get buffer file descriptor</td>
+<td style="text-align:left"><code>const struct perf_buffer *pb</code>, <code>size_t buf_idx</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When accessing specific buffer FD</td>
+<td style="text-align:left">Returns FD for specific per-CPU buffer</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>perf_buffer__buffer</code></td>
+<td style="text-align:left">Get raw buffer data</td>
+<td style="text-align:left"><code>struct perf_buffer *pb</code>, <code>int buf_idx</code>, <code>void **buf</code>, <code>size_t *buf_size</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When implementing custom event processing</td>
+<td style="text-align:left">Returns raw mmap&rsquo;d buffer for custom processing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-utility-functions">8. Utility Functions<a hidden class="anchor" aria-hidden="true" href="#8-utility-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>libbpf_get_error</code></td>
+<td style="text-align:left">Extract error from pointer</td>
+<td style="text-align:left"><code>const void *ptr</code></td>
+<td style="text-align:left"><code>long</code></td>
+<td style="text-align:left">When checking libbpf API errors</td>
+<td style="text-align:left">Extracts error code from libbpf function pointers (deprecated in 1.0)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_major_version</code></td>
+<td style="text-align:left">Get major version</td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When checking libbpf version</td>
+<td style="text-align:left">Returns major version number of libbpf library</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_minor_version</code></td>
+<td style="text-align:left">Get minor version</td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left"><code>__u32</code></td>
+<td style="text-align:left">When checking libbpf version</td>
+<td style="text-align:left">Returns minor version number of libbpf library</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_version_string</code></td>
+<td style="text-align:left">Get version string</td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When displaying version info</td>
+<td style="text-align:left">Returns human-readable version string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_strerror</code></td>
+<td style="text-align:left">Get error string</td>
+<td style="text-align:left"><code>int err</code>, <code>char *buf</code>, <code>size_t size</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When formatting error messages</td>
+<td style="text-align:left">Converts error code to human-readable string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_set_print</code></td>
+<td style="text-align:left">Set print callback</td>
+<td style="text-align:left"><code>libbpf_print_fn_t fn</code></td>
+<td style="text-align:left"><code>libbpf_print_fn_t</code></td>
+<td style="text-align:left">When customizing debug output</td>
+<td style="text-align:left">Sets custom function for libbpf debug/error messages</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_num_possible_cpus</code></td>
+<td style="text-align:left">Get CPU count</td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When sizing per-CPU data structures</td>
+<td style="text-align:left">Returns number of possible CPUs for per-CPU map sizing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_find_kernel_btf</code></td>
+<td style="text-align:left">Find kernel BTF</td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left"><code>struct btf *</code></td>
+<td style="text-align:left">When accessing kernel type info</td>
+<td style="text-align:left">Locates and loads kernel BTF for type information</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_find_vmlinux_btf_id</code></td>
+<td style="text-align:left">Find kernel function BTF ID</td>
+<td style="text-align:left"><code>const char *name</code>, <code>enum bpf_attach_type attach_type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When working with kernel functions</td>
+<td style="text-align:left">Finds BTF ID for kernel function by name</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_attach_type_by_name</code></td>
+<td style="text-align:left">Get attach type by name</td>
+<td style="text-align:left"><code>const char *name</code>, <code>enum bpf_attach_type *attach_type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When parsing attach type strings</td>
+<td style="text-align:left">Converts attach type name to enum value</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_prog_type_by_name</code></td>
+<td style="text-align:left">Get program type by name</td>
+<td style="text-align:left"><code>const char *name</code>, <code>enum bpf_prog_type *prog_type</code>, <code>enum bpf_attach_type *expected_attach_type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When parsing program type strings</td>
+<td style="text-align:left">Converts program type name to enum values</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_bpf_attach_type_str</code></td>
+<td style="text-align:left">Get attach type string</td>
+<td style="text-align:left"><code>enum bpf_attach_type t</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When displaying attach types</td>
+<td style="text-align:left">Converts attach type enum to string representation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_bpf_link_type_str</code></td>
+<td style="text-align:left">Get link type string</td>
+<td style="text-align:left"><code>enum bpf_link_type t</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When displaying link types</td>
+<td style="text-align:left">Converts link type enum to string representation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_bpf_map_type_str</code></td>
+<td style="text-align:left">Get map type string</td>
+<td style="text-align:left"><code>enum bpf_map_type t</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When displaying map types</td>
+<td style="text-align:left">Converts map type enum to string representation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_bpf_prog_type_str</code></td>
+<td style="text-align:left">Get program type string</td>
+<td style="text-align:left"><code>enum bpf_prog_type t</code></td>
+<td style="text-align:left"><code>const char *</code></td>
+<td style="text-align:left">When displaying program types</td>
+<td style="text-align:left">Converts program type enum to string representation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_probe_bpf_helper</code></td>
+<td style="text-align:left">Probe helper availability</td>
+<td style="text-align:left"><code>enum bpf_prog_type prog_type</code>, <code>enum bpf_func_id helper_id</code>, <code>const void *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When checking feature support</td>
+<td style="text-align:left">Tests if specific helper is available for program type</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_probe_bpf_map_type</code></td>
+<td style="text-align:left">Probe map type support</td>
+<td style="text-align:left"><code>enum bpf_map_type map_type</code>, <code>const void *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When checking map support</td>
+<td style="text-align:left">Tests if specific map type is supported by kernel</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_probe_bpf_prog_type</code></td>
+<td style="text-align:left">Probe program type support</td>
+<td style="text-align:left"><code>enum bpf_prog_type prog_type</code>, <code>const void *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When checking program support</td>
+<td style="text-align:left">Tests if specific program type is supported</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_set_memlock_rlim</code></td>
+<td style="text-align:left">Set memory lock limit</td>
+<td style="text-align:left"><code>size_t memlock_bytes</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When configuring memory limits</td>
+<td style="text-align:left">Sets RLIMIT_MEMLOCK for BPF memory allocation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_set_strict_mode</code></td>
+<td style="text-align:left">Set strict mode</td>
+<td style="text-align:left"><code>enum libbpf_strict_mode mode</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When enabling strict error handling</td>
+<td style="text-align:left">Enables strict mode for cleaner error handling</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_register_prog_handler</code></td>
+<td style="text-align:left">Register program handler</td>
+<td style="text-align:left"><code>const char *sec</code>, <code>enum bpf_prog_type prog_type</code>, <code>enum bpf_attach_type exp_attach_type</code>, <code>const struct libbpf_prog_handler_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When extending libbpf</td>
+<td style="text-align:left">Registers custom program section handler</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>libbpf_unregister_prog_handler</code></td>
+<td style="text-align:left">Unregister program handler</td>
+<td style="text-align:left"><code>int handler_id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When cleaning up handlers</td>
+<td style="text-align:left">Removes previously registered program handler</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-bpf-linker-functions">9. BPF Linker Functions<a hidden class="anchor" aria-hidden="true" href="#9-bpf-linker-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_linker__new</code></td>
+<td style="text-align:left">Create new linker</td>
+<td style="text-align:left"><code>const char *filename</code>, <code>struct bpf_linker_opts *opts</code></td>
+<td style="text-align:left"><code>struct bpf_linker *</code></td>
+<td style="text-align:left">When linking multiple BPF objects</td>
+<td style="text-align:left">Creates linker for combining multiple BPF object files</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_linker__add_file</code></td>
+<td style="text-align:left">Add file to linker</td>
+<td style="text-align:left"><code>struct bpf_linker *linker</code>, <code>const char *filename</code>, <code>const struct bpf_linker_file_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When adding object files</td>
+<td style="text-align:left">Adds BPF object file to linker for combination</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_linker__finalize</code></td>
+<td style="text-align:left">Finalize linking</td>
+<td style="text-align:left"><code>struct bpf_linker *linker</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When completing link process</td>
+<td style="text-align:left">Finalizes linking process and generates output</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_linker__free</code></td>
+<td style="text-align:left">Free linker</td>
+<td style="text-align:left"><code>struct bpf_linker *linker</code></td>
+<td style="text-align:left"><code>void</code></td>
+<td style="text-align:left">When cleaning up linker</td>
+<td style="text-align:left">Frees all linker resources</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-low-level-bpf-system-call-wrappers">10. Low-Level BPF System Call Wrappers<a hidden class="anchor" aria-hidden="true" href="#10-low-level-bpf-system-call-wrappers">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_enable_stats</code></td>
+<td style="text-align:left">Enable BPF statistics</td>
+<td style="text-align:left"><code>enum bpf_stats_type type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When enabling runtime statistics</td>
+<td style="text-align:left">Enables BPF runtime statistics collection</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_iter_create</code></td>
+<td style="text-align:left">Create BPF iterator</td>
+<td style="text-align:left"><code>int link_fd</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When creating custom iterators</td>
+<td style="text-align:left">Creates iterator from BPF link for data traversal</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_obj_get</code></td>
+<td style="text-align:left">Get object from filesystem</td>
+<td style="text-align:left"><code>const char *pathname</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When loading pinned objects</td>
+<td style="text-align:left">Loads pinned BPF object from filesystem</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_obj_get_info_by_fd</code></td>
+<td style="text-align:left">Get object info by FD</td>
+<td style="text-align:left"><code>int bpf_fd</code>, <code>void *info</code>, <code>__u32 *info_len</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When querying object metadata</td>
+<td style="text-align:left">Generic object information retrieval</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_obj_get_opts</code></td>
+<td style="text-align:left">Get object with options</td>
+<td style="text-align:left"><code>const char *pathname</code>, <code>const struct bpf_obj_get_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When loading with specific options</td>
+<td style="text-align:left">Extended object loading with options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_obj_pin</code></td>
+<td style="text-align:left">Pin object to filesystem</td>
+<td style="text-align:left"><code>int fd</code>, <code>const char *pathname</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When persisting objects</td>
+<td style="text-align:left">Pins BPF object to filesystem for persistence</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_obj_pin_opts</code></td>
+<td style="text-align:left">Pin object with options</td>
+<td style="text-align:left"><code>int fd</code>, <code>const char *pathname</code>, <code>const struct bpf_obj_pin_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When pinning with options</td>
+<td style="text-align:left">Extended pinning with additional options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_attach</code></td>
+<td style="text-align:left">Attach program</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>int attachable_fd</code>, <code>enum bpf_attach_type type</code>, <code>unsigned int flags</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When attaching with raw FDs</td>
+<td style="text-align:left">Low-level program attachment using file descriptors</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_attach_opts</code></td>
+<td style="text-align:left">Attach program with options</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>int target</code>, <code>enum bpf_attach_type type</code>, <code>const struct bpf_prog_attach_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need attach options</td>
+<td style="text-align:left">Extended program attachment with additional options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_bind_map</code></td>
+<td style="text-align:left">Bind program to map</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>int map_fd</code>, <code>const struct bpf_prog_bind_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When pre-binding programs to maps</td>
+<td style="text-align:left">Associates program with map for optimization</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_detach</code></td>
+<td style="text-align:left">Detach program</td>
+<td style="text-align:left"><code>int attachable_fd</code>, <code>enum bpf_attach_type type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When detaching by type</td>
+<td style="text-align:left">Detaches program from attachment point by type</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_detach2</code></td>
+<td style="text-align:left">Detach specific program</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>int attachable_fd</code>, <code>enum bpf_attach_type type</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When detaching specific program</td>
+<td style="text-align:left">Detaches specific program by file descriptor</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_detach_opts</code></td>
+<td style="text-align:left">Detach with options</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>int target</code>, <code>enum bpf_attach_type type</code>, <code>const struct bpf_prog_detach_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need detach options</td>
+<td style="text-align:left">Extended program detachment with options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_get_fd_by_id</code></td>
+<td style="text-align:left">Get program FD by ID</td>
+<td style="text-align:left"><code>__u32 id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When accessing program by ID</td>
+<td style="text-align:left">Returns file descriptor for program with specified ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_get_fd_by_id_opts</code></td>
+<td style="text-align:left">Get program FD with options</td>
+<td style="text-align:left"><code>__u32 id</code>, <code>const struct bpf_get_fd_by_id_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need access options</td>
+<td style="text-align:left">Extended FD retrieval with options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_get_info_by_fd</code></td>
+<td style="text-align:left">Get program info</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>struct bpf_prog_info *info</code>, <code>__u32 *info_len</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When querying program metadata</td>
+<td style="text-align:left">Retrieves detailed program information</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_get_next_id</code></td>
+<td style="text-align:left">Get next program ID</td>
+<td style="text-align:left"><code>__u32 start_id</code>, <code>__u32 *next_id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When enumerating programs</td>
+<td style="text-align:left">Iterates through all loaded programs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_load</code></td>
+<td style="text-align:left">Load program into kernel</td>
+<td style="text-align:left"><code>enum bpf_prog_type prog_type</code>, <code>const char *prog_name</code>, <code>const char *license</code>, <code>const struct bpf_insn *insns</code>, <code>size_t insn_cnt</code>, <code>struct bpf_prog_load_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When loading with precise control</td>
+<td style="text-align:left">Low-level program loading with full control over parameters</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_query</code></td>
+<td style="text-align:left">Query attached programs</td>
+<td style="text-align:left"><code>int target_fd</code>, <code>enum bpf_attach_type type</code>, <code>__u32 query_flags</code>, <code>__u32 *attach_flags</code>, <code>__u32 *prog_ids</code>, <code>__u32 *prog_cnt</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When listing attached programs</td>
+<td style="text-align:left">Queries programs attached to specific target</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_query_opts</code></td>
+<td style="text-align:left">Query with options</td>
+<td style="text-align:left"><code>int target</code>, <code>enum bpf_attach_type type</code>, <code>struct bpf_prog_query_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need query options</td>
+<td style="text-align:left">Extended program querying with options</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_prog_test_run_opts</code></td>
+<td style="text-align:left">Test program execution</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>struct bpf_test_run_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When testing programs</td>
+<td style="text-align:left">Runs program in test mode with provided input</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_raw_tracepoint_open</code></td>
+<td style="text-align:left">Open raw tracepoint</td>
+<td style="text-align:left"><code>const char *name</code>, <code>int prog_fd</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When using raw tracepoints</td>
+<td style="text-align:left">Opens raw tracepoint for minimal-overhead tracing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_raw_tracepoint_open_opts</code></td>
+<td style="text-align:left">Open raw tracepoint with options</td>
+<td style="text-align:left"><code>int prog_fd</code>, <code>struct bpf_raw_tp_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When you need raw tracepoint options</td>
+<td style="text-align:left">Extended raw tracepoint opening</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_task_fd_query</code></td>
+<td style="text-align:left">Query task file descriptor</td>
+<td style="text-align:left"><code>int pid</code>, <code>int fd</code>, <code>__u32 flags</code>, <code>char *buf</code>, <code>__u32 *buf_len</code>, <code>__u32 *prog_id</code>, <code>__u32 *fd_type</code>, <code>__u64 *probe_offset</code>, <code>__u64 *probe_addr</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When debugging attachments</td>
+<td style="text-align:left">Queries information about BPF programs attached to task</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_token_create</code></td>
+<td style="text-align:left">Create BPF token</td>
+<td style="text-align:left"><code>int bpffs_fd</code>, <code>struct bpf_token_create_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When delegating permissions</td>
+<td style="text-align:left">Creates token for permission delegation to non-privileged processes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-traffic-control-functions">11. Traffic Control Functions<a hidden class="anchor" aria-hidden="true" href="#11-traffic-control-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_tc_attach</code></td>
+<td style="text-align:left">Attach TC program</td>
+<td style="text-align:left"><code>const struct bpf_tc_hook *hook</code>, <code>struct bpf_tc_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When attaching to traffic control</td>
+<td style="text-align:left">Attaches BPF program to traffic control hook for packet processing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_tc_detach</code></td>
+<td style="text-align:left">Detach TC program</td>
+<td style="text-align:left"><code>const struct bpf_tc_hook *hook</code>, <code>const struct bpf_tc_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing TC attachment</td>
+<td style="text-align:left">Detaches BPF program from traffic control hook</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_tc_hook_create</code></td>
+<td style="text-align:left">Create TC hook</td>
+<td style="text-align:left"><code>struct bpf_tc_hook *hook</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When setting up TC infrastructure</td>
+<td style="text-align:left">Creates traffic control hook for program attachment</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_tc_hook_destroy</code></td>
+<td style="text-align:left">Destroy TC hook</td>
+<td style="text-align:left"><code>struct bpf_tc_hook *hook</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When cleaning up TC hooks</td>
+<td style="text-align:left">Destroys traffic control hook</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_tc_query</code></td>
+<td style="text-align:left">Query TC programs</td>
+<td style="text-align:left"><code>const struct bpf_tc_hook *hook</code>, <code>struct bpf_tc_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When listing TC programs</td>
+<td style="text-align:left">Queries programs attached to traffic control hook</td>
+</tr>
+</tbody>
+</table>
+<h2 id="12-xdp-functions">12. XDP Functions<a hidden class="anchor" aria-hidden="true" href="#12-xdp-functions">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function Name</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Parameters</th>
+<th style="text-align:left">Return Type</th>
+<th style="text-align:left">When to Use</th>
+<th style="text-align:left">Detailed Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>bpf_xdp_attach</code></td>
+<td style="text-align:left">Attach XDP program</td>
+<td style="text-align:left"><code>int ifindex</code>, <code>int prog_fd</code>, <code>__u32 flags</code>, <code>const struct bpf_xdp_attach_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When attaching to network interface</td>
+<td style="text-align:left">Attaches XDP program to network interface for early packet processing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_xdp_detach</code></td>
+<td style="text-align:left">Detach XDP program</td>
+<td style="text-align:left"><code>int ifindex</code>, <code>__u32 flags</code>, <code>const struct bpf_xdp_attach_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When removing XDP attachment</td>
+<td style="text-align:left">Detaches XDP program from network interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_xdp_query</code></td>
+<td style="text-align:left">Query XDP programs</td>
+<td style="text-align:left"><code>int ifindex</code>, <code>int flags</code>, <code>struct bpf_xdp_query_opts *opts</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When checking XDP status</td>
+<td style="text-align:left">Queries XDP programs attached to interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bpf_xdp_query_id</code></td>
+<td style="text-align:left">Query XDP program ID</td>
+<td style="text-align:left"><code>int ifindex</code>, <code>int flags</code>, <code>__u32 *prog_id</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left">When getting attached program ID</td>
+<td style="text-align:left">Returns ID of XDP program attached to interface</td>
+</tr>
+</tbody>
+</table>
+<h3 id="google-doc-link--httpsdocsgooglecomdocumentd1zgrbrbfufqvlhri7jpir8cwvj1i7gw_yy1rj-tlnpsyedituspsharing">Google Doc Link : <a href="https://docs.google.com/document/d/1ZgRbRbFUFqVlhRi7jPir8cwVJ1i7Gw_YY1rJ-TLNPSY/edit?usp=sharing">https://docs.google.com/document/d/1ZgRbRbFUFqVlhRi7jPir8cwVJ1i7Gw_YY1rJ-TLNPSY/edit?usp=sharing</a><a hidden class="anchor" aria-hidden="true" href="#google-doc-link--httpsdocsgooglecomdocumentd1zgrbrbfufqvlhri7jpir8cwvj1i7gw_yy1rj-tlnpsyedituspsharing">#</a></h3>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/libbpf/">Libbpf</a></li>
+      <li><a href="http://localhost:1313/tags/ebpf/">EBPF</a></li>
+      <li><a href="http://localhost:1313/tags/linux/">Linux</a></li>
+      <li><a href="http://localhost:1313/tags/kernel/">Kernel</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2025 <a href="http://localhost:1313/">Hanshal Mehta</a></span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

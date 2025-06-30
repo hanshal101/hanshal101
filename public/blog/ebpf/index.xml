@@ -25,5 +25,14 @@
 Introduction to eBPF eBPF represents a significant evolution from the original Berkeley Packet Filter.</description>
     </item>
     
+    <item>
+      <title>The Complete eBPF Function Reference: A Comprehensive Guide to libbpf Functions</title>
+      <link>http://localhost:1313/blog/ebpf/a-comprehensive-guide-to-libbpf-functions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/blog/ebpf/a-comprehensive-guide-to-libbpf-functions/</guid>
+      <description>1. BTF (BPF Type Format) Functions Function Name Purpose Parameters Return Type When to Use Detailed Explanation bpf_btf_get_fd_by_id Get BTF file descriptor by ID __u32 id int When you need to access BTF object with known ID Returns file descriptor for BTF object with given ID. Useful for introspection tools to examine type information of loaded programs[^1] bpf_btf_get_fd_by_id_opts Get BTF file descriptor by ID with options __u32 id, const struct bpf_get_fd_by_id_opts *opts int When you need BTF access with specific options Extended version with options like token_fd for permission delegation bpf_btf_get_info_by_fd Get BTF information by file descriptor int btf_fd, struct bpf_btf_info *info, __u32 *info_len int When you need metadata about BTF object Populates BTF object information structure with metadata like name, BTF data size, etc.</description>
+    </item>
+    
   </channel>
 </rss>
