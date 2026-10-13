@@ -18,6 +18,10 @@ menu:
           name: "ebpf"
           url: /blog/ebpf
           weight: 10
+        - identifier: security-research
+          name: "Security Research"
+          url: /blog/security-research
+          weight: 20
     - identifier: open-source
       name: Open Source
       url: /open-source
